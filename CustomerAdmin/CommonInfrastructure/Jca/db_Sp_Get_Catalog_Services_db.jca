@@ -1,0 +1,12 @@
+<adapter-config name="db_Sp_Get_Catalog_Services" adapter="Database Adapter" wsdlLocation="../WSDLs/db_Sp_Get_Catalog_Services.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/jdbc/osm" UIConnectionName="osm" adapterRef=""/>
+  <endpoint-interaction portType="db_Sp_Get_Catalog_Services_ptt" operation="db_Sp_Get_Catalog_Services">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      <property name="ProcedureName" value="SP_GET_CATALOG_SERVICES"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+    <output/>
+  </endpoint-interaction>
+
+</adapter-config>

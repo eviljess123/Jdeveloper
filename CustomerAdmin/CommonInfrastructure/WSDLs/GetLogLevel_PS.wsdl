@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://telum.mx/GetLogLevel_PS" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="GetLogLevel_PS" targetNamespace="http://telum.mx/GetLogLevel_PS">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://telum.mx/GetLogLevel_PS">
+      <xsd:element name="GetLogLevel">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="processId" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="GetLogLevelResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="logLevel" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="GetLogLevelRequest">
+    <wsdl:part element="tns:GetLogLevel" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="GetLogLevelResponse">
+    <wsdl:part element="tns:GetLogLevelResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:portType name="GetLogLevel_PS">
+    <wsdl:operation name="GetLogLevel">
+      <wsdl:input message="tns:GetLogLevelRequest"/>
+      <wsdl:output message="tns:GetLogLevelResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="GetLogLevel_PSSOAP" type="tns:GetLogLevel_PS">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="GetLogLevel">
+      <soap:operation soapAction="http://telum.mx/GetLogLevel_PS/GetLogLevel"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GetLogLevel_PS">
+    <wsdl:port binding="tns:GetLogLevel_PSSOAP" name="GetLogLevel_PSSOAP">
+      <soap:address location="http://www.example.org/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

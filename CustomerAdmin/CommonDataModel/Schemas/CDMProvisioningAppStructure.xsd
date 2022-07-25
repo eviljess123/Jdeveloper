@@ -1,0 +1,984 @@
+<!-- edited with XMLSpy v2015 (x64) (http://www.altova.com) by David Rzui (Television Internacional) --><!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2011 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		 Version: 1.0
+		Date: Jun 29 2011
+ 		File Name: CDMProvisioningAppStructure.xsd 
+ --><xsd:schema targetNamespace="http://telum.mx/CommonDataModel/2.0/Provisioning" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Prv="http://telum.mx/CommonDataModel/2.0/Provisioning" xmlns:Cmn="http://telum.mx/CommonDataModel/2.0/Common" xmlns:Odr="http://telum.mx/CommonDataModel/2.0/SalesOrder">
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Common" schemaLocation="CDMCommon.xsd"/>
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/SalesOrder" schemaLocation="CDMOrders.xsd"/>
+	<!--    -->
+	<!-- ProvisioningApplication.Guide : es la estructura de las pautas -->
+	<xsd:element name="Guide">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:GuideType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="GuideType">
+		<xsd:sequence>
+			<xsd:element name="Instruction" type="xsd:normalizedString"/>
+			<xsd:element name="Channel" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ProgramHandle" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ProgramName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AlternateProgramName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="StartTime" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="EndTime" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PausePeriod" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PreviewTime" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Price" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ProvisioningApplication.PPVProvisioning : es la estructura para la activación y desactivación de PPV -->
+	<xsd:element name="PPVProvisioning">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:PPVProvisioningType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="PPVProvisioningType">
+		<xsd:sequence>
+			<xsd:element name="SerialNumber" type="xsd:normalizedString"/>
+			<xsd:element name="ActivationFlag" type="xsd:boolean"/>
+			<xsd:element name="ProgramID" type="xsd:normalizedString"/>
+			<xsd:element name="Channel" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="EventDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0"/>
+			<xsd:element name="PlatformName" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="DAC"/>
+						<xsd:enumeration value="DVB"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ProvisioningApplication.AdditionalService : es la estructura para la activación de los servicios telefónicos adicionales -->
+	<xsd:element name="AdditionalService">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:AdditionalServiceType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="AdditionalServiceType">
+		<xsd:sequence>
+			<xsd:element name="ServiceID" type="Cmn:IdentifiersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador y nombre del servicio</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Username" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CurrentServiceID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CityName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PhoneNumber" type="xsd:normalizedString"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="RingsNumber" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Número de rings</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Restriction" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfDistinguishedPhoneNumber" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Números telefónicos a distinguir</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="DistinguishedPhoneNumber" type="xsd:normalizedString" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="TargetPhoneNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfForwardPhoneNumber" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Números telefónicos a desviar</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ForwardPhoneNumber" type="xsd:normalizedString" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ForwardType" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Tipo de desvío</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ListOfDays" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Lista de días</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Day" type="xsd:normalizedString" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Subscription" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfPhoneNumberToSong" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Lista de números telefónicos a sonar</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="PhoneNumberToSong" type="xsd:normalizedString" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SoftswitchServer" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CarrierCompany" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ProvisioningApplication.Refresh : es la estructura para los refresh en plataforma -->
+	<xsd:element name="Refresh">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:RefreshType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="RefreshType">
+		<xsd:sequence>
+			<xsd:element name="LocationInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="CityName" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="Hub" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="Node" type="xsd:normalizedString" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CustomerEquipment" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="Cmn:CustomerEquipmentType">
+							<xsd:sequence>
+								<xsd:element name="ListOfLines" minOccurs="0">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="Line" maxOccurs="unbounded">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="LineNumber" type="xsd:normalizedString">
+															<xsd:annotation>
+																<xsd:documentation>Numero de linea telefonica</xsd:documentation>
+															</xsd:annotation>
+														</xsd:element>
+														<xsd:element name="ListOfDigitalServices">
+															<xsd:complexType>
+																<xsd:sequence>
+																	<xsd:element name="DigitalService" type="xsd:normalizedString" maxOccurs="unbounded">
+																		<xsd:annotation>
+																			<xsd:documentation>Nombre tecnico del servicio digital</xsd:documentation>
+																		</xsd:annotation>
+																	</xsd:element>
+																</xsd:sequence>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="ListOfAdditionalServices" minOccurs="0">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="AdditionalService" type="xsd:normalizedString" maxOccurs="unbounded"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+								<xsd:element name="ListOfPPVServices" minOccurs="0">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="PPVService" type="xsd:normalizedString" maxOccurs="unbounded"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ProvisioningApplication.Equipment : es la estructura de los equipos -->
+	<xsd:element name="Equipment">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:EquipmentType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<!-- ===Deprecated==== -->
+	<!--
+	<xsd:complexType name="EquipmentType">
+		<xsd:sequence>
+			<xsd:element name="EquipmentType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DateActivate" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DateDeactivate" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PhoneNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ServiceClass" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CityName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="TimeZone" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MediaGatewayName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MediaGatewayCircuit" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="QOSProfileName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="TimePeriod" type="Cmn:TimePeriodType" minOccurs="0"/>
+			<xsd:element name="Account" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Model" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Uspl" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="Dspl" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="Dssnr" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="Ussnr" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="ListOfAdditionalService" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AdditionalService" type="xsd:normalizedString" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfFeatures" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Feature" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="FeatureType" type="xsd:normalizedString"/>
+									<xsd:element name="Subscribed" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="SubActivatable" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="Enabled" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="ServiceID" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="ServiceName" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="NotifySubCallFwdActive" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="AcceptSubscribe" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="Billing" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="OverrideAllowed" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="NotifyCallingParty" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="State" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="RestrictionLevel" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="ScreenList" minOccurs="0">
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="ScreenEntry" minOccurs="0" maxOccurs="unbounded">
+													<xsd:complexType>
+														<xsd:sequence>
+															<xsd:element name="ServiceId" type="xsd:normalizedString" minOccurs="0"/>
+															<xsd:element name="SubscriberPPS" type="xsd:normalizedString" minOccurs="0"/>
+														</xsd:sequence>
+													</xsd:complexType>
+												</xsd:element>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="SplashRing" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="BlackList" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="InterceptName" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="SubControlled" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="InhibitIncomingForwardedCalls" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="DNRingList" minOccurs="0">
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="DNRingEntry" minOccurs="0" maxOccurs="unbounded">
+													<xsd:complexType>
+														<xsd:sequence>
+															<xsd:element name="ServiceId" type="xsd:normalizedString" minOccurs="0"/>
+															<xsd:element name="Extension" type="xsd:normalizedString" minOccurs="0"/>
+														</xsd:sequence>
+													</xsd:complexType>
+												</xsd:element>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="NumberOfRings" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="RingDuration" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="Pin" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="ScaTerminationTreatment" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="Speed" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="Username" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="CPEQuantity" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="MessageQuantity" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="HUB" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="Node" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="CreatedDate" type="xsd:dateTime" minOccurs="0"/>
+									<xsd:element name="ActivationDate" type="xsd:dateTime" minOccurs="0"/>
+									<xsd:element name="ModificationDate" type="xsd:dateTime" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfSecondaryDn" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SecondaryDnEntry" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="SecondaryDn" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="SecDnType" type="xsd:normalizedString" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+     -->
+	<!-- ProvisioningApplication.VOD : es la estructura de los VOD -->
+	<xsd:element name="VOD">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:VODType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="VODType">
+		<xsd:sequence>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="CreditLimit" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="Equipment" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="MacAddress" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="Package" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="PackageID" type="Cmn:IdentifiersType" minOccurs="0"/>
+									<xsd:element name="Price" type="xsd:decimal" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ProvisioningApplication.EquipmentProvisioning : es la estructura de los EquipmentProvisioning -->
+	<xsd:element name="EquipmentProvisioning">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:EquipmentProvisioningType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="EquipmentProvisioningType">
+		<xsd:all>
+			<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MacAddress" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="EthMacAddress" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="UnitAddress" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ConverterAuthenticationID" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Model" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ModelID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PPVImpulseFlag" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="Enable" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="ChannelMap" type="xsd:integer" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Mapa de canal</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Credits" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="UpstreamPlant" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="DownstreamPlant" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="SoftswitchServer" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfAdditionalService" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AdditionalService" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:simpleContent>
+									<xsd:extension base="xsd:normalizedString">
+										<xsd:attribute name="Type" type="xsd:normalizedString" use="optional"/>
+										<xsd:attribute name="Action" type="xsd:normalizedString" use="optional"/>
+										<xsd:attribute name="Name" type="xsd:normalizedString" use="optional"/>
+									</xsd:extension>
+								</xsd:simpleContent>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Node" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:all>
+	</xsd:complexType>
+	<!-- ProvisioningApplication.Instruction : es la estructura para las instrucciones al DAC -->
+	<xsd:element name="Instruction">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:InstructionType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="InstructionType">
+		<xsd:sequence>
+			<xsd:element name="Command" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CreatedDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="Instruction" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Transaction" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Response" type="Cmn:ResponseType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ProvisioningApplication.MatchServices : es la estructura para las homologaciones del DAC -->
+	<xsd:element name="MatchServices">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:MatchServicesType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="MatchServicesType">
+		<xsd:sequence>
+			<xsd:element name="ServiceType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Account" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ActionCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0"/>
+			<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Model" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Offer" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Node" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="City" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Transaction" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessGroup" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="NumberPlan" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfAdditionalServices" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AdditionalService" type="xsd:normalizedString" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfEquipments" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Equipment" type="Odr:CustomerEquipmentExtendedType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--Update Mirror Tables: Estructuras para actualizacion de equipos en las tablas de Mirror -->
+	<xsd:element name="DecoderEquipment">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:DecoderEquipmentType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="DecoderEquipmentType">
+		<xsd:sequence>
+			<xsd:element name="ProductId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SerialNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="UnitAddress" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MapChannel" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="UpstreamPlant" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DownstreamPlant" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Model" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FeatureSettings" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="MTAEquipment">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:MTAEquipmentType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="MTAEquipmentType">
+		<xsd:sequence>
+			<xsd:element name="ProductId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MacCM" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MacMTA" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServicePackageCrmId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="QuantityEquipment" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Model" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ParentProductId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ChildProductId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CompanyId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ListOfTelephone" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="TelephoneData" type="Prv:TelephoneDataType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="TelephoneData">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:TelephoneDataType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="TelephoneDataType">
+		<xsd:sequence>
+			<xsd:element name="TelephoneNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BusinessGroup" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="NumberPlanName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ShortDial" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="CableModemEquipment">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:CableModemEquipmentType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="CableModemEquipmentType">
+		<xsd:sequence>
+			<xsd:element name="ProductId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MacCM" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServicePackageCrmId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="QuantityEquipment" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Model" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ParentProductId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ChildProductId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CompanyId" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="CustomerService">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:CustomerServiceType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="CustomerServiceType">
+		<xsd:sequence>
+			<xsd:element name="ServiceID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PlatformName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="EquipmentType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AssignationStatus" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="InstalledDate" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ServiceStatus" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Speed" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="QoS" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfServiceIDReference" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ServiceIDReference" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Offer" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CPEQuantity" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="IsServiceExtension" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SuspendType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AdditionalSpeed" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfFeatures" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Features" type="Prv:FeaturesType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfLines" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Line" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:complexContent>
+									<xsd:extension base="Prv:FeaturesType">
+										<xsd:sequence>
+											<xsd:element name="Username" type="xsd:normalizedString" minOccurs="0"/>
+											<xsd:element name="Password" type="xsd:normalizedString" minOccurs="0"/>
+											<xsd:element name="ListOfAdditionalLines" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="AdditionalLine" type="Prv:FeaturesType" maxOccurs="unbounded"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:extension>
+								</xsd:complexContent>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Features">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:FeaturesType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="FeaturesType">
+		<xsd:sequence>
+			<xsd:element name="ServiceID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Action" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Value" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="ProvisioningAddtitionalType">
+		<xsd:sequence>
+			<xsd:element name="Identifier" type="Cmn:IdentifiersType"/>
+			<xsd:element name="Operation" type="Prv:OperationEnumType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ProvisioningApplication.ServiceFeasibility : Mensaje de entrada para consultar la viabilidad de un servicio en un domicilio -->
+	<xsd:element name="ServiceFeasibility">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:ServiceFeasibilityType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ServiceFeasibilityType">
+		<xsd:sequence>
+			<xsd:element name="AddresId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ListOfAttribute" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Attribute" type="Cmn:NameValuePairType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ProvisioningApplication.Feasibility : Mensaje del resultado para la viabilidad de un servicio en un domicilio -->
+	<xsd:element name="Feasibility">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:FeasibilityType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="FeasibilityType">
+		<xsd:sequence>
+			<xsd:element name="AddresId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Technology" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Feasibility" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ProvisioningApplication.TechnologyFeasibility : Mensaje que muestra las caracteristicas y viabilidades de servicio de una tecnologia en un domicilio -->
+	<xsd:element name="TechnologyFeasibility">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:TechnologyFeasibilityType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="TechnologyFeasibilityType">
+		<xsd:sequence>
+			<xsd:element name="AddresId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ListOfTechnology" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Technology" type="Prv:TechnologyType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Technology">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Prv:TechnologyType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="TechnologyType">
+		<xsd:sequence>
+			<xsd:element name="Type" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ListOfAttribute" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Attribute" type="Cmn:NameValuePairType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="EquipmentEnum" type="Prv:EquipmentEnumType"/>
+	<xsd:simpleType name="EquipmentEnumType">
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:enumeration value="CNV"/>
+			<xsd:enumeration value="DVB"/>
+			<xsd:enumeration value="EMTA"/>
+			<xsd:enumeration value="CM"/>
+			<xsd:enumeration value="ONT"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="EquipmentBaseType" abstract="true">
+		<xsd:sequence>
+			<xsd:element name="EquipmentId" type="Cmn:IdentifiersType" nillable="false"/>
+			<!--<xsd:element name="Type" type="Prv:EquipmentEnumType" nillable="false"/>-->
+			<xsd:element name="SerialNumber" type="xsd:normalizedString" nillable="false"/>
+			<xsd:element name="Model" type="Cmn:IdentifiersType" nillable="false"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="EquipmentDacType">
+		<xsd:complexContent>
+			<xsd:extension base="Prv:EquipmentBaseType">
+				<xsd:sequence>
+					<xsd:element name="UnitAddress" type="xsd:normalizedString" nillable="false"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="EquipmentDac" type="Prv:EquipmentDacType"/>
+	<xsd:complexType name="EquipmentCableModemType">
+		<xsd:complexContent>
+			<xsd:extension base="Prv:EquipmentBaseType">
+				<xsd:sequence>
+					<xsd:element name="CMMacAddress" type="xsd:normalizedString" nillable="false"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="EquipmentCM" type="Prv:EquipmentCableModemType"/>
+	<xsd:complexType name="EquipmentMiradaType">
+		<xsd:complexContent>
+			<xsd:extension base="Prv:EquipmentCableModemType">
+				<xsd:sequence>
+					<xsd:element name="EthMacAddress" type="xsd:normalizedString" nillable="false"/>
+					<xsd:element name="CasStbID" type="xsd:normalizedString" nillable="false"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="EquipmentMirada" type="Prv:EquipmentMiradaType"/>
+	<xsd:complexType name="EquipmentEMTAType">
+		<xsd:complexContent>
+			<xsd:extension base="Prv:EquipmentCableModemType">
+				<xsd:sequence>
+					<xsd:element name="MTAMacAddress" type="xsd:normalizedString" nillable="false"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:element name="EquipmentMTA" type="Prv:EquipmentEMTAType"/>
+	<xsd:element name="ServiceEnum" type="Prv:ServiceEnumType"/>
+	<xsd:simpleType name="ServiceEnumType">
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:enumeration value="BASE"/>
+			<xsd:enumeration value="PPV"/>
+			<xsd:enumeration value="VEO"/>
+			<xsd:enumeration value="VOD"/>
+			<xsd:enumeration value="CALLFEATURE"/>
+			<xsd:enumeration value="HUNTING_GROUP"/>
+			<xsd:enumeration value="CALLBARRING"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="OperationEnumType">
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:enumeration value="PROVISIONING"/>
+			<xsd:enumeration value="SUSPEND"/>
+			<xsd:enumeration value="ACTIVATE"/>
+			<xsd:enumeration value="CANCEL"/>
+			<xsd:enumeration value="UPDATE"/>
+			<xsd:enumeration value="REFRESH"/>
+			<xsd:enumeration value="PORTABILITY"/>
+			<xsd:enumeration value="CHANGENUMBER"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:simpleType name="SubTaskEnumType">
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:enumeration value="REFRESH_INICIALIZA"/>
+			<xsd:enumeration value="REFRESH_SA"/>
+			<xsd:enumeration value="REFRESH_CHANNELMAP"/>
+			<xsd:enumeration value="REFRESH_PPV"/>
+			<xsd:enumeration value="REFRESH_VOD"/>
+			<xsd:enumeration value="REFRESH_CUENTA"/>
+			<xsd:enumeration value="DLS"/>
+			<xsd:enumeration value="DLE"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<xsd:complexType name="ServiceBaseType" abstract="true">
+		<xsd:sequence>
+			<xsd:element name="ServiceId" type="Cmn:IdentifiersType" nillable="false"/>
+			<xsd:element name="Type" type="Prv:ServiceEnumType" nillable="false"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:group name="TechnicalInfoTelephony">
+		<xsd:sequence>
+			<xsd:element name="SoftswitchServer" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="Port" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Target" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Asl" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="AbstractInfoTelephony">
+		<xsd:sequence>
+			<xsd:element name="comment" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:complexType name="TelephonyServicesType">
+		<xsd:complexContent>
+			<xsd:extension base="Prv:ServiceBaseType">
+				<xsd:sequence>
+					<xsd:element name="PhoneNumber" type="xsd:normalizedString"/>
+					<xsd:element name="ListOfAuxiliaryLines" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="AuxiliaryLine" type="Prv:ProvisioningAddtitionalType" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:choice>
+						<xsd:group ref="Prv:TechnicalInfoTelephony"/>
+						<xsd:group ref="Prv:AbstractInfoTelephony"/>
+					</xsd:choice>
+					<xsd:element name="CarrierCompany" type="xsd:normalizedString" minOccurs="0"/>
+					<xsd:element name="ListOfDigitalServices" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="DigitalService" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:complexContent>
+											<xsd:extension base="Prv:ProvisioningAddtitionalType">
+												<xsd:sequence>
+													<xsd:element name="Status">
+														<xsd:simpleType>
+															<xsd:restriction base="xsd:normalizedString">
+																<xsd:enumeration value="ENABLE"/>
+																<xsd:enumeration value="DISABLE"/>
+															</xsd:restriction>
+														</xsd:simpleType>
+													</xsd:element>
+												</xsd:sequence>
+											</xsd:extension>
+										</xsd:complexContent>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:group name="TechnicalInfoInternet">
+		<xsd:sequence>
+			<xsd:element name="QoS" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="CPEQuantity" type="xsd:integer" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="AbstractInfoInternet">
+		<xsd:sequence>
+			<xsd:element name="Speed" type="xsd:normalizedString"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:complexType name="DataServicesType">
+		<xsd:complexContent>
+			<xsd:extension base="Prv:ServiceBaseType">
+				<xsd:sequence>
+					<xsd:choice>
+						<xsd:group ref="Prv:TechnicalInfoInternet"/>
+						<xsd:group ref="Prv:AbstractInfoInternet"/>
+					</xsd:choice>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:group name="TechnicalInfoVideo">
+		<xsd:sequence>
+			<xsd:element name="ChannelMap" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="EquipmentType" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="DAC"/>
+						<xsd:enumeration value="DVB"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="AbstractInfoVideo">
+		<xsd:sequence>
+			<xsd:element name="Offer" type="xsd:normalizedString"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:complexType name="VideoServicesType">
+		<xsd:complexContent>
+			<xsd:extension base="Prv:ServiceBaseType">
+				<xsd:sequence>
+					<xsd:choice>
+						<xsd:group ref="Prv:TechnicalInfoVideo"/>
+						<xsd:group ref="Prv:AbstractInfoVideo"/>
+					</xsd:choice>
+					<xsd:element name="ListOfAdditionalServices" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="AdditionalService" type="Prv:ProvisioningAddtitionalType" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<xsd:complexType name="OperationServiceType">
+		<xsd:sequence>
+			<xsd:element name="ServiceID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Operation" type="Prv:OperationEnumType"/>
+			<xsd:element name="SubTask" type="Prv:SubTaskEnumType" minOccurs="0"/>
+			<xsd:element name="ListOfEquipmentReference" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="EquipmentId" type="Cmn:IdentifiersType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfServicesReference" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ServiceId" type="Cmn:IdentifiersType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="AccountLocationReference" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:choice>
+				<xsd:element name="Telephony" type="Prv:TelephonyServicesType" minOccurs="0"/>
+				<xsd:element name="Data" type="Prv:DataServicesType" minOccurs="0"/>
+				<xsd:element name="Video" type="Prv:VideoServicesType" minOccurs="0"/>
+			</xsd:choice>
+			<xsd:element name="IsServiceInstance" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="EquipmentType">
+		<xsd:sequence>
+			<xsd:choice>
+				<xsd:element name="CNV" type="Prv:EquipmentDacType"/>
+				<xsd:element name="CableModem" type="Prv:EquipmentCableModemType"/>
+				<xsd:element name="DVB" type="Prv:EquipmentMiradaType"/>
+				<xsd:element name="EMTA" type="Prv:EquipmentEMTAType"/>
+				<xsd:element name="ONT" type="Prv:EquipmentCableModemType"/>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:group name="DacInformation">
+		<xsd:sequence>
+			<xsd:element name="TerminalType" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ChannelMap" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="Credits" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="UpstreamPlant" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="DownstreamPlant" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="PPVImpulseFlag" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="Enable" type="xsd:boolean" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:group>
+</xsd:schema>

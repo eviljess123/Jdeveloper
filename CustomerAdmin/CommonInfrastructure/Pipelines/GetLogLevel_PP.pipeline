@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:oper="http://xmlns.oracle.com/servicebus/pipeline/operations">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="CommonInfrastructure/WSDLs/GetLogLevel_PS"/>
+            <con:binding>
+                <con:name>GetLogLevel_PSSOAP</con:name>
+                <con:namespace>http://telum.mx/GetLogLevel_PS</con:namespace>
+            </con:binding>
+        </con:binding>
+        <oper:operations>
+            <oper:monitoring enabled="false" aggregationInterval="10" level="pipeline"/>
+            <oper:tracingEnabled>false</oper:tracingEnabled>
+            <oper:reporting>true</oper:reporting>
+            <oper:logging enabled="true" level="debug"/>
+            <oper:sla-alerting enabled="true" level="normal"/>
+            <oper:pipeline-alerting enabled="true" level="normal"/>
+        </oper:operations>
+    </con:coreEntry>
+    <con:router xmlns:ser="http://www.bea.com/wli/sb/services" xmlns:tran="http://www.bea.com/wli/sb/transports" xmlns:env="http://www.bea.com/wli/config/env" xmlns:http="http://www.bea.com/wli/sb/transports/http" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/routing/config">
+        <con:pipeline type="request" name="GetLogLevelPipelinePairNode_request">
+            <con:stage name="GetLogLevelRequest_Stage">
+                <con:context>
+                    <con1:varNsDecl namespace="http://telum.mx/GetLogLevel_PS" prefix="get"/>
+                </con:context>
+                <con:actions>
+                    <con2:assign varName="processId">
+                        <con1:id>_ActionId-1917807099481787798--16201d67.148431b1a0c.-7fe3</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>data($body/get:GetLogLevel/processId)</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:assign varName="GetLogLevelRequest">
+                        <con1:id>_ActionId-1917807099481787798--16201d67.148431b1a0c.-7fa6</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>&lt;db:InputParameters xmlns:db="http://xmlns.oracle.com/pcbpel/adapter/db/sp/db_Sp_Get_Catalog_Services">
+	&lt;P_PROCESS_ID>{$processId}&lt;/P_PROCESS_ID>
+&lt;/db:InputParameters></con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:replace varName="body" contents-only="true">
+                        <con1:id>_ActionId-1917807099481787798--16201d67.148431b1a0c.-7f82</con1:id>
+                        <con2:location>
+                            <con1:xpathText>.</con1:xpathText>
+                        </con2:location>
+                        <con2:expr>
+                            <con1:xqueryText>$GetLogLevelRequest</con1:xqueryText>
+                        </con2:expr>
+                    </con2:replace>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="GetLogLevelPipelinePairNode_response">
+            <con:stage name="GetLogLevelResponse_Stage">
+                <con:context>
+                    <con1:userNsDecl namespace="http://xmlns.oracle.com/pcbpel/adapter/db/sp/db_Sp_Get_Catalog_Services" prefix="db"/>
+                    <con1:varNsDecl namespace="http://telum.mx/GetLogLevel_PS" prefix="get"/>
+                </con:context>
+                <con:actions>
+                    <con2:assign varName="logLevel">
+                        <con1:id>_ActionId-1917807099481787798--16201d67.148431b1a0c.-7f62</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>if(data($body/db:OutputParameters/db:O_LOG_LEVEL_ID) != '') then
+	data($body/db:OutputParameters/db:O_LOG_LEVEL_ID)
+else
+	''</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:assign varName="response">
+                        <con1:id>_ActionId-1917807099481787798--16201d67.148431b1a0c.-7f2b</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>&lt;get:GetLogLevelResponse>
+	&lt;get:logLevel>{$logLevel}&lt;/get:logLevel>
+&lt;/get:GetLogLevelResponse></con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:replace varName="body" contents-only="true">
+                        <con1:id>_ActionId-1917807099481787798--16201d67.148431b1a0c.-7f08</con1:id>
+                        <con2:location>
+                            <con1:xpathText>.</con1:xpathText>
+                        </con2:location>
+                        <con2:expr>
+                            <con1:xqueryText>$response</con1:xqueryText>
+                        </con2:expr>
+                    </con2:replace>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="GetLogLevelPipelinePairNode">
+                <con:request>GetLogLevelPipelinePairNode_request</con:request>
+                <con:response>GetLogLevelPipelinePairNode_response</con:response>
+            </con:pipeline-node>
+            <con:route-node name="GetLogLevelRouteNode">
+                <con:context>
+                    <con1:varNsDecl namespace="http://telum.mx/GetLogLevel_PS" prefix="get"/>
+                </con:context>
+                <con:actions>
+                    <con3:route>
+                        <con1:id>_ActionId-1917807099481787798--16201d67.148431b1a0c.-7fc9</con1:id>
+                        <con3:service ref="CommonInfrastructure/BusinessServices/GetLogLevel_BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con3:operation>db_Sp_Get_Catalog_Services</con3:operation>
+                        <con3:outboundTransform>
+                            <con2:insert varName="outbound">
+                                <con1:id>_ActionId-8283903031065059099--36ed8125.14846b03d97.-796b</con1:id>
+                                <con2:location>
+                                    <con1:xpathText>./ctx:transport/ctx:request/tp:headers</con1:xpathText>
+                                </con2:location>
+                                <con2:where>after</con2:where>
+                                <con2:expr>
+                                    <con1:xqueryText>&lt;tp:cache-token>{$processId}&lt;/tp:cache-token></con1:xqueryText>
+                                </con2:expr>
+                            </con2:insert>
+                        </con3:outboundTransform>
+                        <con3:responseTransform/>
+                    </con3:route>
+                </con:actions>
+            </con:route-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>

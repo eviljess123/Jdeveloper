@@ -1,0 +1,13 @@
+<adapter-config name="spXrefQuery" adapter="db" wsdlLocation="../WSDLs/spXrefQuery.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="Telum_DB_DEV" location="eis/jdbc/osm"/>
+  <endpoint-interaction portType="spXrefQuery_ptt" operation="spXrefQuery">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      
+      <property name="ProcedureName" value="SP_XREF_QUERY"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+      <property name="QueryTimeout" value="10"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

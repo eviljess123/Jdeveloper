@@ -1,0 +1,504 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<definitions
+    
+     targetNamespace="http://soap.sforce.com/schemas/class/RestService4"
+     xmlns="http://schemas.xmlsoap.org/wsdl/"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:tns="http://soap.sforce.com/schemas/class/RestService4"
+    >
+    <types>
+        <xsd:schema elementFormDefault="qualified" targetNamespace="http://soap.sforce.com/schemas/class/RestService4">
+            <xsd:element name="AllowFieldTruncationHeader">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="allowFieldTruncation" type="xsd:boolean"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="CallOptions">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="client" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="DebuggingHeader">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="categories" minOccurs="0" maxOccurs="unbounded" type="tns:LogInfo"/>
+                        <xsd:element name="debugLevel" type="tns:LogType"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:complexType name="LogInfo">
+                <xsd:sequence>
+                    <xsd:element name="category" type="tns:LogCategory"/>
+                    <xsd:element name="level" type="tns:LogCategoryLevel"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:simpleType name="LogCategory">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="Db"/>
+                    <xsd:enumeration value="Workflow"/>
+                    <xsd:enumeration value="Validation"/>
+                    <xsd:enumeration value="Callout"/>
+                    <xsd:enumeration value="Apex_code"/>
+                    <xsd:enumeration value="Apex_profiling"/>
+                    <xsd:enumeration value="Visualforce"/>
+                    <xsd:enumeration value="System"/>
+                    <xsd:enumeration value="Wave"/>
+                    <xsd:enumeration value="Nba"/>
+                    <xsd:enumeration value="All"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="LogCategoryLevel">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="None"/>
+                    <xsd:enumeration value="Finest"/>
+                    <xsd:enumeration value="Finer"/>
+                    <xsd:enumeration value="Fine"/>
+                    <xsd:enumeration value="Debug"/>
+                    <xsd:enumeration value="Info"/>
+                    <xsd:enumeration value="Warn"/>
+                    <xsd:enumeration value="Error"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:simpleType name="LogType">
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="None"/>
+                    <xsd:enumeration value="Debugonly"/>
+                    <xsd:enumeration value="Db"/>
+                    <xsd:enumeration value="Profiling"/>
+                    <xsd:enumeration value="Callout"/>
+                    <xsd:enumeration value="Detail"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:element name="DebuggingInfo">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="debugLog" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="SessionHeader">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sessionId" type="xsd:string"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:simpleType name="ID">
+                <xsd:restriction base="xsd:string">
+                    <xsd:length value="18"/>
+                    <xsd:pattern value="[a-zA-Z0-9]{18}"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+            <xsd:complexType name="AccountUpdResp">
+                <xsd:sequence>
+                    <xsd:element name="code" minOccurs="0" type="xsd:string" nillable="true"/>
+                    <xsd:element name="msg" minOccurs="0" type="xsd:string" nillable="true"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="AssetsUpdResp">
+                <xsd:sequence>
+                    <xsd:element name="code" minOccurs="0" type="xsd:string" nillable="true"/>
+                    <xsd:element name="msg" minOccurs="0" type="xsd:string" nillable="true"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="BillUnitUpdResp">
+                <xsd:sequence>
+                    <xsd:element name="code" minOccurs="0" type="xsd:string" nillable="true"/>
+                    <xsd:element name="msg" minOccurs="0" type="xsd:string" nillable="true"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="NotificacionTareaCerradoM6Response">
+                <xsd:sequence>
+                    <xsd:element name="code" minOccurs="0" type="xsd:string" nillable="true"/>
+                    <xsd:element name="msg" minOccurs="0" type="xsd:string" nillable="true"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="ProductList">
+                <xsd:sequence>
+                    <xsd:element name="assetId" minOccurs="0" type="xsd:string" nillable="true"/>
+                    <xsd:element name="param1" minOccurs="0" type="xsd:string" nillable="true"/>
+                    <xsd:element name="param2" minOccurs="0" type="xsd:string" nillable="true"/>
+                    <xsd:element name="productCode" minOccurs="0" type="xsd:string" nillable="true"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="UpdateSOAJobStatusResp">
+                <xsd:sequence>
+                    <xsd:element name="code" minOccurs="0" type="xsd:string" nillable="true"/>
+                    <xsd:element name="msg" minOccurs="0" type="xsd:string" nillable="true"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:complexType name="address">
+                <xsd:complexContent>
+                    <xsd:extension base="tns:location">
+                        <xsd:sequence>
+                            <xsd:element name="city" type="xsd:string"/>
+                            <xsd:element name="country" type="xsd:string"/>
+                            <xsd:element name="countryCode" type="xsd:string"/>
+                            <xsd:element name="geocodeAccuracy" type="xsd:string"/>
+                            <xsd:element name="postalCode" type="xsd:string"/>
+                            <xsd:element name="state" type="xsd:string"/>
+                            <xsd:element name="stateCode" type="xsd:string"/>
+                            <xsd:element name="street" type="xsd:string"/>
+                        </xsd:sequence>
+                    </xsd:extension>
+                </xsd:complexContent>
+            </xsd:complexType>
+            <xsd:complexType name="location">
+                <xsd:sequence>
+                    <xsd:element name="latitude" type="xsd:double"/>
+                    <xsd:element name="longitude" type="xsd:double"/>
+                </xsd:sequence>
+            </xsd:complexType>
+            <xsd:element name="DNActivated">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="sDN" type="xsd:string" nillable="true"/>
+                        <xsd:element name="sActivationDate" type="xsd:string" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="DNActivatedResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="tns:AssetsUpdResp" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getProductPCCode">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="pAssetId" type="xsd:string" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getProductPCCodeResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="xsd:string" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getServiceAwsAccount">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="pAssetId" type="xsd:string" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="getServiceAwsAccountResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="xsd:string" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="NotificacionTareaCerradoM6">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="opportunityId" type="xsd:string" nillable="true"/>
+                        <xsd:element name="porcentaje" type="xsd:string" nillable="true"/>
+                        <xsd:element name="productos" minOccurs="0" maxOccurs="unbounded" type="tns:ProductList"
+                             nillable="true"/>
+                        <xsd:element name="param1" type="xsd:string" nillable="true"/>
+                        <xsd:element name="param2" type="xsd:string" nillable="true"/>
+                        <xsd:element name="param3" type="xsd:string" nillable="true"/>
+                        <xsd:element name="param4" type="xsd:string" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="NotificacionTareaCerradoM6Response">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="tns:NotificacionTareaCerradoM6Response" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="setPoId2Account">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="accountId" type="tns:ID" nillable="true"/>
+                        <xsd:element name="BRM_poidAccount" type="xsd:string" nillable="true"/>
+                        <xsd:element name="BRM_poidPayInfo" type="xsd:string" nillable="true"/>
+                        <xsd:element name="BRM_poidAcctProfile" type="xsd:string" nillable="true"/>
+                        <xsd:element name="BRM_Poid_Account_Info" type="xsd:string" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="setPoId2AccountResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="tns:AccountUpdResp" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="setPoId2Asset">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="assetId" type="tns:ID" nillable="true"/>
+                        <xsd:element name="BRM_poid_Asset" type="xsd:string" nillable="true"/>
+                        <xsd:element name="BRM_productObj" type="xsd:string" nillable="true"/>
+                        <xsd:element name="BRM_poid_bill_unit_name" type="xsd:string" nillable="true"/>
+                        <xsd:element name="poid_Deal" type="xsd:string" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="setPoId2AssetResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="tns:AssetsUpdResp" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="setPoId2BillUnit">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="accountId" type="tns:ID" nillable="true"/>
+                        <xsd:element name="BRM_poid_bill_unit_name" type="xsd:string" nillable="true"/>
+                        <xsd:element name="billunitId" type="xsd:string" nillable="true"/>
+                        <xsd:element name="BRM_poidAccount" type="xsd:string" nillable="true"/>
+                        <xsd:element name="BRM_poidPayInfo" type="xsd:string" nillable="true"/>
+                        <xsd:element name="BRM_poidAcctProfile" type="xsd:string" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="setPoId2BillUnitResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="tns:BillUnitUpdResp" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="UpdateSOAJobStatus">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="pSOAJobId" type="xsd:string" nillable="true"/>
+                        <xsd:element name="pSOAJobStatus" type="xsd:string" nillable="true"/>
+                        <xsd:element name="JobStatusMessage" type="xsd:string" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+            <xsd:element name="UpdateSOAJobStatusResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="result" type="tns:UpdateSOAJobStatusResp" nillable="true"/>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
+    <message name="DNActivatedRequest">
+        <part name="parameters" element="tns:DNActivated"/>
+    </message>
+    <message name="DNActivatedResponse">
+        <part name="parameters" element="tns:DNActivatedResponse"/>
+    </message>
+    <message name="getProductPCCodeRequest">
+        <part name="parameters" element="tns:getProductPCCode"/>
+    </message>
+    <message name="getProductPCCodeResponse">
+        <part name="parameters" element="tns:getProductPCCodeResponse"/>
+    </message>
+    <message name="getServiceAwsAccountRequest">
+        <part name="parameters" element="tns:getServiceAwsAccount"/>
+    </message>
+    <message name="getServiceAwsAccountResponse">
+        <part name="parameters" element="tns:getServiceAwsAccountResponse"/>
+    </message>
+    <message name="NotificacionTareaCerradoM6Request">
+        <part name="parameters" element="tns:NotificacionTareaCerradoM6"/>
+    </message>
+    <message name="NotificacionTareaCerradoM6Response">
+        <part name="parameters" element="tns:NotificacionTareaCerradoM6Response"/>
+    </message>
+    <message name="setPoId2AccountRequest">
+        <part name="parameters" element="tns:setPoId2Account"/>
+    </message>
+    <message name="setPoId2AccountResponse">
+        <part name="parameters" element="tns:setPoId2AccountResponse"/>
+    </message>
+    <message name="setPoId2AssetRequest">
+        <part name="parameters" element="tns:setPoId2Asset"/>
+    </message>
+    <message name="setPoId2AssetResponse">
+        <part name="parameters" element="tns:setPoId2AssetResponse"/>
+    </message>
+    <message name="setPoId2BillUnitRequest">
+        <part name="parameters" element="tns:setPoId2BillUnit"/>
+    </message>
+    <message name="setPoId2BillUnitResponse">
+        <part name="parameters" element="tns:setPoId2BillUnitResponse"/>
+    </message>
+    <message name="UpdateSOAJobStatusRequest">
+        <part name="parameters" element="tns:UpdateSOAJobStatus"/>
+    </message>
+    <message name="UpdateSOAJobStatusResponse">
+        <part name="parameters" element="tns:UpdateSOAJobStatusResponse"/>
+    </message>
+    <message name="Header">
+        <part name="AllowFieldTruncationHeader" element="tns:AllowFieldTruncationHeader"/>
+        <part name="CallOptions" element="tns:CallOptions"/>
+        <part name="DebuggingHeader" element="tns:DebuggingHeader"/>
+        <part name="DebuggingInfo" element="tns:DebuggingInfo"/>
+        <part name="SessionHeader" element="tns:SessionHeader"/>
+    </message>
+    <portType name="RestService4PortType">
+        <operation name="DNActivated">
+            <input message="tns:DNActivatedRequest"/>
+            <output message="tns:DNActivatedResponse"/>
+        </operation>
+        <operation name="getProductPCCode">
+            <input message="tns:getProductPCCodeRequest"/>
+            <output message="tns:getProductPCCodeResponse"/>
+        </operation>
+        <operation name="getServiceAwsAccount">
+            <input message="tns:getServiceAwsAccountRequest"/>
+            <output message="tns:getServiceAwsAccountResponse"/>
+        </operation>
+        <operation name="NotificacionTareaCerradoM6">
+            <input message="tns:NotificacionTareaCerradoM6Request"/>
+            <output message="tns:NotificacionTareaCerradoM6Response"/>
+        </operation>
+        <operation name="setPoId2Account">
+            <input message="tns:setPoId2AccountRequest"/>
+            <output message="tns:setPoId2AccountResponse"/>
+        </operation>
+        <operation name="setPoId2Asset">
+            <input message="tns:setPoId2AssetRequest"/>
+            <output message="tns:setPoId2AssetResponse"/>
+        </operation>
+        <operation name="setPoId2BillUnit">
+            <input message="tns:setPoId2BillUnitRequest"/>
+            <output message="tns:setPoId2BillUnitResponse"/>
+        </operation>
+        <operation name="UpdateSOAJobStatus">
+            <input message="tns:UpdateSOAJobStatusRequest"/>
+            <output message="tns:UpdateSOAJobStatusResponse"/>
+        </operation>
+    </portType>
+    <binding name="RestService4Binding" type="tns:RestService4PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="DNActivated">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:header message="tns:Header" part="SessionHeader" use="literal"/>
+                <soap:header message="tns:Header" part="CallOptions" use="literal"/>
+                <soap:header message="tns:Header" part="DebuggingHeader" use="literal"/>
+                <soap:header message="tns:Header" part="AllowFieldTruncationHeader" use="literal"/>
+                <soap:body use="literal" parts="parameters"/>
+            </input>
+            <output>
+                <soap:header message="tns:Header" part="DebuggingInfo" use="literal"/>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="getProductPCCode">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:header message="tns:Header" part="SessionHeader" use="literal"/>
+                <soap:header message="tns:Header" part="CallOptions" use="literal"/>
+                <soap:header message="tns:Header" part="DebuggingHeader" use="literal"/>
+                <soap:header message="tns:Header" part="AllowFieldTruncationHeader" use="literal"/>
+                <soap:body use="literal" parts="parameters"/>
+            </input>
+            <output>
+                <soap:header message="tns:Header" part="DebuggingInfo" use="literal"/>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="getServiceAwsAccount">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:header message="tns:Header" part="SessionHeader" use="literal"/>
+                <soap:header message="tns:Header" part="CallOptions" use="literal"/>
+                <soap:header message="tns:Header" part="DebuggingHeader" use="literal"/>
+                <soap:header message="tns:Header" part="AllowFieldTruncationHeader" use="literal"/>
+                <soap:body use="literal" parts="parameters"/>
+            </input>
+            <output>
+                <soap:header message="tns:Header" part="DebuggingInfo" use="literal"/>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="NotificacionTareaCerradoM6">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:header message="tns:Header" part="SessionHeader" use="literal"/>
+                <soap:header message="tns:Header" part="CallOptions" use="literal"/>
+                <soap:header message="tns:Header" part="DebuggingHeader" use="literal"/>
+                <soap:header message="tns:Header" part="AllowFieldTruncationHeader" use="literal"/>
+                <soap:body use="literal" parts="parameters"/>
+            </input>
+            <output>
+                <soap:header message="tns:Header" part="DebuggingInfo" use="literal"/>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="setPoId2Account">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:header message="tns:Header" part="SessionHeader" use="literal"/>
+                <soap:header message="tns:Header" part="CallOptions" use="literal"/>
+                <soap:header message="tns:Header" part="DebuggingHeader" use="literal"/>
+                <soap:header message="tns:Header" part="AllowFieldTruncationHeader" use="literal"/>
+                <soap:body use="literal" parts="parameters"/>
+            </input>
+            <output>
+                <soap:header message="tns:Header" part="DebuggingInfo" use="literal"/>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="setPoId2Asset">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:header message="tns:Header" part="SessionHeader" use="literal"/>
+                <soap:header message="tns:Header" part="CallOptions" use="literal"/>
+                <soap:header message="tns:Header" part="DebuggingHeader" use="literal"/>
+                <soap:header message="tns:Header" part="AllowFieldTruncationHeader" use="literal"/>
+                <soap:body use="literal" parts="parameters"/>
+            </input>
+            <output>
+                <soap:header message="tns:Header" part="DebuggingInfo" use="literal"/>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="setPoId2BillUnit">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:header message="tns:Header" part="SessionHeader" use="literal"/>
+                <soap:header message="tns:Header" part="CallOptions" use="literal"/>
+                <soap:header message="tns:Header" part="DebuggingHeader" use="literal"/>
+                <soap:header message="tns:Header" part="AllowFieldTruncationHeader" use="literal"/>
+                <soap:body use="literal" parts="parameters"/>
+            </input>
+            <output>
+                <soap:header message="tns:Header" part="DebuggingInfo" use="literal"/>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+        <operation name="UpdateSOAJobStatus">
+            <soap:operation soapAction=""/>
+            <input>
+                <soap:header message="tns:Header" part="SessionHeader" use="literal"/>
+                <soap:header message="tns:Header" part="CallOptions" use="literal"/>
+                <soap:header message="tns:Header" part="DebuggingHeader" use="literal"/>
+                <soap:header message="tns:Header" part="AllowFieldTruncationHeader" use="literal"/>
+                <soap:body use="literal" parts="parameters"/>
+            </input>
+            <output>
+                <soap:header message="tns:Header" part="DebuggingInfo" use="literal"/>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="RestService4Service">
+        <documentation/>
+        <port name="RestService4" binding="tns:RestService4Binding">
+            <soap:address location="https://cs94.salesforce.com/services/Soap/class/RestService4"/>
+        </port>
+    </service>
+</definitions>

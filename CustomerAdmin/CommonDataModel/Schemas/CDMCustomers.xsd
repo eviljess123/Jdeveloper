@@ -1,0 +1,461 @@
+<!-- edited with XMLSpy v2015 (x64) (http://www.altova.com) by David Rzui (Television Internacional) --><!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2011 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		 Version: 1.0
+		Date: February 24 2011
+ 		File Name: CommonDataModelCommon.xsd 
+ --><xsd:schema targetNamespace="http://telum.mx/CommonDataModel/2.0/Customer" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Cur="http://telum.mx/CommonDataModel/2.0/Customer" xmlns:Cmn="http://telum.mx/CommonDataModel/2.0/Common" xmlns:Bil="http://telum.mx/CommonDataModel/2.0/Billing">
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Common" schemaLocation="CDMCommon.xsd"/>
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Billing" schemaLocation="CDMBillingAppStructure.xsd"/>
+	<!-- Customer.CustomerParty : Entidad relacionada con el cliente principal -->
+	<xsd:element name="CustomerParty" type="Cur:CustomerPartyType"/>
+	<xsd:complexType name="CustomerPartyType">
+		<xsd:sequence>
+			<xsd:element name="CustomerPartyAccounts" type="Cur:CustomerPartyAccountType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="CustomerPartyBillingProfile" type="Cur:CustomerPartyBillingProfileType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="CustomerPartyCreditProfile" type="Cur:CustomerPartyCreditProfileType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="CustomerPartyPaymentProfile" type="Cur:CustomerPartyPaymentProfileType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="CustomerPartyContacts" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="Cmn:ContactType"/>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CustomerPartyLocations" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="Cmn:UrbanPropertyAddressType"/>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Customer.ModifyCustomerParty : Estructura para la modificación del cliente -->
+	<xsd:element name="ModifyCustomerParty" type="Cur:ModifyCustomerPartyType"/>
+	<xsd:complexType name="ModifyCustomerPartyType">
+		<xsd:sequence>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ActionCode">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="AccountGeneral"/>
+						<xsd:enumeration value="AccountStatus"/>
+						<xsd:enumeration value="Contact"/>
+						<xsd:enumeration value="Address"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="Individual" type="Cmn:IndividualType"/>
+				<xsd:element name="Organization" type="Cmn:OrganizationType"/>
+			</xsd:choice>
+			<xsd:element name="OffSetDue" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="CheckDigit" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="ServiceProviderTaxID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="LastStatus" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Status" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="SUSPEND"/>
+						<xsd:enumeration value="CANCEL"/>
+						<xsd:enumeration value="ACTIVATE"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="IVRPassword" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="EmailAddress" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DistributionCenter" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="CustomerPartyContact" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="Cmn:ContactType">
+							<xsd:sequence>
+								<xsd:element name="AccountReference" type="Cmn:IdentifiersType" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="CustomerPartyLocation" minOccurs="0">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="Cmn:UrbanPropertyAddressType">
+							<xsd:sequence>
+								<xsd:element name="AccountReference" type="Cmn:IdentifiersType" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfCustomerPartyBillingProfiles" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="CustomerPartyBillingProfile" type="Cur:CustomerPartyBillingProfileType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="OracleId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SegmentoVtas" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServiceStartDate" type="xsd:string" minOccurs="0"/>			
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Customer.CustomerPartyAccount : Entidad relacionada con la cuenta de facturación -->
+	<xsd:element name="CustomerPartyAccount" type="Cur:CustomerPartyAccountType"/>
+	<xsd:complexType name="CustomerPartyAccountType">
+		<xsd:sequence>
+			<xsd:element name="AccountIDs" type="Cmn:IdentifiersType" maxOccurs="unbounded"/>
+			<xsd:element name="ParentAccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="AccountType" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="CUSTOMER"/>
+						<xsd:enumeration value="BILLING"/>
+						<xsd:enumeration value="SERVICE"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="AccountStatus" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0"/>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="Individual" type="Cmn:IndividualType"/>
+				<xsd:element name="Organization" type="Cmn:OrganizationType"/>
+			</xsd:choice>
+			<xsd:element name="MarketSegmentCategory" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MarketSegmentSubCategory" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CollectionsAgent" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CurrencyCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AccountLocationReference" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="AccountContactReference" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="BillingProfileReference" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="PaymentProfileReference" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="CreditProfileReference" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="ExternalCollectionsAgent" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="InterestTypeCalculation" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OffSetDue" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="CheckDigit" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="ServiceProviderTaxId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServiceReceiverTaxId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TaxPayerRegistrationId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DueDaysGrace" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CreditScore" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DistributionCenter" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Balance" type="Bil:BalanceType" minOccurs="0"/>
+			<xsd:element name="UsoCFDI" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OracleId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SegmentoVtas" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServiceStartDate" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--   -->
+	<!-- Customer.CustomerPartyBillingProfile : Perfil de facturación que esta relacionado con cuentas de facturación -->
+	<xsd:element name="CustomerPartyBillingProfile" type="Cur:CustomerPartyBillingProfileType"/>
+	<xsd:complexType name="CustomerPartyBillingProfileType">
+		<xsd:sequence>
+			<xsd:element name="BillingProfileIdentifier" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="PaymentProfileReference" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="BalanceGroup" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillingInquiryEmailCommunication" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillTypeCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DayOfMonth" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="FrequencyCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MediaTypeCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillIndicator" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="InvoiceIndicator" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Note" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="NetworkType" type="Cmn:NetworkTypeEnum" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--   -->
+	<!-- Customer.CustomerPartyPaymentProfile : Perfil de pagos que esta relacionado con perfiles y cuentas de facturación -->
+	<xsd:element name="CustomerPartyPaymentProfile" type="Cur:CustomerPartyPaymentProfileType"/>
+	<xsd:complexType name="CustomerPartyPaymentProfileType">
+		<xsd:sequence>
+			<xsd:element name="PaymentProfileIdentifier" type="Cmn:IdentifiersType"/>
+			<xsd:element name="PaymentInstrument" type="Cur:PaymentInstrumentType" minOccurs="0"/>
+			<xsd:element name="PaymentMethodCode" type="xsd:string"/>
+			<xsd:element name="AgreementCompany" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="EmployeeID" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TLUReference" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--   -->
+	<!-- Customer.CustomerPartyCreditProfile : Perfil de crédito que esta relacionado con perfiles y cuentas de facturación -->
+	<xsd:element name="CustomerPartyCreditProfile" type="Cur:CustomerPartyCreditProfileType"/>
+	<xsd:complexType name="CustomerPartyCreditProfileType">
+		<xsd:sequence>
+			<xsd:element name="CreditProfileIdentifier" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="CreditLimit" type="xsd:decimal"/>
+			<xsd:element name="OldCreditLimit" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="CreditLimitDifference" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="CreditLimitRange" type="Cur:CreditLimitRange" minOccurs="0"/>
+			<xsd:element name="CreditLimitExemptionFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CreditLimitConsumed" type="xsd:decimal" minOccurs="0"/>
+			<!--  20130524:ORR:INI Se agrego para req. Emptresarial nuevo metodo de LDC -->
+			<xsd:element name="CreditLimitProfileType" type="xsd:string" minOccurs="0"/>
+			<!--  20130524:ORR:FIN  -->
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Customer.GetCustomerParty: estructura para la consulta de clientes -->
+	<xsd:element name="GetCustomerParty" type="Cur:GetCustomerPartyType"/>
+	<xsd:complexType name="GetCustomerPartyType">
+		<xsd:sequence>
+			<xsd:element name="Type" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="CUSTOMER_ALL"/>
+						<xsd:enumeration value="CUSTOMER_SIMPLE"/>
+						<xsd:enumeration value="CUSTOMER_SIMPLE_BALANCE"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="RecordingsViewFlag" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="CustomerId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Name" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PhoneNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MobileNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MMPhoneNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FederalTaxID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PrimaryAddressName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Pagination" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="NewQuery" type="xsd:normalizedString"/>
+						<xsd:element name="PageSize" type="xsd:normalizedString"/>
+						<xsd:element name="StartRowNum" type="xsd:normalizedString"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="DigitalSolutionsFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0"/>
+			<xsd:element name="Company" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AttributeViewFlag" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="FailureDetailFlag" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="N"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Customer.GetCustomerPartyResponse : Entidad relacionada con el cliente principal -->
+	<xsd:element name="GetCustomerPartyResponse" type="Cur:GetCustomerPartyResponseType"/>
+	<xsd:complexType name="GetCustomerPartyResponseType">
+		<xsd:sequence>
+			<xsd:element name="CustomerId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ParentCustomerId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:choice minOccurs="0">
+				<xsd:element name="Individual" type="Cmn:IndividualType"/>
+				<xsd:element name="Organization" type="Cmn:OrganizationType"/>
+			</xsd:choice>
+			<xsd:element name="FederalName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0"/>
+			<xsd:element name="Company" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PhoneNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MobileNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ClassificationCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MarketSegmentCategory" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MarketSegmentSubCategory" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ForeignOfficeFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SuspensionOrderFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="IVRPassword" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PrimaryAddressName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PrimaryService" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AutomaticPaymentFlag" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="OffSetDue" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="CreditCardBlockFlag" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="CreditCardBlockDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="CheckBlockFlag" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="CheckBlockDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="EmailAddress" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="OrderPaymentFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="RecurrentFailureFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Node" type="Cmn:NodeType" minOccurs="0"/>
+			<xsd:element name="CustomerPartyCreditProfile" type="Cur:CustomerPartyCreditProfileType" minOccurs="0"/>
+			<xsd:element name="ListOfCustomerPartyBillingProfiles" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="CustomerPartyBillingProfile" type="Cur:CustomerPartyBillingProfileType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfAddresses" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Address" type="Cmn:UrbanPropertyAddressType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfServices" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Service" type="Cmn:ServiceType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfRecordings" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Recording" type="Cur:RecordingsType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="MMPhoneNumber" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Customer.PortalUser : Estructura de los clientes en el portal -->
+	<xsd:element name="PortalUser" type="Cur:PortalUserType"/>
+	<xsd:complexType name="PortalUserType">
+		<xsd:sequence>
+			<xsd:element name="AccountNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Username" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Password" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Email" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PhoneNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Profile" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ImageId" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Phrase" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfMemberOf" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="MemberOf" type="xsd:string" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--   -->
+	<!-- Customer Data Types -->
+	<!--   -->
+	<xsd:element name="CreditLimitRange" type="Cur:CreditLimitRange"/>
+	<xsd:complexType name="CreditLimitRange">
+		<xsd:sequence>
+			<xsd:element name="MaximumQuantity" type="xsd:int"/>
+			<xsd:element name="MinimumQuantity" type="xsd:int"/>
+			<xsd:element name="ThresholdQuantity" type="xsd:int"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="PaymentInstrumentType">
+		<xsd:sequence>
+			<xsd:element name="CreditCard" type="Cmn:CreditCardType"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="BalanceGroup" type="Cur:BalanceGroup"/>
+	<xsd:complexType name="BalanceGroup">
+		<xsd:sequence>
+			<xsd:element name="Identification" type="xsd:string"/>
+			<xsd:element name="Name" type="xsd:string"/>
+			<xsd:element name="ResourceUnit" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="ResourceUnit" type="Cur:ResourceUnit"/>
+	<xsd:complexType name="ResourceUnit">
+		<xsd:sequence>
+			<xsd:element name="CreditLimitRange" type="xsd:string"/>
+			<xsd:element name="Identification" type="xsd:string"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="RecordingsType">
+		<xsd:sequence>
+			<xsd:element name="CampaignID" type="xsd:normalizedString"/>
+			<xsd:element name="Message" type="xsd:normalizedString"/>
+			<xsd:element name="ResponseStatus" type="xsd:normalizedString"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Status">
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:string">
+				<xsd:enumeration value="Prospecto"/>
+				<xsd:enumeration value="Activo"/>
+				<xsd:enumeration value="Suspendido"/>
+				<xsd:enumeration value="Cancelado"/>
+				<xsd:enumeration value="Pendiente de Migración"/>
+				<xsd:enumeration value="Inactivo por Cuenta Problema"/>
+				<xsd:enumeration value="Incobrable"/>
+				<xsd:enumeration value="Suspendido Red"/>
+				<xsd:enumeration value="Suspendido sin Equipos"/>
+				<xsd:enumeration value="Suspendido Voluntario"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:element>
+	<!-- Customer.CustomerPartyCompact : Entidad relacionada a un cliente con los datos minimos -->
+	<xsd:element name="CustomerPartyCompact" type="Cur:CustomerPartyCompactType"/>
+	<xsd:complexType name="CustomerPartyCompactType">
+		<xsd:sequence>
+			<xsd:element name="CustomerID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:choice>
+				<xsd:element name="Name" type="Cmn:PersonNameType" minOccurs="0"/>
+				<xsd:element name="Organization" type="Cmn:OrganizationType" minOccurs="0"/>
+			</xsd:choice>
+			<xsd:element name="PhoneNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Email" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="License" type="Cur:LicenseType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- License: Entidad para el manejo de datos de licencias del cliente -->
+	<xsd:complexType name="LicenseType">
+		<xsd:sequence>
+			<xsd:element name="LicenseValid" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="LicenseRegistered" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AccesUrl" type="xsd:anyURI" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--IdentityType -->
+	<xsd:complexType name="IdentityType">
+		<xsd:sequence>
+			<xsd:element name="DateOfBirth" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Gender" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="RelationshipStatus" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Religion" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:group name="CommonGroup">
+		<xsd:sequence>
+			<xsd:element name="Platform" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ServiceRegion" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ProductFamily" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="WasMigratedFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ValidSinceDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="ValidUntilDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="CustomerGroup">
+		<xsd:sequence>
+			<xsd:element name="AccountId" type="Cmn:IdentifiersType"/>
+			<xsd:group ref="Cur:CommonGroup"/>
+			<xsd:element name="ActionCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="OperationDate" type="xsd:dateTime" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="PhoneGroup">
+		<xsd:sequence>
+			<xsd:element name="PhoneNumber" type="xsd:normalizedString"/>
+			<xsd:element name="PhoneType" type="xsd:normalizedString"/>
+		</xsd:sequence>
+	</xsd:group>
+	<xsd:group name="PhoneGroupExten">
+		<xsd:sequence>
+			<xsd:group ref="Cur:PhoneGroup"/>
+			<xsd:group ref="Cur:CustomerGroup"/>
+		</xsd:sequence>
+	</xsd:group>
+</xsd:schema>

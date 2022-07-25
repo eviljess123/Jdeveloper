@@ -1,0 +1,20 @@
+<wsdl:definitions name="db_Sp_Get_Catalog_Services_db" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/CommonInfrastructure/GetLogLevel_BS/db_Sp_Get_Catalog_Services" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/CommonInfrastructure/GetLogLevel_BS/db_Sp_Get_Catalog_Services" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <wsdl:import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/CommonInfrastructure/GetLogLevel_BS/db_Sp_Get_Catalog_Services" location="db_Sp_Get_Catalog_Services.wsdl"/>
+  <wsdl:binding name="db_Sp_Get_Catalog_Services_ptt-binding" type="tns:db_Sp_Get_Catalog_Services_ptt">
+    <soap:binding style="document" transport="http://www.bea.com/wli/sb/transports/jca"/>
+    <wsdl:operation name="db_Sp_Get_Catalog_Services">
+      <soap:operation soapAction="db_Sp_Get_Catalog_Services"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="db_Sp_Get_Catalog_Services-service">
+    <wsdl:port binding="tns:db_Sp_Get_Catalog_Services_ptt-binding" name="db_Sp_Get_Catalog_Services-port">
+      <soap:address location="jca://eis/jdbc/osm"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

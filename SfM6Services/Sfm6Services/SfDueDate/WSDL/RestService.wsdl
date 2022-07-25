@@ -1,0 +1,41 @@
+<wsdl:definitions name="RestService" targetNamespace="http://xmlns.oracle.com/SfM6Services/Sfm6Services/RestService" xmlns:tns="http://xmlns.oracle.com/SfM6Services/Sfm6Services/RestService" xmlns:inp1="http://TargetNamespace.com/SfDueDate_duedate_request" xmlns:inp2="http://TargetNamespace.com/SfDueDate_duedate_response" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <plnk:partnerLinkType name="RestService">
+        <plnk:role name="RestServiceProvider" portType="tns:RestService_ptt"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://TargetNamespace.com/SfDueDate_duedate_request" schemaLocation="../XSD/RequestSfDueDateXSD.xsd"/>
+        </xsd:schema>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://TargetNamespace.com/SfDueDate_duedate_response" schemaLocation="../XSD/ResponceSfDueDate.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="duedate_inputMessage">
+        <wsdl:part name="request" element="inp1:Root-Element"/>
+    </wsdl:message>
+    <wsdl:message name="duedate_outputMessage">
+        <wsdl:part name="reply" element="inp2:Root-Element"/>
+    </wsdl:message>
+    <wsdl:message name="duedate_faultReponceMessage">
+        <wsdl:part name="fault_faultReponce" element="inp2:Root-Element"/>
+    </wsdl:message>
+    <wsdl:portType name="RestService_ptt">
+        <wsdl:operation name="duedate">
+            <wsdl:input message="tns:duedate_inputMessage"/>
+            <wsdl:output message="tns:duedate_outputMessage"/>
+            <wsdl:fault name="faultReponce" message="tns:duedate_faultReponceMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="RestService_ptt-binding" type="tns:RestService_ptt">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="duedate">
+            <soap:operation soapAction="duedate"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

@@ -1,0 +1,42 @@
+<wsdl:definitions name="SendDataSFBpel" targetNamespace="http://www.izzi.com/SendDataSF/SendDataSFBpel" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:client="http://www.izzi.com/SendDataSF/SendDataSFBpel" xmlns:ns1="http://www.izzi.org/SendDataSF/BpelSendDataSfXsd" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ns2="http://soap.sforce.com/schemas/class/RestService4" xmlns:ns3="urn:enterprise.soap.sforce.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:documentation>
+        <abstractWSDL>http://172.21.151.59:7002/soa-infra/services/Accounts/SendDataSF!1.0/WSDLs/SendDataSFBpel.wsdl</abstractWSDL>
+    </wsdl:documentation>
+    <plnk:partnerLinkType name="SendDataSFBpel">
+        <plnk:role name="SendDataSFBpelProvider" portType="client:SendDataSFBpel"/>
+    </plnk:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://www.izzi.org/SendDataSF/BpelSendDataSfXsd" schemaLocation="../Schemas/XMLSchema_-1859464469.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="SendDataSFBpelRequestMessage">
+        <wsdl:part name="payload" element="ns1:Request"/>
+    </wsdl:message>
+    <wsdl:message name="SendDataSFBpelResponseMessage">
+        <wsdl:part name="payload" element="ns1:Responce"/>
+    </wsdl:message>
+    <wsdl:portType name="SendDataSFBpel">
+        <wsdl:operation name="sendDataSF">
+            <wsdl:input message="client:SendDataSFBpelRequestMessage"/>
+            <wsdl:output message="client:SendDataSFBpelResponseMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="SendDataSFBpelBinding" type="client:SendDataSFBpel">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="sendDataSF">
+            <soap:operation style="document" soapAction="sendDataSF"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="senddatasfbpel_client_ep">
+        <wsdl:port name="SendDataSFBpel_pt" binding="client:SendDataSFBpelBinding">
+            <soap:address location="http://172.21.151.59:7002/soa-infra/services/Accounts/SendDataSF/senddatasfbpel_client_ep"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

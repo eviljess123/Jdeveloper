@@ -1,0 +1,522 @@
+<!-- edited with XMLSpy v2015 sp2 (http://www.altova.com) by Cesar Varela (Television Internacional) --><!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2011 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		 Version: 1.0
+		Date: May 11 2011
+ 		File Name: CDMWorkforceAppStructure.xsd 
+ --><xsd:schema targetNamespace="http://telum.mx/CommonDataModel/2.0/Bank" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Bank="http://telum.mx/CommonDataModel/2.0/Bank" xmlns:Cmn="http://telum.mx/CommonDataModel/2.0/Common">
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Common" schemaLocation="CDMCommon.xsd"/>
+	<!--    -->
+	<xsd:simpleType name="StringLength1">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="1"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--    -->
+	<xsd:simpleType name="StringLength3">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="3"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--    -->
+	<xsd:simpleType name="StringLength10">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="10"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--    -->
+	<xsd:simpleType name="StringLength16">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="16"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--    -->
+	<xsd:simpleType name="StringLength32">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="32"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--    -->
+	<xsd:simpleType name="StringLength36">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="36"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--    -->
+	<xsd:simpleType name="StringLength64">
+		<xsd:restriction base="xsd:string">
+			<xsd:maxLength value="64"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!--    -->
+	<!-- BankApplication.AutomaticCharge : es la estructura para el procesamiento de transacciones a través de Payworks -->
+	<xsd:element name="AutomaticChargeRequest">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Bank:AutomaticChargeRequestType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="AutomaticChargeRequestType">
+		<xsd:sequence>
+			<xsd:element name="UserName" type="Bank:StringLength32" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Nombre de usuario de la tienda virtual, permite identificar al usuario que atiende la compra. Máximo 32 caracteres</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Password" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Contrasena del usuario</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ClientId" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Id de cliente de la tienda virtual asociado con el usuario que atiende la compra</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="UserId" type="Bank:StringLength32" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Código asignado al tarjetahabiente (comprador). Es usado por el comercio para identificar a sus clientes. Máximo 32 carácteres y no se permiten caracteres especiales</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Mode">
+				<xsd:annotation>
+					<xsd:documentation>Modo de proceso de la transacción, valores: P=Production, N=Reject, Y=Accept, R=Random</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="Bank:StringLength1">
+						<xsd:enumeration value="P"/>
+						<xsd:enumeration value="N"/>
+						<xsd:enumeration value="Y"/>
+						<xsd:enumeration value="R"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="GroupId" type="Bank:StringLength32" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Número de cajero de cobro. Máximo 32 carácteres y no se permiten caracteres especiales</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TerminalId" type="Bank:StringLength10" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Referencia que puede ser enviada para verla reflejada en conciliación. Máximo 10 carácteres y no se permiten caracteres especiales</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Currency" type="Bank:StringLength3" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Tipo de moneda</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderId" type="Bank:StringLength36" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador único de la orden, sino se especifica su valor es generado automáticamente por Payworks. Máximo 36 carácteres y no se permiten caracteres especiales</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmount" type="xsd:decimal">
+				<xsd:annotation>
+					<xsd:documentation>Total de la orden. 18 dígitos, sólo dos decimales, sin signos de pesos no comas</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InitialDeferment" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Numero de meses antes de iniciar a pagar en compras de promocion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberOfPayments" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Plazo de pagos para compras de promocion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PlanType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indica si se cobran intereses o no en compras de promocion</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="03"/>
+						<xsd:enumeration value="05"/>
+						<xsd:enumeration value="07"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Comments" type="Bank:StringLength64" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Comentarios. Máximo 64 carácteres y no se permiten caracteres especiales</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CardNumber" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Número de tarjeta de crédito. Máximo 16 carácteres</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Expires" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Fecha de expiración. Debe tener el formato MM/AA</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:pattern value="[0-9][0-9]/[0-9][0-9]"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="CvvIndicator" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indicador de existencia de método de verificación de tarjeta. Puede tener dos valores: 0 sino está presente el código o 1 si está presente</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="Bank:StringLength1">
+						<xsd:enumeration value="0"/>
+						<xsd:enumeration value="1"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="CvvValue" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Código de verificación de la tarjeta</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CardType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador del origen de la tarjeta: N=tarjeta emitida en banco mexicano, I=tarjeta emitida en el extranjero. Máximo 1 caracter, sino se especifica valor todas las tarjetas se tomarán como nacionales</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="Bank:StringLength1">
+						<xsd:enumeration value="N"/>
+						<xsd:enumeration value="I"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Track2" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Informacion recuperada de la tarjeta</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PosEntryMode" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indica el tipo de tarjeta del cliente, si es de chip, magnetica</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="Chip"/>
+						<xsd:enumeration value="MagStripe"/>
+						<xsd:enumeration value="Fallback"/>
+						<xsd:enumeration value="Manual"/>
+						<xsd:enumeration value="Banda"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="EMVTags" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Secuencia de digitos retornada por las tarjetas de chip</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Membership" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Branch" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Sucursal</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Version" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Versión de Payworks.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Track1" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Dato de la tarjeta obtenido por la PIN Pad.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TransactionType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indica el tipo de envío de transacción.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="Ecomerce"/>
+						<xsd:enumeration value="PINPad"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indica la plaza</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- BankApplication.AutomaticCharge : es la estructura para el procesamiento de transacciones a través de Payworks -->
+	<xsd:element name="AutomaticChargeResponse">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Bank:AutomaticChargeResponseType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="AutomaticChargeResponseType">
+		<xsd:sequence>
+			<xsd:element name="AuthCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Código de autorización regresado solamente en las transacciones exitosas</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CcReturnCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Código retornado por Clear Commerce para la transacción. Valor 1 indica éxito, cualquier otro valor declinación o falla. Máximo 4 dígitos.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CcReturnMessage" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Mensaje retornado por Clear Commerce, válido para transacciones aprobadas, declinadas y referidas</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProcReturnCode" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Código de retorno del procesador de tarjeta, válido para transacciones aprobadas, declinadas y referidas. Máximo 10 caracteres</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProcReturnMessage" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Mensaje de retorno del procesador de tarjeta, válido para transacciones aprobadas, declinadas y referidas</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CvvResponse" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Si se especificó un valor para el campo CvvValue, la respuesta es retornada en este campo</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="StartTime" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Tiempo de inicio de la transacción</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EndTime" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Tiempo de fin de la transacción</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderId" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador de la orden de la transacción, es regresado únicamente si fue enviado con un valor en la forma de pago</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TotalAmount" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Total de la orden</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ListOfVariables" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Lista de variables adicionales</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Variable" type="Cmn:NameValuePairType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Bank" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CardType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CardCategory" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Arqc" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- BankApplication.PaymentAuthorization : es la estructura para los pagos a través de Payworks -->
+	<xsd:element name="PaymentAuthorization">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Bank:PaymentAuthorizationType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="PaymentAuthorizationType">
+		<xsd:sequence>
+			<xsd:element name="TransType" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Tipo de transaccion a ejecutar</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OriginalTransType" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Tipo de transaccion a verificar</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Total" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Importe de la transaccion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Currency" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Tipo de moneda (Por defecto toma 484, pesos mexicanos)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ClientId" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>No. de cliente de multimedios</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Name" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Identificador de usuario de multimedios</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Password" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Contraseña de multimedios</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Mode" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Indica si la transaccion es produccion o prueba</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderId" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Identificador para localizar la transaccion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BanorteURL" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Direccion del procesador central de pagos</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PosEntryMode" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Tipo de tarjeta del cliente</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Track2" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Informacion recuperada de la tarjeta</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EMVTags" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Secuencia de digitos retornada por las tarjetas de chip</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InitialDeferment" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Numero de meses antes de iniciar a pagar en compras de promocion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberOfPayments" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Plazo de pagos para compras de promocion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PlanType" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indica si se cobran intereses o no en compras de promocion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- BankApplication.PaymentAuthorizationResponse : es la estructura para la respuesta de los pagos a través de Payworks -->
+	<xsd:element name="PaymentAuthorizationResponse">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Bank:PaymentAuthorizationResponseType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="PaymentAuthorizationResponseType">
+		<xsd:sequence>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indica si se completo satisfactoriamente el proceso de la transaccion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MaxSev" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Grado de severidad del error</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TimeIn" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Fecha y hora en que la transaccion fue recibida en el procesador central de pagos</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TimeOut" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Fecha y hora en que la transaccion fue concluida en el procesador central de pagos</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProcReturnMesg" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Informacion especifica del procesador de la tarjeta</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProcReturnCode" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Codigo regresado por el procesador de la tarjeta</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Text" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Texto que puede regresarse si existe alguan condicion de error</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CcReturnMsg" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Texto regresado por el procesador de pagos</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CcErrCode" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Codigo devuelto para indicar el resultado de la transaccion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Total" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Importe total de la transaccion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AuthCode" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Codigo de autorizacion regresado en transacciones aprobadas</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CardNumber" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Numero de tarjeta del cliente</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CardHolder" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Nombre del tarjetahabiente</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExpirationDate" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Fecha de expiracion de la tarjeta</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OperType" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indica si la tarjeta es de debito o credito</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CardType" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Marca de la tarjeta utilizada(ej.: Visa, MasterCard)</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssuingBank" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Nombre de la institucion emisora de la tarjeta</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderId" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador de transaccion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IssuerData" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Informacion que el banco emisor de la tarjeta con chip pudo haber regresado en la autorizacion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

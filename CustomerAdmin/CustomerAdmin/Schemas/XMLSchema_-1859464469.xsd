@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.izzi.org/SendDataSF/BpelSendDataSfXsd"
+            targetNamespace="http://www.izzi.org/SendDataSF/BpelSendDataSfXsd" elementFormDefault="qualified">
+  <xsd:complexType name="RequestType">
+    <xsd:sequence>
+      <xsd:element name="User" type="xsd:string"/>
+      <xsd:element name="Password" type="xsd:string"/>
+      <xsd:element name="Operation" type="xsd:string"/>
+      <xsd:element name="AccountNo" type="xsd:string"/>
+      <xsd:element name="setPoId2Account" type="setPoId2AccountType" minOccurs="0"/>
+      <xsd:element name="setPoId2Asset" type="CollectionsetPoId2AssetType" minOccurs="0"/>
+      <xsd:element name="setPoId2BillUnit" type="CollectonsetPoId2BillUnitType" minOccurs="0"/>
+      <xsd:element name="UpdateSOAJobStatus" type="UpdateSOAJobStatusType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:element name="Request" type="RequestType">
+    <xsd:annotation>
+      <xsd:documentation>A sample element</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="Responce" type="ResponceType"/>
+  <xsd:complexType name="setPoId2AccountType">
+    <xsd:sequence>
+      <xsd:element name="accountId" type="xsd:string"/>
+      <xsd:element name="BRM_poidAccount" type="xsd:string"/>
+      <xsd:element name="BRM_poidPayInfo" type="xsd:string"/>
+      <xsd:element name="BRM_poidAcctProfile" type="xsd:string"/>
+      <xsd:element name="BRM_Poid_Account_Info" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="setPoId2AssetType">
+    <xsd:sequence>
+      <xsd:element name="assetId" type="xsd:string"/>
+      <xsd:element name="BRM_poid_Asset" type="xsd:string"/>
+      <xsd:element name="BRM_productObj" type="xsd:string"/>
+      <xsd:element name="BRM_poid_bill_unit_name" type="xsd:string"/>
+      <xsd:element name="poid_Deal" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="setPoId2BillUnitType">
+    <xsd:sequence>
+      <xsd:element name="accountId" type="xsd:string"/>
+      <xsd:element name="BRM_poid_bill_unit_name" type="xsd:string"/>
+      <xsd:element name="billunitId" type="xsd:string"/>
+      <xsd:element name="BRM_poidAccount" type="xsd:string"/>
+      <xsd:element name="BRM_poidPayInfo" type="xsd:string"/>
+      <xsd:element name="BRM_poidAcctProfile" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="UpdateSOAJobStatusType">
+    <xsd:sequence>
+      <xsd:element name="pSOAJobId" type="xsd:string"/>
+      <xsd:element name="pSOAJobStatus" type="xsd:string"/>
+      <xsd:element name="JobStatusMessage" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CollectionsetPoId2AssetType">
+    <xsd:sequence>
+      <xsd:element name="CollectionsetPoId2Asset" type="setPoId2AssetType" maxOccurs="unbounded" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="CollectonsetPoId2BillUnitType">
+    <xsd:sequence>
+      <xsd:element name="CollectonsetPoId2BillUnit" type="setPoId2BillUnitType" maxOccurs="unbounded" minOccurs="0"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ResponceType">
+    <xsd:sequence>
+      <xsd:element name="Result" type="ResultType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ResultType">
+    <xsd:sequence>
+      <xsd:element name="code" type="xsd:string"/>
+      <xsd:element name="msg" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

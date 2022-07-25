@@ -1,0 +1,1216 @@
+<!-- edited with XMLSpy v2015 (x64) (http://www.altova.com) by David Rzui (Television Internacional) --><!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2011 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		 Version: 1.0
+		Date: February 24, 2011
+ 		File Name: CommonDataModelCommon.xsd 
+ --><xsd:schema targetNamespace="http://telum.mx/CommonDataModel/2.0/Common" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Cmn="http://telum.mx/CommonDataModel/2.0/Common" xmlns:CmnStr="http://telum.mx/CommonDataModel/2.0/CommonStructure">
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/CommonStructure" schemaLocation="CDMCommonStructure.xsd"/>
+	<xsd:include schemaLocation="CDMCommonExtension.xsd"/>
+	<!-- Common.Individual : Datos que identifican a una persona o individuo   -->
+	<xsd:element name="Individual">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:IndividualType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="IndividualType">
+		<xsd:sequence>
+			<xsd:element name="Title" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FormattedName" type="xsd:normalizedString"/>
+			<xsd:element name="GivenNames" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MiddleNames" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FamilyNames" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FamilyNamesComplement" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FederalTaxId" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>RFC</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LocationReference" type="Cmn:IdentifiersType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- Common.Organization : Datos que identifican a una organización como entidad   -->
+	<xsd:element name="Organization">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:OrganizationType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="OrganizationType">
+		<xsd:sequence>
+			<xsd:element name="TradingName" type="xsd:normalizedString"/>
+			<xsd:element name="FederalTaxId" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="LocationReference" type="Cmn:IdentifiersType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- Common.BasicId : Identificación de una entidad que forma parte de la solución de integracion y que es referenciada en alguna parte de los mensajes  -->
+	<xsd:element name="Identifiers" type="Cmn:IdentifiersType"/>
+	<xsd:complexType name="IdentifiersType">
+		<xsd:sequence>
+			<xsd:element name="ContextID" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="Billing"/>
+						<xsd:enumeration value="CRM"/>
+						<xsd:enumeration value="Common"/>
+						<xsd:enumeration value="CCO"/>
+						<xsd:enumeration value="ATM"/>
+						<xsd:enumeration value="POS"/>
+						<xsd:enumeration value="SA"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="IDSuffix" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Name" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ClasificationCode" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- Common.QueryRequestInfo : Información utilizada en las solicitudes de consultas de información -->
+	<xsd:element name="QueryRequestInfo" type="Cmn:QueryRequestInfoType"/>
+	<xsd:complexType name="QueryRequestInfoType">
+		<xsd:sequence>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" maxOccurs="unbounded"/>
+			<xsd:element name="NumberOfRecords" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="FilterType" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- Common.Contact :Información general de contactos   -->
+	<xsd:element name="Contact" type="Cmn:ContactType"/>
+	<xsd:complexType name="ContactType">
+		<xsd:sequence>
+			<xsd:element name="ContactIdentifier" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ContactType" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="Evaluator"/>
+						<xsd:enumeration value="Monitoring"/>
+						<xsd:enumeration value="Decision Maker"/>
+						<xsd:enumeration value="Technical"/>
+						<xsd:enumeration value="Customer"/>
+						<xsd:enumeration value="Legal Representative"/>
+						<xsd:enumeration value="BillTo"/>
+						<xsd:enumeration value="ShipTo"/>
+						<xsd:enumeration value="PriorTo"/>
+                                                <xsd:enumeration value="Sponsor"/>
+                                                <xsd:enumeration value="Controller"/>
+                                                <xsd:enumeration value="Usuario"/>
+                                                <xsd:enumeration value="Tecnico"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ContactLocationReference" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="EmailAddress" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FaxNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PhoneNumber" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="PersonName" type="Cmn:IndividualType" minOccurs="0"/>
+			<xsd:element name="Responsibility" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OrganizationName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="UseCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Preference" type="xsd:boolean" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--   -->
+	<!-- Common.TimePeriod : Elementos de la duracion de un evento con inicio y fin   -->
+	<xsd:element name="TimePeriod">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:TimePeriodType"/>
+				<!--xsd:attribute ref="Cmn:contextID"/-->
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="TimePeriodType">
+		<xsd:sequence>
+			<xsd:element name="StartDateTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:choice>
+				<xsd:element name="Duration" minOccurs="0">
+					<xsd:complexType>
+						<xsd:simpleContent>
+							<xsd:extension base="xsd:decimal">
+								<xsd:attribute name="units" type="xsd:string"/>
+							</xsd:extension>
+						</xsd:simpleContent>
+					</xsd:complexType>
+				</xsd:element>
+				<xsd:element name="EndDateTime" type="xsd:dateTime" minOccurs="0"/>
+			</xsd:choice>
+			<xsd:element name="ScheduledDateTime" type="xsd:dateTime" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--   -->
+	<!-- Common.ServingDistrict : Información del areas geograficas asociada a un distrito o nodo-->
+	<xsd:element name="ServingDistrict">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:ServingDistrictType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ServingDistrictType">
+		<xsd:sequence>
+			<xsd:element name="ServingDistrictID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ServingDistrictType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="TelephonyServiceFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="InternetServiceFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BasicVideoServiceFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AdvancedVideoServiceFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="VideoOnDemandServiceFlag" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--   -->
+	<!-- Common.Locality : Información y caracteristicas del area geografica asociada a una colonia  -->
+	<xsd:element name="Locality">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:LocalityType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="LocalityType">
+		<xsd:sequence>
+			<xsd:element name="LocalityID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="ProvisioningTypeCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ZipCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CountryName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="StateName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="StateCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CityName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CityCode" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--   -->
+	<!-- Common.GeographicAreas : Información y caracteristicas de las áreas geograficas asociadas a una dirección  -->
+	<xsd:element name="GeographicAreas">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:GeographicAreasType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="GeographicAreasType">
+		<xsd:sequence>
+			<xsd:element name="Locality" type="Cmn:LocalityType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="ServingDistrict" type="Cmn:ServingDistrictType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--   -->
+	<!-- Common.UrbanPropertyAddress : Datos que identifican a una locación o domicilio   -->
+	<xsd:element name="UrbanPropertyAddress">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:UrbanPropertyAddressType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="UrbanPropertyAddressType">
+		<xsd:sequence>
+			<xsd:element name="AddressID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="StreetName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CrossStreetFirst" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CrossStreetLast" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PropertyName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PropertyFloor" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ApartmentNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="RoomLocation" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="StreetNumberFirst" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="StreetNumberLast" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CardinalDirection" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BlockNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="LotNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ZipCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SubUrbName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CityName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CityCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="StateName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="StateCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CountryName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Node" type="Cmn:NodeType" minOccurs="0"/>
+			<xsd:element name="ServingDistrict" type="Cmn:ServingDistrictType" minOccurs="0"/>
+			<xsd:element name="CountryCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfLine" type="Cmn:ListOfLineType" minOccurs="0"/>
+			<xsd:element name="ShipToFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillToFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServiceFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="WiringStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Office" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Cluster" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Reference" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SiteName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SubUrbDelegationName" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--  ServiceLocationType  -->
+	<xsd:element name="ServiceLocation" type="Cmn:ServiceLocationType"/>
+	<xsd:complexType name="ServiceLocationType">
+		<xsd:complexContent>
+			<xsd:extension base="Cmn:UrbanPropertyAddressType">
+				<xsd:sequence>
+					<xsd:element name="NetworkType" type="Cmn:NetworkTypeEnum"/>
+					<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--   -->
+	<!-- Common.UrbanPropertyAddress : Datos que identifican a una locación o domicilio   -->
+	<xsd:element name="ListOfLine">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:ListOfLineType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ListOfLineType">
+		<xsd:sequence>
+			<xsd:element name="LineOne" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="LineTwo" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="LineThree" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="LineFour" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="LineFive" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="LineSix" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="LineSeven" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- Common.LogMessage : Mensaje de Bitácora y Error -->
+	<xsd:element name="LogMessage" type="Cmn:LogMessageType"/>
+	<xsd:complexType name="LogMessageType">
+		<xsd:sequence>
+			<xsd:element name="logTypeId">
+				<xsd:annotation>
+					<xsd:documentation>Tipo de Bitácora
+1=ERROR
+2=WARN
+3=INFO
+4=DEBUG</xsd:documentation>
+				</xsd:annotation>
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="1"/>
+						<xsd:enumeration value="2"/>
+						<xsd:enumeration value="3"/>
+						<xsd:enumeration value="4"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="businessMessageId" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Identificador de Negocio ejemplo. No. Orden, No. De Solicitud, No. de Pago</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="messageIdentifier" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Identificador único del proceso,
+Generado por el OSB o Bpel que inicia la operación</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="processId" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Identificador del Proceso del cual se genera la Bitacora.
+CATALOG_SERVICES</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="task" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Nombre del  Sub proceso o tarea que se esta guardando</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="information" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Informacion de identificacion del evento.
+Ej.
+"Order=1-1231 Acnt=1-333"</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="message" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>XML ó Mensaje de la Bitacora</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!--  Common  LogProvisioningOperation -->
+	<xsd:element name="LogProvisioningOperation" type="Cmn:LogProvisioningOperationType"/>
+	<xsd:complexType name="LogProvisioningOperationType">
+		<xsd:sequence>
+			<xsd:element name="Customer" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessMessageId" type="xsd:normalizedString" nillable="false"/>
+			<xsd:element name="CorrelationId" type="xsd:normalizedString" nillable="false"/>
+			<xsd:element name="MessageId" type="xsd:normalizedString" nillable="false"/>
+			<xsd:element name="Equipment" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="CNV"/>
+						<xsd:enumeration value="DVB"/>
+						<xsd:enumeration value="EMTA"/>
+						<xsd:enumeration value="CM"/>
+						<xsd:enumeration value="ONT"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Operation" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SubTask" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Service" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="TEL"/>
+						<xsd:enumeration value="DAT"/>
+						<xsd:enumeration value="VID"/>
+						<xsd:enumeration value="TEL_DAT"/>
+						<xsd:enumeration value="TEL_VID"/>
+						<xsd:enumeration value="DAT_VID"/>
+						<xsd:enumeration value="TEL_DAT_VID"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="ServiceType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AdditionalInformation" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Status">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="RECEIVE"/>
+						<xsd:enumeration value="TAKEN"/>
+						<xsd:enumeration value="REPLY_OK"/>
+						<xsd:enumeration value="REPLY_ERROR"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Company" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ReceivedDate" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Message" type="xsd:anyType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--	-->
+	<!-- Common.SendEmailExchange : Mensaje para envío de correos -->
+	<xsd:element name="SendEmailExchange" type="Cmn:SendEmailExchangeType"/>
+	<xsd:complexType name="SendEmailExchangeType">
+		<xsd:sequence>
+			<xsd:element name="FromEmail" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Cuenta de correo que envía el mensaje</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PwdFromEmail" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Password de la cuenta de correo que envía el mensaje</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ToRecipient" type="xsd:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="CCRecipient" type="xsd:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="BCCRecipient" type="xsd:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="Subject" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MessageBody" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- Common.ExecutionPlan : plan de ejecución -->
+	<xsd:element name="ExecutionPlan" type="Cmn:ExecutionPlanType"/>
+	<xsd:complexType name="ExecutionPlanType">
+		<xsd:sequence>
+			<xsd:element name="OrderId" type="Cmn:IdentifiersType">
+				<xsd:annotation>
+					<xsd:documentation>Identificador de la Orden</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderStatus" type="xsd:string">
+				<xsd:annotation>
+					<xsd:documentation>Status General de la Orden</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderVersion" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Version de la Orden</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OrderType" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Tipo de Orden
+Clasificacion de la orden por el Gestor de Ordenes</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CreationDate" type="xsd:dateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Fecha y hora de creación de la orden </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LastUpdate" type="xsd:dateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Fecha y hora de la última modificación</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="LastPlanTask" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Nombre del último proceso que se ejecutó de su plan de Ejecución</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CustomerName" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Nombre del Cliente</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CreatedBy" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Nombre del usuario que creo la Orden</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ExecutionPlanTaskList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Lista de Tareas del Plan de Ejecucion</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ExecutionPlanTask" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="PlanTaskId" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>Identificador unico de la tarea del plan</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="TaskId" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Identificador de la Tarea</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="TaskName" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Nombre de la Tarea</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="TaskCode" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Codigo de la tarea</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="TaskSequence" type="xsd:int" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Secuencia en la que se Tiene que Ejecutar la tarea</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="Status">
+										<xsd:annotation>
+											<xsd:documentation>Statius de la Tarea</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="Info" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Informacion de identificacion </xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="CreationDate" type="xsd:dateTime" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Fecha de Creacion de la tarea</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="LastUpdate" type="xsd:dateTime" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Fecha de la ultima modificacion</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="MessageStoragePath" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Ruta para obtener el mensaje asociado a esta tarea</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ConditionsList" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Lista de Condiciones de busqueda del plan de ejecución</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Condition" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="Name" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>Nombre de la condicion</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="Value" type="xsd:string">
+										<xsd:annotation>
+											<xsd:documentation>Valor de la Condicion</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- Common.PersistentMessage : Mensaje para persistencia de Mensajes -->
+	<xsd:element name="PersistentMessage" type="Cmn:PersistentMessageType"/>
+	<xsd:complexType name="PersistentMessageType">
+		<xsd:sequence>
+			<xsd:element name="MessageID" type="xsd:normalizedString" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Nombre del Archivo</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageType" type="xsd:normalizedString" minOccurs="0" maxOccurs="1">
+				<xsd:annotation>
+					<xsd:documentation>Ruta del archivo</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Message" type="xsd:anyType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="OrderId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="TaskId" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PlanTaskId" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!--  *****  ATTRIBUTES *****   -->
+	<xsd:attribute name="contextID">
+		<xsd:simpleType>
+			<xsd:restriction base="xsd:normalizedString">
+				<xsd:enumeration value="BillingAccount"/>
+				<xsd:enumeration value="BillingService"/>
+				<xsd:enumeration value="CRMAccount"/>
+				<xsd:enumeration value="CRMService"/>
+				<xsd:enumeration value="CRMIntegrationID"/>
+				<xsd:enumeration value="CommonAccount"/>
+				<xsd:enumeration value="CommonService"/>
+				<xsd:enumeration value="CRMSiteID"/>
+				<xsd:enumeration value="WASiteID"/>
+				<xsd:enumeration value="Financials"/>
+				<xsd:enumeration value="Provisioning"/>
+				<xsd:enumeration value="BRMPoid"/>
+				<xsd:enumeration value="Specification"/>
+				<xsd:enumeration value="CMProduct"/>
+				<xsd:enumeration value="MTAProduct"/>
+			</xsd:restriction>
+		</xsd:simpleType>
+	</xsd:attribute>
+	<!-- Common.ItemSpecification : Datos de propiedades o atributos de un Item -->
+	<xsd:element name="ItemSpecification">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:ItemSpecificationType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ItemSpecificationType">
+		<xsd:sequence>
+			<xsd:element name="Identification" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Name" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Value" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PreviousValue" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ActionCode" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- Common.CustomerEquipment : equipo de video, de datos o telefonia -->
+	<xsd:element name="CustomerEquipment">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:CustomerEquipmentType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="CustomerEquipmentType">
+		<xsd:sequence>
+			<xsd:element name="EquipmentID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PlatformName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="UnitAddress" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CMMacAddress" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador de equipo de datos [Cablemodem, eMTA]</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MTAMacAddress" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador adicional de equipo de datos [ eMTA]</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Model" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="AssignationStatus" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="InstalledDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="RoomLocation" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Speed" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Velocidad de los datos</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="QoS" type="xsd:integer" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador de velociadad</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MainLine" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MainLineExt" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MainLineShortDial" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AdditionalLine" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AdditionalLineExt" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AdditionalLineShortDial" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfServiceIDReference" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ServiceIDReference" type="Cmn:IdentifiersType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ChannelMap" type="xsd:integer" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Mapa de canal</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EquipmentStatus" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Offer" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Oferta comercial de Siebel</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CPEQuantity" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="IsServiceExtension" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indica si el servicio es un servicio adicional o es parte de una oferta [Y, N]</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NeedsWorkOrder" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indica si para la ejecucion de esta accion es necesario crear orden una orden de trabajo [Y, N]</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NeedsVirtualProvisioning" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SuspendType" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indica el tipo de suspensión o activación para las lineas de un equipo [CEL_LDN_LDI, DLS, DLE]</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ComercialDataInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ListOfSpecifications" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="ItemSpecification" type="Cmn:ItemSpecificationType" maxOccurs="unbounded"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="WorkOrderID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Port" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Cantidad de pruertos que tiene un equipo</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EthMacAddress" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ConverterAuthenticationID" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador del Convertidor de Sistema de Autentificacion Cisco</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--Common.Material : Información de los materiales de las ordenes  -->
+	<xsd:element name="Material">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:MaterialType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="MaterialType">
+		<xsd:sequence>
+			<xsd:element name="ID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Unit" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Quantity" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="InitialMaterialCount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="FinalMaterialCount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Lot" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--Common.CreditCard : Información de la tarjeta de credito  -->
+	<xsd:element name="CreditCard">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:CreditCardType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="CreditCardType">
+		<xsd:sequence>
+			<xsd:element name="TypeCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CreditCardCategory" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Number" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CardHolderName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ExpireDate" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ExpeditionDate" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SecurityCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ConfirmationCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BankAuthorizationFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BankCode" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="BankRoutingNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BlockReason" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PayerAccountNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BankAccountType" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Common.ServiceSimple : Información basica de los servicios o productos  -->
+	<xsd:element name="Service">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:ServiceType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ServiceType">
+		<xsd:sequence>
+			<xsd:element name="ServiceID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<!--xsd:element name="ServiceCode" type="xsd:normalizedString" minOccurs="0"/-->
+			<xsd:element name="ParentServiceID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="RootServiceID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ServiceType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PartNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="OperatingStatus" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ServiceAddress" type="Cmn:UrbanPropertyAddressType" minOccurs="0"/>
+			<xsd:element name="ListOfAttribute" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Attribute" type="Cmn:AttributeType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Common.Individual : Datos que identifican a una persona o individuo   -->
+	<!-- Common.Node : Información de los nodos  -->
+	<xsd:element name="Node">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:NodeType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="NodeType">
+		<xsd:sequence>
+			<xsd:element name="NodeID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="NodeType" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="Digital"/>
+						<xsd:enumeration value="Analogo"/>
+						<xsd:enumeration value="Mixto"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Description" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="IsVirtual" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="Frequency" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FailureFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DigitizedStatus" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MaintenanceFlag" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--Common.Response : Utilizado para las respuestas genéricas  -->
+	<xsd:element name="Response" type="Cmn:ResponseType"/>
+	<xsd:complexType name="ResponseType">
+		<xsd:complexContent>
+			<xsd:extension base="CmnStr:FaultMessageType"/>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--Common.TableResult : Utilizado para las respuestas genéricas de los procesos al gestor  -->
+	<xsd:element name="TableResults" type="Cmn:TableResultType"/>
+	<xsd:complexType name="TableResultType">
+		<xsd:sequence>
+			<xsd:element name="Result" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Operation" type="xsd:string"/>
+						<xsd:element name="Data" type="xsd:string"/>
+						<xsd:element name="Status" type="xsd:string"/>
+						<xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--Common.DVMSearch : Utilizado para las búsquedas de DVM  -->
+	<xsd:element name="DVMSearch" type="Cmn:DVMSearchType"/>
+	<xsd:complexType name="DVMSearchType">
+		<xsd:sequence>
+			<xsd:element name="DVMName" type="xsd:string"/>
+			<xsd:element name="ColumnNameKey" type="xsd:string" maxOccurs="unbounded"/>
+			<xsd:element name="ColumnValue" type="xsd:string" maxOccurs="unbounded"/>
+			<xsd:element name="Params" type="xsd:string" maxOccurs="unbounded"/>
+			<xsd:element name="Response" type="xsd:anyType" minOccurs="0"/>
+			<xsd:element name="ListOfRecord" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Record" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="Value" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Common.ChargeInfo : Información de los cargos asociados al item  -->
+	<xsd:element name="ChargeInfo" type="Cmn:ChargeInfoType"/>
+	<xsd:complexType name="ChargeInfoType">
+		<xsd:sequence>
+			<xsd:element name="OrderQuantity" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ChargeAmt" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ChargeAmtNoTaxes" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ChargeType" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indica si el cargo es recurrente o único</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PreviousChargeAmt" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ChargeFrequency" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ReducedAmt" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="PreviousReducedAmt" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ChargeAmtNoTaxesInstall" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ChargeAmtNoInstall" type="xsd:decimal" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Common.Operation :Información de las operaciones a registrarse desde el POS  -->
+	<xsd:element name="Operation" type="Cmn:OperationType"/>
+	<xsd:complexType name="OperationType">
+		<xsd:complexContent>
+			<xsd:extension base="Cmn:SimpleOperationType">
+				<xsd:sequence>
+					<xsd:element name="ReferenceID" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="PaymentInfo">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="ChargeConcept" type="xsd:normalizedString" minOccurs="0"/>
+								<xsd:element name="PayType" type="xsd:normalizedString" minOccurs="0"/>
+								<xsd:element name="TotalAmount" type="xsd:double"/>
+								<xsd:element name="DueAmount" type="xsd:double" minOccurs="0"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--Simple Operation Type-->
+	<xsd:element name="SimpleOperation" type="Cmn:SimpleOperationType"/>
+	<xsd:complexType name="SimpleOperationType">
+		<xsd:sequence>
+			<xsd:element name="OperationID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="OrderID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="TaskID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="OperationType" type="xsd:normalizedString"/>
+			<xsd:element name="CreateDateTime" type="xsd:dateTime"/>
+			<xsd:element name="RegisterDateTime" type="xsd:dateTime" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Common.ProductSimple : Información basica de los productos  -->
+	<xsd:element name="ProductSimple">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:ProductSimpleType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ProductSimpleType">
+		<xsd:sequence>
+			<xsd:element name="ProductID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="PartNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Common.Tax : Información basica de los impuestos  -->
+	<xsd:element name="Tax">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:TaxType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="TaxType">
+		<xsd:sequence>
+			<xsd:element name="TaxName">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="IEPS"/>
+						<xsd:enumeration value="IVA"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="TaxPercentage" type="xsd:decimal"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Common.PhoneInfo : Información de los números telefónicos  -->
+	<xsd:element name="PhoneNumberInfo">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:PhoneNumberInfoType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="PhoneNumberInfoType">
+		<xsd:sequence>
+			<xsd:element name="PhoneNumber" type="xsd:normalizedString" maxOccurs="unbounded"/>
+			<xsd:element name="Classification" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ASLID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ProviderID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="SellerID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Status" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="IsValid" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="IsBlocked" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="BlockedBy" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PortedProviderID" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="InProviderID" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="OutProviderID" type="xsd:normalizedString" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="PortedDate" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="InDate" type="xsd:dateTime" minOccurs="0"/>
+						<xsd:element name="OutDate" type="xsd:dateTime" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="QuarantineDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="SoftswitchID" type="Cmn:IdentifiersType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- DATA TYPES  -->
+	<!-- Common.BusinessJurisdiction : Plaza  -->
+	<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum"/>
+	<!--BusinessJurisdiction enumeration-->
+	<xsd:simpleType name="BusinessJurisdictionEnum">
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:enumeration value="Altamira"/>
+			<xsd:enumeration value="Linares"/>
+			<xsd:enumeration value="Matehuala"/>
+			<xsd:enumeration value="Monclova"/>
+			<xsd:enumeration value="Monterrey"/>
+			<xsd:enumeration value="Reynosa"/>
+			<xsd:enumeration value="Saltillo"/>
+			<xsd:enumeration value="Victoria"/>
+			<xsd:enumeration value="Matamoros"/>
+			<xsd:enumeration value="Cablevision"/>
+			<xsd:enumeration value="TELUM MONTERREY"/>
+			<xsd:enumeration value="TELUM LINARES"/>
+			<xsd:enumeration value="TELUM REYNOSA"/>
+			<xsd:enumeration value="TELUM VICTORIA"/>
+			<xsd:enumeration value="TELUM SALTILLO"/>
+			<xsd:enumeration value="TELUM MONCLOVA"/>
+			<xsd:enumeration value="TELUM ALTAMIRA"/>
+			<xsd:enumeration value="TELUM MATEHUALA"/>
+			<xsd:enumeration value="TELUM SAN LUIS POTOSI"/>
+			<xsd:enumeration value="TELUM TAMPICO"/>
+			<xsd:enumeration value="TELUM CDMX"/>
+			<xsd:enumeration value="TELUM MATAMOROS"/>
+			<xsd:enumeration value="TELUM TIJUANA"/>
+			<xsd:enumeration value="TELUM JUAREZ"/>
+			<xsd:enumeration value="TELUM CHIHUAHUA"/>
+			<xsd:enumeration value="TELUM MEXICALI"/>
+			<xsd:enumeration value="TELUM GUADALAJARA"/>
+			<xsd:enumeration value="TELUM NUEVO LAREDO"/>
+			<xsd:enumeration value="TELUM CANCUN"/>
+			<xsd:enumeration value="TELUM MERIDA"/>
+			<xsd:enumeration value="TELUM QUERETARO"/>
+			<xsd:enumeration value="TELUM PUERTO VALLARTA"/>
+			<xsd:enumeration value="TELUM OAXACA"/>
+			<xsd:enumeration value="TELUM VILLAHERMOSA"/>
+			<xsd:enumeration value="TELUM CELAYA"/>
+			<xsd:enumeration value="TELUM CUERNAVACA"/>
+			<xsd:enumeration value="TELUM PACHUCA"/>
+			<xsd:enumeration value="TELUM ACAPULCO"/>
+			<xsd:enumeration value="TELUM AGUASCALIENTES"/>
+			<xsd:enumeration value="TELUM VERACRUZ"/>
+			<xsd:enumeration value="TELUM HERMOSILLO"/>
+			<xsd:enumeration value="Acapulco"/>
+			<xsd:enumeration value="Agua Dulce"/>
+			<xsd:enumeration value="Buctzotz"/>
+			<xsd:enumeration value="Calvillo"/>
+			<xsd:enumeration value="Camargo"/>
+			<xsd:enumeration value="Campeche"/>
+			<xsd:enumeration value="Cancun"/>
+			<xsd:enumeration value="Cd. Juarez"/>
+			<xsd:enumeration value="Chemax"/>
+			<xsd:enumeration value="Chetumal"/>
+			<xsd:enumeration value="Chihuahua"/>
+			<xsd:enumeration value="Chilpancingo"/>
+			<xsd:enumeration value="Chimalhuacan"/>
+			<xsd:enumeration value="Coatzacoalcos"/>
+			<xsd:enumeration value="Coatzintla"/>
+			<xsd:enumeration value="Coba"/>
+			<xsd:enumeration value="Cosoleacaque"/>
+			<xsd:enumeration value="Cozumel"/>
+			<xsd:enumeration value="Cuauhtemoc"/>
+			<xsd:enumeration value="Cuautla"/>
+			<xsd:enumeration value="Cuernavaca"/>
+			<xsd:enumeration value="Delicias"/>
+			<xsd:enumeration value="Encarnacion De Diaz"/>
+			<xsd:enumeration value="Ensenada"/>
+			<xsd:enumeration value="Espita"/>
+			<xsd:enumeration value="Iguala"/>
+			<xsd:enumeration value="Isla Mujeres"/>
+			<xsd:enumeration value="Ixtapaluca"/>
+			<xsd:enumeration value="Izamal"/>
+			<xsd:enumeration value="Jaltipan"/>
+			<xsd:enumeration value="Lagos"/>
+			<xsd:enumeration value="Las Choapas"/>
+			<xsd:enumeration value="Mahahual"/>
+			<xsd:enumeration value="Mante"/>
+			<xsd:enumeration value="Meoqui"/>
+			<xsd:enumeration value="Merida"/>
+			<xsd:enumeration value="Metropolitana"/>
+			<xsd:enumeration value="Mexicali"/>
+			<xsd:enumeration value="Minatitlan"/>
+			<xsd:enumeration value="Monterrey"/>
+			<xsd:enumeration value="Motul"/>
+			<xsd:enumeration value="Nanchital"/>
+			<xsd:enumeration value="Oaxaca"/>
+			<xsd:enumeration value="Ocotlan"/>
+			<xsd:enumeration value="Ojuelos"/>
+			<xsd:enumeration value="Parral"/>
+			<xsd:enumeration value="Playa Del Carmen"/>
+			<xsd:enumeration value="Poza Rica"/>
+			<xsd:enumeration value="Progreso"/>
+			<xsd:enumeration value="Rosarito"/>
+			<xsd:enumeration value="San Buenaventura"/>
+			<xsd:enumeration value="San Vicente Chicoloapan"/>
+			<xsd:enumeration value="Tecamac"/>
+			<xsd:enumeration value="Tecate"/>
+			<xsd:enumeration value="Temax"/>
+			<xsd:enumeration value="Temozon"/>
+			<xsd:enumeration value="Teocaltiche"/>
+			<xsd:enumeration value="Tepeji Del Rio"/>
+			<xsd:enumeration value="Tihuatlan"/>
+			<xsd:enumeration value="Tijuana"/>
+			<xsd:enumeration value="Tizimin"/>
+			<xsd:enumeration value="Tula"/>
+			<xsd:enumeration value="Tulum"/>
+			<xsd:enumeration value="Uman"/>
+			<xsd:enumeration value="Valladolid"/>
+			<xsd:enumeration value="Valles"/>
+			<xsd:enumeration value="Villa Hidalgo"/>
+			<xsd:enumeration value="Xico"/>
+			<xsd:enumeration value="Yahualica"/>
+			<xsd:enumeration value="Yautepec"/>
+			<xsd:enumeration value="Zumpango Del Rio"/>
+			<!-- BusinessJurisdiction Residencial -->
+			<!-- BusinessJurisdiction Empresarial -->
+			<!-- BusinessJurisdiction IZZI-->
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Common.PersonName: Datos para el nombre de una persona   -->
+	<xsd:element name="PersonName">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:PersonNameType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="PersonNameType">
+		<xsd:sequence>
+			<xsd:element name="Title" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FormattedName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="GivenNames" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MiddleNames" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FamilyNames" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FamilyNamesComplement" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Common.Attribute: Datos para definir los atributos de un servicio   -->
+	<xsd:element name="Attribute">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:AttributeType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="AttributeType">
+		<xsd:sequence>
+			<xsd:element name="AttributeId" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Name" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Value" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Common.UserOperation: Datos para definir operaciones por plaza y usuario -->
+	<xsd:element name="UserOperation">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:UserOperationType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="UserOperationType">
+		<xsd:sequence>
+			<xsd:element name="Username" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Operation" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--Tipo de Red-->
+	<xsd:simpleType name="NetworkTypeEnum">
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:enumeration value="HFC"/>
+			<xsd:enumeration value="GPON"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!-- Common.NetworkType red de conexion  -->
+	<xsd:element name="NetworkType" type="Cmn:NetworkTypeEnum"/>
+	<!--===  EMail Type ===-->
+	<xsd:complexType name="EMailType">
+		<xsd:sequence>
+			<xsd:element name="OutgoingUserName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="OutgoingPassword" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="OutgoingMailServer" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="OutgoingMailServerPort" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="OutgoingProtocol" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="IncomingEmailProtocol" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AutoDeleteFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DisablePlainTextAuth" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfRecipients" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ToRecipient" type="xsd:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
+						<xsd:element name="CCRecipient" type="xsd:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
+						<xsd:element name="BCCRecipient" type="xsd:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="BodyEMail" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SubjectEMail" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="EMail" type="Cmn:EMailType"/>
+</xsd:schema>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (x64) (http://www.altova.com) by Emanuel Miramontes Mayorga (Multimedios Redes) -->
+<!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2014 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		 Version: 1.0
+		Date: October 09, 2014
+ 		File Name: CDMSupport.xsd 
+ -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Spt="http://telum.mx/CommonDataModel/2.0/Support" targetNamespace="http://telum.mx/CommonDataModel/2.0/Support" elementFormDefault="qualified">
+	<!-- Datasource : Estructura que proporciona informacion de los datasource de los servidores   -->
+	<xsd:element name="DataSource" type="Spt:DataSourceType"/>
+	<xsd:complexType name="DataSourceType">
+		<xsd:sequence>
+			<xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ActiveConnections" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="AvailableConnections" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="Capacity" type="xsd:integer" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- JmsDestination : Estructura que proporciona informacion de los servidores de JMS encontrados en un dominio   -->
+	<xsd:element name="JmsDestination">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Spt:JmsDestinationType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="JmsDestinationType">
+		<xsd:sequence>
+			<xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ConsumptionPaused" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ProductionPaused" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ConsumersCurrent" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="MessagesPending" type="xsd:integer" minOccurs="0"/>
+			<xsd:element name="MessagesReceived" type="xsd:integer" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Resource : Estructura que proporciona informacion de los recursos utilizados en los servidores (HDD, RAM, JVM, etc)   -->
+	<xsd:element name="Resource">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Spt:ResourceType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ResourceType">
+		<xsd:sequence>
+			<xsd:element name="Type" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Capacity" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="Available" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="PercentUsed" type="xsd:decimal" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- ThreadPool : Estructura que proporciona informacion del Pool de Threads del dominio   -->
+	<xsd:element name="ThreadPool">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Spt:ThreadPoolType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ThreadPoolType">
+		<xsd:sequence>
+			<xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Health" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="StuckThreads" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TotalThreads" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Server : Estructura que proporciona informacion de los server encontrados en un dominio   -->
+	<xsd:element name="Server">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Spt:ServerType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ServerType">
+		<xsd:sequence>
+			<xsd:element name="ServerInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="Health" type="xsd:string" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListoOfDataSource" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="DataSource" type="Spt:DataSourceType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListoOfJmsDestination" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="JmsDestination" type="Spt:JmsDestinationType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfResource" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Resource" type="Spt:ResourceType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ThreadPool" type="Spt:ThreadPoolType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Domain : Estructura que proporciona informacion del monitor del dominio   -->
+	<xsd:element name="Domain">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Spt:DomainType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="DomainType">
+		<xsd:sequence>
+			<xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ListOfServer" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Server" type="Spt:ServerType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Machine : Estructura que proporciona informacion del monitor del maquina   -->
+	<xsd:element name="Machine">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Spt:MachineType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="MachineType">
+		<xsd:sequence>
+			<xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Domain" type="Spt:DomainType" minOccurs="0"/>
+			<xsd:element name="ListOfResource" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Resource" type="Spt:ResourceType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

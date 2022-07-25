@@ -1,0 +1,121 @@
+<!-- edited with XMLSpy v2008 sp1 (http://www.altova.com) by cmayora (EMBRACE) --><!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2011 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		 Version: 1.0
+		Date: Jul 12 2011
+ 		File Name: CDMTroubleTicketAppStructure.xsd 
+ --><xsd:schema targetNamespace="http://telum.mx/CommonDataModel/2.0/TroubleTicket" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Tck="http://telum.mx/CommonDataModel/2.0/TroubleTicket" xmlns:Cmn="http://telum.mx/CommonDataModel/2.0/Common">
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Common" schemaLocation="CDMCommon.xsd"/>
+	<!-- TicketApplication.Ticket : estructura para los tickets o fallas de red -->
+	<xsd:element name="Ticket">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Tck:TicketType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="TicketType">
+		<xsd:sequence>
+			<xsd:element name="TicketInfo" type="Tck:TicketInfoType" minOccurs="0"/>
+			<xsd:element name="ReportedBy" type="Cmn:ContactType" minOccurs="0"/>
+			<xsd:element name="TroubleInfo" type="Tck:TroubleType" minOccurs="0"/>
+			<xsd:element name="CustomerTicketNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServiceType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ServiceTypeDescription" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Contact" type="Cmn:ContactType" minOccurs="0"/>
+			<xsd:element name="AssignedOrg" type="Tck:AssignedOrganizationType" minOccurs="0"/>
+			<xsd:element name="InitiationMode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="OfficeNetLoc" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="BillingType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PON" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="StatusRequiredEvery" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="NextStatusDue" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="AccessInformation" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="IntrusiveTestingAuthorized" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="Turn" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Network" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Cell" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Region" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- TicketApplication.TicketUpdate : estructura para la modificación de los tickets o fallas de red -->
+	<xsd:element name="TicketUpdate">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Tck:TicketUpdateType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="TicketUpdateType">
+		<xsd:sequence>
+			<xsd:element name="TicketInfo" type="Tck:TicketInfoType" minOccurs="0"/>
+			<xsd:element name="TroubleInfo" type="Tck:TroubleType" minOccurs="0"/>
+			<xsd:element name="CustomerTicketNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AssignedOrg" type="Tck:AssignedOrganizationType" minOccurs="0"/>
+			<xsd:element name="Equipment" type="xsd:string" nillable="true" minOccurs="0"/>
+			<xsd:element name="Contact" type="Cmn:ContactType" minOccurs="0"/>
+			<xsd:element name="InitiationMode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="LastModificationDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="CauseCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ClearedCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TroubleFoundID" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Turn" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Network" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Cell" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Region" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Comment" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- TicketApplication.TicketInfo : estructura para el encabezado de los tickets o fallas de red -->
+	<xsd:element name="TicketInfo">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Tck:TicketInfoType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="TicketInfoType">
+		<xsd:sequence>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="TicketID" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TicketType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TicketStatus" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="TicketSubStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PriorityLevel" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SeverityLevel" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:string" nillable="true" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- TicketApplication.Trouble : estructura para el trouble de los tickets o fallas de red -->
+	<xsd:element name="Trouble">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Tck:TroubleType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="TroubleType">
+		<xsd:sequence>
+			<xsd:element name="TroubleID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="TroubleDescription" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TroubleType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TroubleDetectionDate" type="xsd:dateTime" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- TicketApplication.AssignedOrganization : estructura para la organización asignada a los tickets o fallas de red -->
+	<xsd:element name="AssignedOrganization">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Tck:AssignedOrganizationType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="AssignedOrganizationType">
+		<xsd:sequence>
+			<xsd:element name="ResponsibleOrg" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="RespOrgAssignedTo" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="AdministrativeOrg" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="AdminOrgAssignedTo" type="xsd:int" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

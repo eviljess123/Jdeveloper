@@ -1,0 +1,15 @@
+<wsdl:definitions targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/BillingAPP/CustomerAdmin/spInsertXrefAccount" name="spInsertXrefAccount-concrete" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:import location="spInsertXrefAccount.wsdl" namespace="http://xmlns.oracle.com/pcbpel/adapter/db/BillingAPP/CustomerAdmin/spInsertXrefAccount"/>
+    <wsdl:binding name="spInsertXrefAccount_ptt-binding" type="spin:spInsertXrefAccount_ptt" xmlns:spin="http://xmlns.oracle.com/pcbpel/adapter/db/BillingAPP/CustomerAdmin/spInsertXrefAccount">
+        <soap:binding style="document" transport="http://www.bea.com/wli/sb/transports/jca"/>
+        <wsdl:operation name="spInsertXrefAccount">
+            <soap:operation soapAction="spInsertXrefAccount"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/typesystem/config" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="WSsfm6Services/WSTelefonia/WSDL/WSTelefoniaSFM6WSDL"/>
+            <con:binding>
+                <con:name>WSTelefoniaSFM6_ptt-binding</con:name>
+                <con:namespace>http://xmlns.oracle.com/WSsSFtoM6Telefonia/WSsfm6Services/WSTelefoniaSFM6</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:pipeline type="request" name="request-N53e951a0.N27252cc.0.18213a842fb.N7ffa">
+            <con:stage id="_StageId-N53e951a0.N27252cc.0.18213a842fb.N7ff8" name="Stage1">
+                <con:context>
+                    <con1:userNsDecl prefix="wst" namespace="http://TargetNamespace.com/WSTelefoniaM6_UpdateReservationRequest_request"/>
+                </con:context>
+                <con:actions>
+                    <con2:assign varName="BodyRequest">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7f8d</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>$body</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:assign varName="Credenciales">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7f4a</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>fn-bea:lookupBasicCredentials('WSsfm6Services/WSTelefonia/Resources/securityM6')</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:assign varName="RequestUpdateReserve">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7fa5</con1:id>
+                        <con2:expr>
+                            <con1:xqueryTransform>
+                                <con1:resource ref="WSsfm6Services/WSTelefonia/Resources/XQuery/TRN_RequestUpdateReserve_to_RequestUpdateReserveM6"/>
+                                <con1:param name="Input">
+                                    <con1:path>$body/wst:Root-Element</con1:path>
+                                </con1:param>
+                            </con1:xqueryTransform>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:replace varName="header" contents-only="true">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7f9f</con1:id>
+                        <con2:location>
+                            <con1:xpathText>.</con1:xpathText>
+                        </con2:location>
+                        <con2:expr>
+                            <con1:xqueryText><![CDATA[<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+	<wsse:UsernameToken wsu:Id="UsernameToken-37" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+		<wsse:Username>{$Credenciales/*:username/text()}</wsse:Username>
+		<wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">{$Credenciales/*:password/text()}</wsse:Password>
+	</wsse:UsernameToken>
+</wsse:Security>]]></con1:xqueryText>
+                        </con2:expr>
+                    </con2:replace>
+                    <con2:wsCallout>
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7fba</con1:id>
+                        <con2:service ref="WSsfm6Services/WSTelefonia/BusinessServices/UpdateReservationM6BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con2:operation>updateReservationRequest</con2:operation>
+                        <con2:request>
+                            <con2:body wrapped="false">RequestUpdateReserve</con2:body>
+                            <con2:header>header</con2:header>
+                        </con2:request>
+                        <con2:response>
+                            <con2:body wrapped="false">ResponcetUpdateReserve</con2:body>
+                        </con2:response>
+                        <con2:requestTransform/>
+                        <con2:responseTransform/>
+                    </con2:wsCallout>
+                    <con2:replace varName="header" contents-only="true">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7f9c</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>''</con1:xqueryText>
+                        </con2:expr>
+                    </con2:replace>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N53e951a0.N27252cc.0.18213a842fb.N7ff9" errorHandler="error-N53e951a0.N27252cc.0.18213a842fb.N7fda">
+            <con:stage id="_StageId-N53e951a0.N27252cc.0.18213a842fb.N7ff7" name="Stage1">
+                <con:context>
+                    <con1:userNsDecl prefix="src" namespace="http://src.oracle.com/"/>
+                    <con1:userNsDecl prefix="wst" namespace="http://TargetNamespace.com/WSTelefoniaM6_UpdateReservationRequest_request"/>
+                    <con3:variable name="ResponcetUpdateReserve" path="$ResponcetUpdateReserve">
+                        <con3:service operation="updateReservationRequest">
+                            <con3:reference ref="WSsfm6Services/WSTelefonia/BusinessServices/UpdateReservationM6BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        </con3:service>
+                    </con3:variable>
+                </con:context>
+                <con:actions>
+                    <con2:ifThenElse>
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7fb3</con1:id>
+                        <con2:case id="_BranchId-N53e951a0.N27252cc.0.18213a842fb.N7fb2">
+                            <con2:condition>
+                                <con1:xqueryText>fn:string-length($ResponcetUpdateReserve/return/errors/faultcode)!=0</con1:xqueryText>
+                            </con2:condition>
+                            <con2:actions>
+                                <con2:Error>
+                                    <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7fde</con1:id>
+                                    <con2:errCode>01</con2:errCode>
+                                    <con2:message>"Error en el Servicio de M6"</con2:message>
+                                </con2:Error>
+                            </con2:actions>
+                        </con2:case>
+                        <con2:default>
+                            <con2:replace varName="body" contents-only="true">
+                                <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7ff0</con1:id>
+                                <con2:expr>
+                                    <con1:xqueryTransform>
+                                        <con1:resource ref="WSsfm6Services/WSTelefonia/Resources/XQuery/GenericResponce"/>
+                                        <con1:param name="code">
+                                            <con1:path>'0'</con1:path>
+                                        </con1:param>
+                                        <con1:param name="IdSoaProcess">
+                                            <con1:path>fn:concat(fn:replace(fn:replace(fn:replace(fn:substring-before(xs:string(fn:current-dateTime()), '.'),'-',''),':',''),'T',''),fn:data($BodyRequest/wst:Root-Element/wst:idReservacion))</con1:path>
+                                        </con1:param>
+                                        <con1:param name="mensaje">
+                                            <con1:path>$ResponcetUpdateReserve/return/status/text()</con1:path>
+                                        </con1:param>
+                                        <con1:param name="EventEstatus">
+                                            <con1:path>'Completed'</con1:path>
+                                        </con1:param>
+                                    </con1:xqueryTransform>
+                                </con2:expr>
+                            </con2:replace>
+                        </con2:default>
+                    </con2:ifThenElse>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="request" name="request-N53e951a0.N27252cc.0.18213a842fb.N7ff6">
+            <con:stage id="_StageId-N53e951a0.N27252cc.0.18213a842fb.N7ff4" name="StageAssingVariables" errorHandler="error-N53e951a0.N27252cc.0.18213a842fb.N7ef3">
+                <con:context>
+                    <con1:userNsDecl prefix="wst" namespace="http://TargetNamespace.com/WSTelefoniaM6_reserveTn_request"/>
+                </con:context>
+                <con:actions>
+                    <con2:validate>
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7e6d</con1:id>
+                        <con2:schema ref="WSsfm6Services/WSTelefonia/XSD/ReserveTnRequestXSD"/>
+                        <con2:schemaElement xmlns:wst="http://TargetNamespace.com/WSTelefoniaM6_reserveTn_request">wst:Root-Element</con2:schemaElement>
+                        <con2:varName>body</con2:varName>
+                        <con2:location>
+                            <con1:xpathText>./wst:Root-Element</con1:xpathText>
+                        </con2:location>
+                    </con2:validate>
+                    <con2:assign varName="BodyRequest">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7f0f</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>$body</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con4:log>
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7fe7</con1:id>
+                        <con4:logLevel>warning</con4:logLevel>
+                        <con4:expr>
+                            <con1:xqueryText>$body</con1:xqueryText>
+                        </con4:expr>
+                        <con4:message>******************* Body Request reserveTn *****************</con4:message>
+                    </con4:log>
+                    <con2:assign varName="RequestReserveTn">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7f86</con1:id>
+                        <con2:expr>
+                            <con1:xqueryTransform>
+                                <con1:resource ref="WSsfm6Services/WSTelefonia/Resources/XQuery/TRN_RequestReserveTn_to_RequestReserveTnM6"/>
+                                <con1:param name="input">
+                                    <con1:path>$body/wst:Root-Element</con1:path>
+                                </con1:param>
+                            </con1:xqueryTransform>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:assign varName="Credenciales">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7f15</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>fn-bea:lookupBasicCredentials('WSsfm6Services/WSTelefonia/Resources/securityM6')</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:replace varName="header" contents-only="true">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7f83</con1:id>
+                        <con2:location>
+                            <con1:xpathText>.</con1:xpathText>
+                        </con2:location>
+                        <con2:expr>
+                            <con1:xqueryText><![CDATA[<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+	<wsse:UsernameToken wsu:Id="UsernameToken-37" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+		<wsse:Username>{$Credenciales/*:username/text()}</wsse:Username>
+		<wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">{$Credenciales/*:password/text()}</wsse:Password>
+	</wsse:UsernameToken>
+</wsse:Security>]]></con1:xqueryText>
+                        </con2:expr>
+                    </con2:replace>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53e951a0.N27252cc.0.18213a842fb.N7eeb" name="StageCallServiceM6" errorHandler="error-N53e951a0.N27252cc.0.18213a842fb.N7ee8">
+                <con:context/>
+                <con:actions>
+                    <con2:wsCallout>
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7f89</con1:id>
+                        <con2:service ref="WSsfm6Services/WSTelefonia/BusinessServices/TNAdapter" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con2:operation>reserveTn</con2:operation>
+                        <con2:request>
+                            <con2:body wrapped="false">RequestReserveTn</con2:body>
+                            <con2:header>header</con2:header>
+                        </con2:request>
+                        <con2:response>
+                            <con2:body wrapped="false">ResponceReserveTn</con2:body>
+                            <con2:header>header</con2:header>
+                        </con2:response>
+                        <con2:requestTransform/>
+                        <con2:responseTransform/>
+                    </con2:wsCallout>
+                    <con2:replace varName="header" contents-only="true">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7f4f</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>''</con1:xqueryText>
+                        </con2:expr>
+                    </con2:replace>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N53e951a0.N27252cc.0.18213a842fb.N7ff5">
+            <con:stage id="_StageId-N53e951a0.N27252cc.0.18213a842fb.N7ff3" name="StageResponce" errorHandler="error-N53e951a0.N27252cc.0.18213a842fb.N7ef1">
+                <con:context>
+                    <con1:userNsDecl prefix="src" namespace="http://src.oracle.com/"/>
+                    <con1:userNsDecl prefix="wst" namespace="http://TargetNamespace.com/WSTelefoniaM6_reserveTn_request"/>
+                    <con3:variable name="ResponceReserveTn" path="$ResponceReserveTn" asChild="false">
+                        <con3:schema ref="WSsfm6Services/WSTelefonia/XSD/XMLSchema_-1432463528" element="getTnByRangeResponse"/>
+                    </con3:variable>
+                </con:context>
+                <con:actions>
+                    <con4:log>
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7f12</con1:id>
+                        <con4:logLevel>warning</con4:logLevel>
+                        <con4:expr>
+                            <con1:xqueryText>$ResponceReserveTn/return/errores/*:faultcode/text()</con1:xqueryText>
+                        </con4:expr>
+                        <con4:message>****************************faultcode ************************</con4:message>
+                    </con4:log>
+                    <con2:ifThenElse>
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7d88</con1:id>
+                        <con2:case id="_BranchId-N53e951a0.N27252cc.0.18213a842fb.N7d87">
+                            <con2:condition>
+                                <con1:xqueryText>fn:string-length($ResponceReserveTn/return/errores/*:faultcode)!=0</con1:xqueryText>
+                            </con2:condition>
+                            <con2:actions>
+                                <con2:Error>
+                                    <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7d83</con1:id>
+                                    <con2:errCode>0001</con2:errCode>
+                                    <con2:message>Error en el servicio de m6</con2:message>
+                                </con2:Error>
+                            </con2:actions>
+                        </con2:case>
+                        <con2:default>
+                            <con2:replace varName="body" contents-only="true">
+                                <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7fed</con1:id>
+                                <con2:expr>
+                                    <con1:xqueryTransform>
+                                        <con1:resource ref="WSsfm6Services/WSTelefonia/Resources/XQuery/GenericResponce"/>
+                                        <con1:param name="code">
+                                            <con1:path>'0'</con1:path>
+                                        </con1:param>
+                                        <con1:param name="IdSoaProcess">
+                                            <con1:path>fn:concat(fn:replace(fn:replace(fn:replace(fn:substring-before(xs:string(fn:current-dateTime()), '.'),'-',''),':',''),'T',''),fn:data($body/wst:Root-Element/wst:ovCon))</con1:path>
+                                        </con1:param>
+                                        <con1:param name="mensaje">
+                                            <con1:path>$ResponceReserveTn/return/reservationID/text()</con1:path>
+                                        </con1:param>
+                                        <con1:param name="EventEstatus">
+                                            <con1:path>'Completed'</con1:path>
+                                        </con1:param>
+                                    </con1:xqueryTransform>
+                                </con2:expr>
+                            </con2:replace>
+                        </con2:default>
+                    </con2:ifThenElse>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-N53e951a0.N27252cc.0.18213a842fb.N7fda">
+            <con:stage id="_StageId-N53e951a0.N27252cc.0.18213a842fb.N7fd9" name="Stage1">
+                <con:context>
+                    <con1:userNsDecl prefix="src" namespace="http://src.oracle.com/"/>
+                    <con1:userNsDecl prefix="wst" namespace="http://TargetNamespace.com/WSTelefoniaM6_UpdateReservationRequest_request"/>
+                    <con3:variable name="ResponcetUpdateReserve" path="$ResponcetUpdateReserve">
+                        <con3:service operation="updateReservationRequest">
+                            <con3:reference ref="WSsfm6Services/WSTelefonia/BusinessServices/UpdateReservationM6BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        </con3:service>
+                    </con3:variable>
+                </con:context>
+                <con:actions>
+                    <con2:replace varName="body" contents-only="true">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7fbe</con1:id>
+                        <con2:location>
+                            <con1:xpathText>.</con1:xpathText>
+                        </con2:location>
+                        <con2:expr>
+                            <con1:xqueryTransform>
+                                <con1:resource ref="WSsfm6Services/WSTelefonia/Resources/XQuery/GenericResponce"/>
+                                <con1:param name="code">
+                                    <con1:path>$ResponcetUpdateReserve/return/errors/faultcode/text()</con1:path>
+                                </con1:param>
+                                <con1:param name="IdSoaProcess">
+                                    <con1:path>fn:concat(fn:replace(fn:replace(fn:replace(fn:substring-before(xs:string(fn:current-dateTime()), '.'),'-',''),':',''),'T',''),fn:data($body/wst:Root-Element/wst:idReservacion))</con1:path>
+                                </con1:param>
+                                <con1:param name="mensaje">
+                                    <con1:path>$ResponcetUpdateReserve/return/errors/detail/text()</con1:path>
+                                </con1:param>
+                                <con1:param name="EventEstatus">
+                                    <con1:path>'Failed'</con1:path>
+                                </con1:param>
+                            </con1:xqueryTransform>
+                        </con2:expr>
+                    </con2:replace>
+                    <con1:reply isError="false">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7f99</con1:id>
+                    </con1:reply>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-N53e951a0.N27252cc.0.18213a842fb.N7ef3">
+            <con:stage id="_StageId-N53e951a0.N27252cc.0.18213a842fb.N7ef2" name="ErrorAssingVariables">
+                <con:context>
+                    <con1:userNsDecl prefix="wst" namespace="http://TargetNamespace.com/WSTelefoniaM6_reserveTn_request"/>
+                </con:context>
+                <con:actions>
+                    <con2:replace varName="body" contents-only="true">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7e6a</con1:id>
+                        <con2:expr>
+                            <con1:xqueryTransform>
+                                <con1:resource ref="WSsfm6Services/WSTelefonia/Resources/XQuery/GenericResponce"/>
+                                <con1:param name="code">
+                                    <con1:path>$fault/ctx:errorCode/text()</con1:path>
+                                </con1:param>
+                                <con1:param name="IdSoaProcess">
+                                    <con1:path>fn:concat(fn:replace(fn:replace(fn:replace(fn:substring-before(xs:string(fn:current-dateTime()), '.'),'-',''),':',''),'T',''),fn:data($body/wst:Root-Element/wst:ovCon))</con1:path>
+                                </con1:param>
+                                <con1:param name="mensaje">
+                                    <con1:path>$fault/ctx:details/*:ValidationFailureDetail/*:message[1]/text()</con1:path>
+                                </con1:param>
+                                <con1:param name="EventEstatus">
+                                    <con1:path>'Failed'</con1:path>
+                                </con1:param>
+                            </con1:xqueryTransform>
+                        </con2:expr>
+                    </con2:replace>
+                    <con1:reply>
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7e67</con1:id>
+                    </con1:reply>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-N53e951a0.N27252cc.0.18213a842fb.N7ef1">
+            <con:stage id="_StageId-N53e951a0.N27252cc.0.18213a842fb.N7ef0" name="ErrorResponce">
+                <con:context>
+                    <con1:userNsDecl prefix="wst" namespace="http://TargetNamespace.com/WSTelefoniaM6_reserveTn_request"/>
+                </con:context>
+                <con:actions>
+                    <con4:log>
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7fc4</con1:id>
+                        <con4:logLevel>warning</con4:logLevel>
+                        <con4:expr>
+                            <con1:xqueryText>$fault</con1:xqueryText>
+                        </con4:expr>
+                        <con4:message>************************************* entra a ErrorResponce **************************</con4:message>
+                    </con4:log>
+                    <con2:replace varName="body" contents-only="true">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7efd</con1:id>
+                        <con2:expr>
+                            <con1:xqueryTransform>
+                                <con1:resource ref="WSsfm6Services/WSTelefonia/Resources/XQuery/GenericResponce"/>
+                                <con1:param name="code">
+                                    <con1:path>$ResponceReserveTn/return/errores/*:faultcode/text()</con1:path>
+                                </con1:param>
+                                <con1:param name="IdSoaProcess">
+                                    <con1:path>fn:concat(fn:replace(fn:replace(fn:replace(fn:substring-before(xs:string(fn:current-dateTime()), '.'),'-',''),':',''),'T',''),fn:data($body/wst:Root-Element/wst:ovCon))</con1:path>
+                                </con1:param>
+                                <con1:param name="mensaje">
+                                    <con1:path>$ResponceReserveTn/return/errores/*:detail/text()</con1:path>
+                                </con1:param>
+                                <con1:param name="EventEstatus">
+                                    <con1:path>'Failed'</con1:path>
+                                </con1:param>
+                            </con1:xqueryTransform>
+                        </con2:expr>
+                    </con2:replace>
+                    <con1:reply isError="false">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7efa</con1:id>
+                    </con1:reply>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-N53e951a0.N27252cc.0.18213a842fb.N7ee8">
+            <con:stage id="_StageId-N53e951a0.N27252cc.0.18213a842fb.N7ee7" name="ErrorCallM6">
+                <con:context>
+                    <con1:userNsDecl prefix="wst" namespace="http://TargetNamespace.com/WSTelefoniaM6_reserveTn_request"/>
+                    <con3:variable name="ResponceReserveTn" path="$ResponceReserveTn" asChild="false">
+                        <con3:schema ref="WSsfm6Services/WSTelefonia/XSD/XMLSchema_-1432463528" element="reserveTnResponse"/>
+                    </con3:variable>
+                </con:context>
+                <con:actions>
+                    <con2:replace varName="header" contents-only="true">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7e70</con1:id>
+                        <con2:expr>
+                            <con1:xqueryText>''</con1:xqueryText>
+                        </con2:expr>
+                    </con2:replace>
+                    <con4:log>
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7e76</con1:id>
+                        <con4:logLevel>warning</con4:logLevel>
+                        <con4:expr>
+                            <con1:xqueryText>$fault</con1:xqueryText>
+                        </con4:expr>
+                        <con4:message>****************************** Fault ******************************</con4:message>
+                    </con4:log>
+                    <con2:replace varName="body" contents-only="true">
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7eb3</con1:id>
+                        <con2:expr>
+                            <con1:xqueryTransform>
+                                <con1:resource ref="WSsfm6Services/WSTelefonia/Resources/XQuery/GenericResponce"/>
+                                <con1:param name="code">
+                                    <con1:path>$fault/ctx:errorCode/text()</con1:path>
+                                </con1:param>
+                                <con1:param name="IdSoaProcess">
+                                    <con1:path>fn:concat(fn:replace(fn:replace(fn:replace(fn:substring-before(xs:string(fn:current-dateTime()), '.'),'-',''),':',''),'T',''),fn:data($body/wst:Root-Element/wst:ovCon))</con1:path>
+                                </con1:param>
+                                <con1:param name="mensaje">
+                                    <con1:path>$fault/ctx:reason/text()</con1:path>
+                                </con1:param>
+                                <con1:param name="EventEstatus">
+                                    <con1:path>'Failed'</con1:path>
+                                </con1:param>
+                            </con1:xqueryTransform>
+                        </con2:expr>
+                    </con2:replace>
+                    <con1:reply>
+                        <con1:id>_ActionId-N53e951a0.N27252cc.0.18213a842fb.N7e79</con1:id>
+                    </con1:reply>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:branch-node type="operation" id="_FlowId-N53e951a0.N27252cc.0.18213a842fb.N7ffb" name="BranchNode1">
+                <con:context/>
+                <con:branch-table>
+                    <con:branch name="updateReservationRequest">
+                        <con:operator>equals</con:operator>
+                        <con:value/>
+                        <con:flow>
+                            <con:pipeline-node name="Pipeline Pair UR">
+                                <con:request>request-N53e951a0.N27252cc.0.18213a842fb.N7ffa</con:request>
+                                <con:response>response-N53e951a0.N27252cc.0.18213a842fb.N7ff9</con:response>
+                            </con:pipeline-node>
+                        </con:flow>
+                    </con:branch>
+                    <con:branch name="reserveTn">
+                        <con:operator>equals</con:operator>
+                        <con:value/>
+                        <con:flow>
+                            <con:pipeline-node name="Pipeline Pair RT">
+                                <con:request>request-N53e951a0.N27252cc.0.18213a842fb.N7ff6</con:request>
+                                <con:response>response-N53e951a0.N27252cc.0.18213a842fb.N7ff5</con:response>
+                            </con:pipeline-node>
+                        </con:flow>
+                    </con:branch>
+                    <con:default-branch>
+                        <con:flow/>
+                    </con:default-branch>
+                </con:branch-table>
+            </con:branch-node>
+        </con:flow>
+        <con:partner-links/>
+    </con:router>
+</con:pipelineEntry>

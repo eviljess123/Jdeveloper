@@ -1,0 +1,10 @@
+<view_states>
+   <function arity="3" name="func">
+      <source_tree_view last.visible.row="7" last.visible.path="/sourceRoot[[0]]/mensaje[[2]]" first.visible.path="/sourceRoot[[0]]/Request[[0]]" expanded.paths="/sourceRoot[[0]]/Request[[0]]" first.visible.row="0" selected.paths="/sourceRoot[[0]]/mensaje[[2]]"/>
+      <target_tree_view last.visible.row="2" last.visible.path="/TargetRoot[[0]]/Responce[[0]]/mensaje[[1]]" first.visible.path="/TargetRoot[[0]]/Responce[[0]]" expanded.paths="/TargetRoot[[0]]/Responce[[0]]" first.visible.row="0" selected.paths="/TargetRoot[[0]]/Responce[[0]]/mensaje[[1]]"/>
+   </function>
+   <function arity="4" name="func">
+      <source_tree_view last.visible.row="8" last.visible.path="/sourceRoot[[0]]/eventStatus[[3]]" first.visible.path="/sourceRoot[[0]]/Request[[0]]" expanded.paths="/sourceRoot[[0]]/Request[[0]]" first.visible.row="0" selected.paths="/sourceRoot[[0]]/Request[[0]]/nbrPSR[[2]]"/>
+      <target_tree_view last.visible.row="4" last.visible.path="/TargetRoot[[0]]/Responce[[0]]/EventEstatus[[3]]" first.visible.path="/TargetRoot[[0]]/Responce[[0]]" expanded.paths="/TargetRoot[[0]]/Responce[[0]]" first.visible.row="0" selected.paths="/TargetRoot[[0]]/Responce[[0]]/EventEstatus[[3]]"/>
+   </function>
+</view_states>

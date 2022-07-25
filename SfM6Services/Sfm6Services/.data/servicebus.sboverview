@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns:composite xmlns:ns="http://xmlns.oracle.com/sca/1.0">
+    <ns:reference>
+        <ns:interface src="BusinessService:Sfm6Services/M6NotificationSf/BusinessService/SetNotificationSf"/>
+    </ns:reference>
+    <ns:reference>
+        <ns:interface src="BusinessService:Sfm6Services/M6NotificationSf/BusinessService/EnterpriseSf"/>
+    </ns:reference>
+    <ns:reference>
+        <ns:interface src="BusinessService:Sfm6Services/SfDueDate/BisinessService/SendDueDateM6BS"/>
+    </ns:reference>
+</ns:composite>

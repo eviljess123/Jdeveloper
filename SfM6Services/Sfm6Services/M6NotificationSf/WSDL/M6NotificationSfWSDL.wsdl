@@ -1,0 +1,47 @@
+<?xml version= '1.0' encoding= 'UTF-8' ?>
+<wsdl:definitions
+     name="M6NotificationSfWSDL"
+     targetNamespace="http://www.izzi.com/sfm6services/m6notificationSf"
+     xmlns:tns="http://www.izzi.com/sfm6services/m6notificationSf"
+     xmlns:inp1="http://www.izzi.com/sfm6services/m6notificationSfxsd"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+     xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    >
+    <wsdl:types>
+        <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+            <xsd:import namespace="http://www.izzi.com/sfm6services/m6notificationSfxsd" schemaLocation="../XSD/M6NotificationSfXSD.xsd"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="requestMessage">
+        <wsdl:part name="Input" element="inp1:m6NotificationRequest"/>
+    </wsdl:message>
+    <wsdl:message name="replyMessage">
+        <wsdl:part name="Output" element="inp1:m6NotificationResponce"/>
+    </wsdl:message>
+    <wsdl:message name="faultMessage">
+        <wsdl:part name="ResponceFault" element="inp1:m6NotificationResponce"/>
+    </wsdl:message>
+    <wsdl:portType name="execute_ptt">
+        <wsdl:operation name="notificationsf">
+            <wsdl:input message="tns:requestMessage"/>
+            <wsdl:output message="tns:replyMessage"/>
+            <wsdl:fault name="notificationsffault" message="tns:faultMessage"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="execute_bind" type="tns:execute_ptt">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsdl:operation name="notificationsf">
+            <soap:operation style="document" soapAction="notificationsf"/>
+            <wsdl:input>
+                <soap:body use="literal" namespace="http://www.izzi.com/sfm6services/m6notificationSf"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal" namespace="http://www.izzi.com/sfm6services/m6notificationSf"/>
+            </wsdl:output>
+            <wsdl:fault name="notificationsffault">
+                <soap:fault name="notificationsffault" use="literal"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

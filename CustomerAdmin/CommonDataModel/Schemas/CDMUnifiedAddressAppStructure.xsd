@@ -1,0 +1,222 @@
+<!-- edited with XMLSpy v2015 sp2 (http://www.altova.com) by Cesar Varela (Television Internacional) --><!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2014 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		 Version: 1.0
+		Date: October 16, 2014
+ 		File Name: CDMUnifiedAddresAppStructure.xsd 
+ --><xsd:schema targetNamespace="http://telum.mx/CommonDataModel/2.0/UnifiedAddress" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Uam="http://telum.mx/CommonDataModel/2.0/UnifiedAddress" xmlns:Cmn="http://telum.mx/CommonDataModel/2.0/Common">
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Common" schemaLocation="CDMCommon.xsd"/>
+	<!-- OperationType : Estructura que proporciona informacion de la operacion a ejecutar   -->
+	<xsd:element name="Operation" type="Uam:OperationType"/>
+	<xsd:complexType name="OperationType">
+		<xsd:sequence>
+			<xsd:element name="Operation" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="User" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Suburb : Estructura que proporciona informacion de los datos de la colonia   -->
+	<xsd:element name="Suburb" type="Uam:SuburbType"/>
+	<xsd:complexType name="SuburbType">
+		<xsd:sequence>
+			<xsd:element name="ListOfSuburbId" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SuburbId" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="StateId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="MunicipalityId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="StratumId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ZipCode" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- StreetType : Estructura que proporciona informacion de los datos de una calle   -->
+	<xsd:element name="Street" type="Uam:StreetType"/>
+	<xsd:complexType name="StreetType">
+		<xsd:all>
+			<xsd:element name="ListOfStreetId" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="StreetId" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="TrackTypeId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ConflictiveFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DeletedComments" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ConflictiveComments" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Operation" type="Uam:OperationType" minOccurs="0"/>
+			<xsd:element name="ListOfSuburbId" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SuburbId" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:all>
+	</xsd:complexType>
+	<!-- HFCType : Estructura que proporciona informacion de los datos de HFC   -->
+	<xsd:element name="HFC" type="Uam:HFCType"/>
+	<xsd:complexType name="HFCType">
+		<xsd:sequence>
+			<xsd:element name="ListOfHFCId" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="HFCId" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Latitude" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Longitude" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VideoOnDemandFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="PointOfPointName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="NetworkFailFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Frequency" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Node" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Comments" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="InternetFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="TelephonyFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DigitalBasicFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="EconomicBasicFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="HighVelocityFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DuplicateVelocityFlag" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ShortDialing" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="VelocityTypeId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="MinimumVelocityId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="MaximumVelocityId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="NodeTypeId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Operation" type="Uam:OperationType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- GPONType : Estructura que proporciona informacion de los datos de GPON  -->
+	<xsd:element name="GPON" type="Uam:GPONType"/>
+	<xsd:complexType name="GPONType">
+		<xsd:sequence>
+			<xsd:element name="ListOfGPONId" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="GPONId" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="MaximumVelocity" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MinimumVelocity" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Comments" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Zone" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Operation" type="Uam:OperationType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- HomeAddressType : Estructura que proporciona informacion de los datos de un domicilio   -->
+	<xsd:element name="HomeAddress" type="Uam:HomeAddressType"/>
+	<xsd:complexType name="HomeAddressType">
+		<xsd:complexContent>
+			<xsd:extension base="Cmn:UrbanPropertyAddressType">
+				<xsd:sequence>
+					<xsd:element name="ListOfHomeAddresId" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="HomeAddresId" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="SuburbId" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="StreetId" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="CrossStreetFirstId" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="CrossStreetSecondId" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="BusinessJurisdictionId" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="BranchOfficeId" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="LocalNumber" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="AmpService" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Latitude" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Longitude" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="InstallationTypeId" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="NetworkInstallationTypeId" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="Comments" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ConflictiveAddressFlag" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="PirateAddressFlag" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="MultiServiceFlag" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="HFCId" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="GPONId" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="Operation" type="Uam:OperationType" minOccurs="0"/>
+					<xsd:element name="CrossStreetFirstSuburbId" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="CrossStreetSecondSuburbId" type="Cmn:IdentifiersType" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- HFCMassive : Estructura que proporciona informacion de los datos de HFC Masivo   -->
+	<xsd:element name="HFCMassive" type="Uam:HFCMassiveType"/>
+	<xsd:complexType name="HFCMassiveType">
+		<xsd:complexContent>
+			<xsd:extension base="Uam:HFCType">
+				<xsd:sequence>
+					<xsd:element name="ListOfAddressId" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="AddressId" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- GPONMassive : Estructura que proporciona informacion de los datos de GPON Masivo   -->
+	<xsd:element name="GPONMassive" type="Uam:GPONMassiveType"/>
+	<xsd:complexType name="GPONMassiveType">
+		<xsd:complexContent>
+			<xsd:extension base="Uam:GPONType">
+				<xsd:sequence>
+					<xsd:element name="ListOfAddressId" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="AddressId" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- UAM: SuburbUAMType Extension para UAM mensaje para colonias -->
+	<xsd:element name="SuburbUAM" type="Uam:SuburbUAMType"/>
+	<xsd:complexType name="SuburbUAMType">
+		<xsd:complexContent>
+			<xsd:extension base="Uam:SuburbType">
+				<xsd:sequence>
+					<xsd:element name="InstallationTypeId" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="WiringTypeId" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="AvailableFlag" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="AvailibalityDate" type="xsd:date" minOccurs="0"/>
+					<xsd:element name="ConflictiveFlag" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="CreationDate" type="xsd:date" minOccurs="0"/>
+					<xsd:element name="ImmediateInstallationFlag" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="DeletedComments" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ConflictiveComments" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="Operation" type="Uam:OperationType" minOccurs="0"/>
+					<xsd:element name="UnrelatedSuburbsOnlyFlag" type="xsd:string" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- CCO: SuburbCCOType Extension para Conecta tu colonia -->
+	<xsd:element name="SuburbCCO" type="Uam:SuburbCCOType"/>
+	<xsd:complexType name="SuburbCCOType">
+		<xsd:complexContent>
+			<xsd:extension base="Uam:SuburbType">
+				<xsd:sequence>
+					<xsd:element name="ConciliatedSuburbFlag" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="ActiveCustomers" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="TotalRGUs" type="xsd:string" minOccurs="0"/>
+					<xsd:element name="NumberOfCabledHousing" type="xsd:string" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+</xsd:schema>

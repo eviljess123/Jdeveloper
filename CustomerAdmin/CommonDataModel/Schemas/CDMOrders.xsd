@@ -1,0 +1,548 @@
+<!-- edited with XMLSpy v2015 (x64) (http://www.altova.com) by David Rzui (Television Internacional) --><!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2011 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		 Version: 1.0
+		Date: February 24 2011
+ 		File Name: CDMSalesOrder.xsd 
+ --><xsd:schema targetNamespace="http://telum.mx/CommonDataModel/2.0/SalesOrder" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Prv="http://telum.mx/CommonDataModel/2.0/Provisioning" xmlns:Odr="http://telum.mx/CommonDataModel/2.0/SalesOrder" xmlns:Cmn="http://telum.mx/CommonDataModel/2.0/Common" xmlns:Bil="http://telum.mx/CommonDataModel/2.0/Billing" xmlns:Cur="http://telum.mx/CommonDataModel/2.0/Customer" xmlns:Wfm="http://telum.mx/CommonDataModel/2.0/Workforce">
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Common" schemaLocation="CDMCommon.xsd"/>
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Customer" schemaLocation="CDMCustomers.xsd"/>
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Billing" schemaLocation="CDMBillingAppStructure.xsd"/>
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Workforce" schemaLocation="CDMWorkforceAppStructure.xsd"/>
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Provisioning" schemaLocation="CDMProvisioningAppStructure.xsd"/>
+	<!--    -->
+	<!-- Orders.SalesOrder : Contenido de la orden de venta  -->
+	<xsd:element name="SalesOrder" type="Odr:SalesOrderType"/>
+	<xsd:complexType name="SalesOrderType">
+		<xsd:sequence minOccurs="0">
+			<xsd:element name="OrderInfo" type="Odr:OrderInfoType"/>
+			<xsd:element ref="Odr:CommercialDataStructure" minOccurs="0"/>
+			<xsd:element name="ListOfFinancingPlans" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="Bil:FinancingPlan" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfPayments" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Payment" type="Bil:PaymentsType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Customer" type="Cur:CustomerPartyType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Orders.SalesOrderTiny : Contenido de la orden de venta reducido  -->
+	<xsd:element name="SalesOrderTiny" type="Odr:SalesOrderTinyType"/>
+	<xsd:complexType name="SalesOrderTinyType">
+		<xsd:sequence minOccurs="0">
+			<xsd:element name="OrderInfo" type="Odr:OrderInfoType" minOccurs="0"/>
+			<xsd:element ref="Odr:CommercialDataStructure" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- Orders.CommercialDataStructure : Estructura General de la orden generada en el sistema de gestón de clientes -->
+	<xsd:element name="CommercialDataStructure" type="Odr:OrderItemsType"/>
+	<xsd:complexType name="CommercialDataStructureType">
+		<xsd:sequence>
+			<xsd:element ref="Odr:OrderItems"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- Orders.BillingOrder : Contenido de la orden para operaciones de facturación  -->
+	<xsd:element name="BillingOrder" type="Odr:BillingOrderType"/>
+	<xsd:complexType name="BillingOrderType">
+		<xsd:sequence>
+			<xsd:element name="OrderInfo" type="Odr:OrderInfoType"/>
+			<xsd:element ref="Bil:BillingAppStructure"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- Orders.BillingServiceInstanceOrder : Contenido de la orden para operaciones de facturación  -->
+	<xsd:element name="BillingServiceInstanceOrder" type="Odr:BillingServiceInstanceOrderType"/>
+	<xsd:complexType name="BillingServiceInstanceOrderType">
+		<xsd:sequence>
+			<xsd:element name="OrderInfo" type="Odr:OrderInfoType"/>
+			<xsd:element ref="Bil:ServiceInstances"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- -->
+	<!-- Orders.ProvisioningOrder : Contenido de la orden para operaciones de aprovisionamiento  -->
+	<xsd:element name="ProvisioningOrder" type="Odr:ProvisioningOrderType"/>
+	<xsd:complexType name="ProvisioningOrderType">
+		<xsd:sequence>
+			<xsd:element name="ProvisioningOrderInfo" type="Odr:ProvisioningOrderInfoType"/>
+			<xsd:element name="Customer" type="Cur:CustomerPartyType" minOccurs="0"/>
+			<xsd:element name="ListOfItems" type="Odr:ProvisioningOrderItemType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- -->
+	<!-- Orders.ProvisioningOrderInfo : Contenido básico de la orden  -->
+	<xsd:element name="ProvisioningOrderInfo" type="Odr:ProvisioningOrderInfoType"/>
+	<xsd:complexType name="ProvisioningOrderInfoType">
+		<xsd:sequence>
+			<xsd:element name="ProvisioningOrderID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SubType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Priority" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CreatedDateTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="PublishedDateTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="DueDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0"/>
+			<xsd:element name="AssignedTechnician" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Username" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- -->
+	<!-- ProvisioningOrder.OrderItem : Items Comerciales incluidos en la orden  -->
+	<xsd:element name="ProvisioningOrderItem" type="Odr:ProvisioningOrderItemType"/>
+	<xsd:complexType name="ProvisioningOrderItemType">
+		<xsd:sequence>
+			<xsd:element name="ActionCode" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Accion sobre el ProvisioningOrderItem</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProvisioningType" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Tipo de aprovisionamiento [VIRTUAL, PHYSICAL, IVR]</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ServiceLocation" type="Odr:SericeLocationType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Locacion de Servicio</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ListOfCustomerEquipments" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="CustomerEquipment" type="Odr:CustomerEquipmentExtendedType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfCustomerServices" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="CustomerService" type="Prv:CustomerServiceType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- -->
+	<xsd:complexType name="SericeLocationType">
+		<xsd:complexContent>
+			<xsd:extension base="Cmn:UrbanPropertyAddressType">
+				<xsd:sequence>
+					<xsd:element name="Hub" type="xsd:normalizedString" minOccurs="0"/>
+					<xsd:element name="Node" type="xsd:normalizedString" minOccurs="0"/>
+					<xsd:element name="BusinessGroup" type="xsd:normalizedString" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Solo para marcacion corta</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="NumberPlan" type="xsd:normalizedString" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Solo para marcacion corta</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="NetworkType" type="xsd:normalizedString" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Tipo de Red sobre la que se instala el servicio(HFC, GPON)</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- -->
+	<!-- Orders.CustomerEquipmentExtended : Estructura extendida del CustomerEquipment a usarse en provisioning  -->
+	<xsd:element name="CustomerEquipmentExtended" type="Odr:CustomerEquipmentExtendedType"/>
+	<xsd:complexType name="CustomerEquipmentExtendedType">
+		<xsd:complexContent>
+			<xsd:extension base="Cmn:CustomerEquipmentType">
+				<xsd:sequence>
+					<xsd:element name="AdditionalSpeed" type="xsd:normalizedString" minOccurs="0"/>
+					<xsd:element name="ListOfLines" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Line" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="LineNumber">
+												<xsd:annotation>
+													<xsd:documentation>Numero de linea telefonica</xsd:documentation>
+												</xsd:annotation>
+												<xsd:complexType>
+													<xsd:simpleContent>
+														<xsd:extension base="xsd:normalizedString">
+															<xsd:attribute name="dialingShort" type="xsd:normalizedString"/>
+															<xsd:attribute name="action" type="xsd:normalizedString"/>
+														</xsd:extension>
+													</xsd:simpleContent>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="Restrictions">
+												<xsd:simpleType>
+													<xsd:restriction base="xsd:normalizedString"/>
+												</xsd:simpleType>
+											</xsd:element>
+											<xsd:element name="SecurityType" type="xsd:normalizedString" minOccurs="0"/>
+											<xsd:element name="ListOfTeenLine" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="TeenLine" maxOccurs="unbounded">
+															<xsd:complexType>
+																<xsd:simpleContent>
+																	<xsd:extension base="xsd:normalizedString">
+																		<xsd:attribute name="action" type="xsd:normalizedString"/>
+																	</xsd:extension>
+																</xsd:simpleContent>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="ListOfDigitalServices" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="DigitalService" maxOccurs="unbounded">
+															<xsd:annotation>
+																<xsd:documentation>Nombre tecnico del servicio digital</xsd:documentation>
+															</xsd:annotation>
+															<xsd:complexType>
+																<xsd:simpleContent>
+																	<xsd:extension base="xsd:normalizedString">
+																		<xsd:attribute name="action" type="xsd:normalizedString"/>
+																		<xsd:attribute name="status" default="DISABLED">
+																			<xsd:simpleType>
+																				<xsd:restriction base="xsd:normalizedString">
+																					<xsd:enumeration value="ENABLED"/>
+																					<xsd:enumeration value="DISABLED"/>
+																				</xsd:restriction>
+																			</xsd:simpleType>
+																		</xsd:attribute>
+																	</xsd:extension>
+																</xsd:simpleContent>
+															</xsd:complexType>
+														</xsd:element>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+											<xsd:element name="Action" type="xsd:normalizedString"/>
+											<xsd:element name="SoftswitchServer" type="xsd:normalizedString" minOccurs="0"/>
+											<xsd:element name="TelephonyServerId" type="xsd:normalizedString" minOccurs="0"/>
+											<xsd:element name="Asl" type="xsd:normalizedString" minOccurs="0"/>
+											<xsd:element name="CarrierCompany" type="xsd:normalizedString" minOccurs="0"/>
+											<xsd:element name="Pin" type="xsd:normalizedString" minOccurs="0"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="ListOfAdditionalService" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="AdditionalService" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:simpleContent>
+											<xsd:extension base="xsd:normalizedString">
+												<xsd:attribute name="type" type="xsd:normalizedString"/>
+												<xsd:attribute name="action" type="xsd:normalizedString"/>
+												<xsd:attribute name="name" type="xsd:normalizedString"/>
+											</xsd:extension>
+										</xsd:simpleContent>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0"/>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--- -->
+	<!-- -->
+	<!-- Orders.WorkOrder : Contenido de la orden para operaciones de aprovisionamiento  -->
+	<xsd:element name="WorkOrder" type="Odr:WorkOrderType"/>
+	<xsd:complexType name="WorkOrderType">
+		<xsd:sequence>
+			<xsd:element name="WorkOrderInfo" type="Odr:WorkOrderInfoType"/>
+			<xsd:element name="Customer" type="Cur:CustomerPartyType"/>
+			<xsd:element name="ListOfEquipments" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Equipment" type="Prv:EquipmentType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfServices" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Service" type="Prv:OperationServiceType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfTask" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Task" type="Wfm:TaskType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- -->
+	<!-- Orders.OrderInfo : Contenido básico de la orden  -->
+	<xsd:element name="OrderInfo" type="Odr:OrderInfoType"/>
+	<xsd:complexType name="OrderInfoType">
+		<xsd:sequence>
+			<xsd:element name="OrderID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="ParentOrderID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SubType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Priority" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CreatedDateTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="PublishedDateTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="DueDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="MarketSegment" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="MarketSubSegment" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SalesPaymentMethod" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="CAMBACEO"/>
+						<xsd:enumeration value="CENTRO EXTERNO"/>
+						<xsd:enumeration value="EN LINEA"/>
+						<xsd:enumeration value="MENSAJERO"/>
+						<xsd:enumeration value="NA"/>
+						<xsd:enumeration value="RECORDATORIO DE PAGO"/>
+						<xsd:enumeration value="SUCURSAL"/>
+						<xsd:enumeration value="Sucursal"/>
+						<xsd:enumeration value="Recordatorio de pago"/>
+						<!-- Campo para PPV -->
+						<!-- Campo para PPV -->
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="DeliveryMethod" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Cambaceo"/>
+						<xsd:enumeration value="Mensajero"/>
+						<xsd:enumeration value="Mensajería Externa"/>
+						<xsd:enumeration value="NA"/>
+						<xsd:enumeration value="Sucursal"/>
+						<xsd:enumeration value="Técnico"/>
+						<xsd:enumeration value="Doble Visita"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SalesChannel" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Tlmk Inbound"/>
+						<xsd:enumeration value="Tlmk Outbound"/>
+						<xsd:enumeration value="Sucursal"/>
+						<xsd:enumeration value="PyME"/>
+						<xsd:enumeration value="Portal"/>
+						<xsd:enumeration value="Cobranza"/>
+						<xsd:enumeration value="Cambaceo"/>
+						<xsd:enumeration value="Atención a Clientes"/>
+						<xsd:enumeration value="VEO"/>
+						<xsd:enumeration value="Web"/>
+						<xsd:enumeration value="IVR"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="SalesChannelName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Username" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CommercialOperation" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CommercialOperationType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PortabilityProviderName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SuspensionRequired" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="IsBillNowRequired" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ServicePaymentType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Version" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="WorkOrderInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AutomaticSchedulingFlag" type="xsd:boolean" minOccurs="0"/>
+						<xsd:element name="ActivityID" type="Cmn:IdentifiersType" minOccurs="0"/>
+						<xsd:element name="ExternalInstallationType" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="InternalInstallationType" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="TimeSlot" minOccurs="0">
+							<xsd:complexType>
+								<xsd:complexContent>
+									<xsd:extension base="Wfm:TimeSlotType"/>
+								</xsd:complexContent>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element ref="Odr:FailureInfo" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="RootDirectory" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CommercialOperationPayment" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DomicileDiscountFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Term" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="NetworkType" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Value" type="Cmn:NetworkTypeEnum" default="HFC"/>
+						<xsd:element name="PreviousValue" type="Cmn:NetworkTypeEnum" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- -->
+	<!-- Orders.WorkOrderInfo : Encabezado de la orden de trabajo  -->
+	<xsd:element name="WorkOrderInfo" type="Odr:WorkOrderInfoType"/>
+	<xsd:complexType name="WorkOrderInfoType">
+		<xsd:sequence>
+			<xsd:element name="OrderID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="ParentOrderID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum">
+				<xsd:annotation>
+					<xsd:documentation>Plaza a la que pertenece la orden</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Type" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SubType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Priority" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CreatedBy" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CreatedDateTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="PublishedDateTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="Observations" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Activity" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="TimeSlot" type="Wfm:TimeSlotType" minOccurs="0"/>
+			<xsd:element name="FailureInfo" type="Odr:FailureInfoType" minOccurs="0"/>
+			<xsd:element name="AccountReference" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- -->
+	<!-- Orders.OrderItems : Items Comerciales incluidos en la orden  -->
+	<xsd:element name="OrderItems" type="Odr:OrderItemsType"/>
+	<xsd:complexType name="OrderItemsType">
+		<xsd:sequence>
+			<xsd:element name="OrderItem" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="OrderItemID" type="Cmn:IdentifiersType" minOccurs="0"/>
+						<xsd:element name="IntegrationID" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="ParentOrderItemID" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="RootOrderItemID" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="OfferOrderItemID" type="Cmn:IdentifiersType" minOccurs="0"/>
+						<xsd:element name="ServiceID" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="ServiceType" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="ServiceInstance" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:normalizedString">
+									<xsd:enumeration value="Y"/>
+									<xsd:enumeration value="N"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="PartNumber" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element ref="Cmn:TimePeriod" minOccurs="0"/>
+						<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="SubStatus" type="xsd:string" minOccurs="0"/>
+						<xsd:element ref="Cmn:ChargeInfo" minOccurs="0"/>
+						<xsd:element name="ProductInfo" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="ProductID" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="ProductItemID" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="ProductPortID" type="xsd:string" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="IsBillNowRequired" minOccurs="0">
+							<xsd:simpleType>
+								<xsd:restriction base="xsd:normalizedString">
+									<xsd:enumeration value="Y"/>
+									<xsd:enumeration value="N"/>
+								</xsd:restriction>
+							</xsd:simpleType>
+						</xsd:element>
+						<xsd:element name="TypeCode" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="SubTypeCode" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="ActionCode" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="ActionCodeBilling" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="ActionCodeProvisioning" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="Lineage" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="DiscountLossFlag" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="RoomLocation" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element ref="Bil:FinancingPlanSimple" minOccurs="0"/>
+						<xsd:element name="ListOfSpecifications" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Lista de Especifiicaciones técnicas del Item</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="ItemSpecification" type="Cmn:ItemSpecificationType" maxOccurs="unbounded"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="AccountReference" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+						<xsd:element name="PortabilityProviderName" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="AccessNetwork" type="xsd:normalizedString" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Medio de acceso [ Fibra, GPON, HFC]</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="AssetIntegrationId" type="xsd:string" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- -->
+	<!-- Orders.OrderTaskType : Tareas de la orden  -->
+	<xsd:element name="OrderTask" type="Odr:OrderTaskType"/>
+	<xsd:complexType name="OrderTaskType">
+		<xsd:sequence>
+			<xsd:element name="TaskID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="Clasification" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Sequence" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Orders.OrderTaskClasificationType : Clasificacion de las tareas de la orden  -->
+	<xsd:element name="OrderTaskClasification" type="Odr:OrderTaskClasificationType"/>
+	<xsd:complexType name="OrderTaskClasificationType">
+		<xsd:sequence>
+			<xsd:element name="TaskClasifiactionID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Sequence" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- -->
+	<xsd:element name="FailureInfo" type="Odr:FailureInfoType">
+		<xsd:annotation>
+			<xsd:documentation>Informacion de la falla reportada</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="FailureInfoType">
+		<xsd:sequence>
+			<xsd:element name="Code" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Orders.ServiceInstance : Información del item cuando representa a una instancia de servicio comercial >
+	<xsd:element name="ServiceInstance" type="Odr:ServiceInstanceType"/>
+	<xsd:complexType name="ServiceInstanceType">
+		<xsd:complexContent>
+			<xsd:extension base="Cmn:ServiceType"/>
+		</xsd:complexContent>
+	</xsd:complexType-->
+	<!-- -->
+</xsd:schema>

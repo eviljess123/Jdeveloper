@@ -1,0 +1,298 @@
+<!-- edited with XMLSpy v2015 (x64) (http://www.altova.com) by David Rzui (Television Internacional) --><!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2011 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		 Version: 1.0
+		Date: May 11 2011
+ 		File Name: CDMWorkforceAppStructure.xsd 
+ --><xsd:schema targetNamespace="http://telum.mx/CommonDataModel/2.0/Workforce" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Wfm="http://telum.mx/CommonDataModel/2.0/Workforce" xmlns:Cmn="http://telum.mx/CommonDataModel/2.0/Common">
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Common" schemaLocation="CDMCommon.xsd"/>
+	<!--    -->
+	<!-- WorkforceApplication. Task : es la unidad de trabajo de la WorkOrder -->
+	<xsd:element name="Task">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Wfm:TaskType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="TaskType">
+		<xsd:sequence>
+			<xsd:element name="TaskID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ServiceReference" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- WorkforceApplication.TimeSlot : es la unidad de tiempo para las WorkOrder -->
+	<xsd:element name="TimeSlot">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Wfm:TimeSlotType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="TimeSlotType">
+		<xsd:sequence>
+			<xsd:element name="TimeSlotID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="SlotDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="StartTime" type="xsd:time" minOccurs="0"/>
+			<xsd:element name="EndTime" type="xsd:time" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- WorkforceApplication.WfmTimeSlot : es la unidad de tiempo para las WorkOrder -->
+	<xsd:element name="WfmTimeSlot">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Wfm:WfmTimeSlotType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="WfmTimeSlotType">
+		<xsd:sequence>
+			<xsd:element name="WfmTimeSlotID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="SlotDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="StartTime" type="xsd:time" minOccurs="0"/>
+			<xsd:element name="EndTime" type="xsd:time" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- WorkforceApplication.TechnicalData : son las especificaciones tecnicas dentro de la ubicacion de servicio de la WorkOrder -->
+	<xsd:element name="TechnicalData">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Wfm:TechnicalDataType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="TechnicalDataType">
+		<xsd:sequence>
+			<xsd:element name="DropType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="HouseStatus" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SubscriberDrop" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="OutletNumber" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NewSubscriberDrop" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="NewOutletNumber" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="InstalledYardage" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="AmplifierID" type="xsd:int" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- WorkforceApplication.GetTimeSlot : es la consulta de la unidad de tiempo para las WorkOrder -->
+	<xsd:element name="GetTimeSlot">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Wfm:GetTimeSlotType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="GetTimeSlotType">
+		<xsd:sequence>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Plaza</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MunicipalityId" type="Cmn:IdentifiersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Municipio</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Department" type="Cmn:IdentifiersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Departamento encargado de la orden</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ListOfTask" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Job" type="Wfm:TaskType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ParameterList" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Priority" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="StartDate" type="xsd:date" minOccurs="0"/>
+						<xsd:element name="EndDate" type="xsd:date" minOccurs="0"/>
+						<xsd:element name="StartTime" type="xsd:time" minOccurs="0"/>
+						<xsd:element name="EndTime" type="xsd:time" minOccurs="0"/>
+						<xsd:element name="PreferredDate" type="xsd:date" minOccurs="0"/>
+						<xsd:element name="DayOfWeek" type="xsd:normalizedString" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- WorkforceApplication.GetWfmTimeSlot : es la consulta de la unidad de tiempo para las WorkOrder -->
+	<xsd:element name="GetWfmTimeSlot">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Wfm:GetWfmTimeSlotType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="GetWfmTimeSlotType">
+		<xsd:sequence>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Plaza</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MunicipalityId" type="Cmn:IdentifiersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Municipio</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProfileId" type="Cmn:IdentifiersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Perfil del tecnico</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ParameterList" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Priority" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="StartDate" type="xsd:date" minOccurs="0"/>
+						<xsd:element name="EndDate" type="xsd:date" minOccurs="0"/>
+						<xsd:element name="StartTime" type="xsd:time" minOccurs="0"/>
+						<xsd:element name="EndTime" type="xsd:time" minOccurs="0"/>
+						<xsd:element name="PreferredDate" type="xsd:date" minOccurs="0"/>
+						<xsd:element name="DayOfWeek" type="xsd:normalizedString" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- WorkforceApplication.WorkOrderReschedule : es la estructura para el reagendamiento de las WorkOrder -->
+	<xsd:element name="WorkOrderReschedule">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Wfm:WorkOrderRescheduleType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="WorkOrderRescheduleType">
+		<xsd:sequence>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Plaza</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Order">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="OrderID" type="Cmn:IdentifiersType"/>
+						<xsd:element name="NewTimeSlot" type="Wfm:TimeSlotType"/>
+						<xsd:element name="ActivityID" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="PreviousActivityID" type="xsd:normalizedString" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="TechnicianInfoType">
+		<xsd:sequence>
+			<xsd:element name="AssignedTechnician" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AssignedTechnicalAssistant" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FulfilmentDate" type="xsd:date" minOccurs="0"/>
+			<xsd:element name="TechnicianArrivalHour" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="TechnicianDepartureHour" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfTechnicalResponse" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="TechnicalResponseCode" type="xsd:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- WorkforceApplication.FulfilmentInfo : es la estructura para el cumplimiento de las WorkOrder -->
+	<xsd:element name="FulfilmentInfo">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Wfm:FulfilmentInfoType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="FulfilmentInfoType">
+		<xsd:complexContent>
+			<xsd:extension base="Wfm:TechnicianInfoType">
+				<xsd:sequence>
+					<xsd:element name="RecipientRelationshipWithCustomer" type="xsd:normalizedString" minOccurs="0"/>
+					<xsd:element name="RecipientName" type="xsd:normalizedString" minOccurs="0"/>
+					<xsd:element name="DocumentType" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="PaymentType" type="xsd:normalizedString" minOccurs="0"/>
+					<xsd:element name="PaymentAmount" type="xsd:decimal" minOccurs="0"/>
+					<xsd:element name="Summary" type="xsd:normalizedString" minOccurs="0"/>
+					<xsd:element name="MaterialList" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Material" type="Cmn:MaterialType" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="EquipmentList" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Equipment" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:complexContent>
+											<xsd:extension base="Cmn:CustomerEquipmentType">
+												<xsd:sequence>
+													<xsd:element name="DocumentType" type="Cmn:IdentifiersType" minOccurs="0"/>
+												</xsd:sequence>
+											</xsd:extension>
+										</xsd:complexContent>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- WorkforceApplication.ProvisioningFulfilmentResponse : es la estructura para el la respuesta del aprovisionamiento de las WorkOrder -->
+	<xsd:element name="ProvisioningFulfilmentResponse">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Wfm:ProvisioningFulfilmentResponseType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ProvisioningFulfilmentResponseType">
+		<xsd:sequence>
+			<xsd:element name="MaterialList" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Material" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:complexContent>
+									<xsd:extension base="Cmn:MaterialType">
+										<xsd:sequence>
+											<xsd:element name="Response" type="Cmn:ResponseType" minOccurs="0"/>
+										</xsd:sequence>
+									</xsd:extension>
+								</xsd:complexContent>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="EquipmentList" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Equipment" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:complexContent>
+									<xsd:extension base="Cmn:CustomerEquipmentType">
+										<xsd:sequence>
+											<xsd:element name="Response" type="Cmn:ResponseType" minOccurs="0"/>
+										</xsd:sequence>
+									</xsd:extension>
+								</xsd:complexContent>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

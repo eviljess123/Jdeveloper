@@ -1,0 +1,44 @@
+<!-- edited with XMLSpy v2015 sp2 (http://www.altova.com) by Cesar Varela (Television Internacional) --><xsd:schema targetNamespace="http://telum.mx/CommonDataModel/2.0/Resources" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Res="http://telum.mx/CommonDataModel/2.0/Resources" xmlns:Cmn="http://telum.mx/CommonDataModel/2.0/Common">
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Common" schemaLocation="CDMCommon.xsd"/>
+	<xsd:complexType name="ATMInformationType">
+		<xsd:sequence>
+			<xsd:element name="PayworkVersion" type="xsd:normalizedString"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="UserInformationType">
+		<xsd:sequence>
+			<xsd:element name="User" type="xsd:normalizedString"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="CashierType">
+		<xsd:sequence>
+			<xsd:element name="CashierId" type="Cmn:IdentifiersType"/>
+			<xsd:element name="Type">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="ATM"/>
+						<xsd:enumeration value="USER"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:choice>
+				<xsd:element name="UserInformation" type="Res:UserInformationType"/>
+				<xsd:element name="ATMInformation" type="Res:ATMInformationType"/>
+			</xsd:choice>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="BranchOfficeType">
+		<xsd:sequence>
+			<xsd:element name="BranchOfficeId" type="Cmn:IdentifiersType"/>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum"/>
+			<xsd:element name="Location" type="Cmn:UrbanPropertyAddressType" minOccurs="0"/>
+			<xsd:element name="ListOfCashier" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Cashier" type="Res:CashierType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

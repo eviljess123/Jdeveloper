@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://mmredes" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://mmredes" xmlns:intf="http://mmredes" xmlns:tns1="http://entities.adapter.mmredes.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://mmredes" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://entities.adapter.mmredes.com"/>
+   <element name="executeMultipleOpcodesNoPool">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="opcodeCommandList" type="tns1:OpcodeCommand"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="executeMultipleOpcodesNoPoolResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="executeMultipleOpcodesNoPoolReturn" type="tns1:OpcodeResult"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="executeMultipleOpcodesNoPoolFlag">
+    <complexType>
+     <sequence>
+      <element name="flagTransaction" type="xsd:string"/>
+      <element maxOccurs="unbounded" name="opcodeCommandList" type="tns1:OpcodeCommand"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="executeMultipleOpcodesNoPoolFlagResponse">
+    <complexType>
+     <sequence>
+      <element maxOccurs="unbounded" name="executeMultipleOpcodesNoPoolFlagReturn" type="tns1:OpcodeResult"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="ping">
+    <complexType>
+     <sequence>
+      <element name="myText" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="pingResponse">
+    <complexType>
+     <sequence>
+      <element name="pingReturn" type="xsd:string"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://entities.adapter.mmredes.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <complexType name="OpcodeCommand">
+    <sequence>
+     <element name="descService" nillable="true" type="xsd:string"/>
+     <element name="endT" nillable="true" type="xsd:string"/>
+     <element name="flags" type="xsd:int"/>
+     <element name="inputValidation" nillable="true" type="xsd:string"/>
+     <element name="isBaseOpcode" nillable="true" type="xsd:string"/>
+     <element name="message" nillable="true" type="xsd:string"/>
+     <element name="numOrder" nillable="true" type="xsd:string"/>
+     <element name="opcode" nillable="true" type="xsd:string"/>
+     <element name="opcodeSchema" nillable="true" type="xsd:string"/>
+     <element name="outputValidation" nillable="true" type="xsd:string"/>
+     <element name="serviceObj" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="OpcodeResult">
+    <sequence>
+     <element name="result" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+     <wsdl:message name="executeMultipleOpcodesNoPoolRequest">
+
+          <wsdl:part element="intf:executeMultipleOpcodesNoPool" name="parameters"/>
+
+     </wsdl:message>
+
+     <wsdl:message name="executeMultipleOpcodesNoPoolResponse">
+
+          <wsdl:part element="intf:executeMultipleOpcodesNoPoolResponse" name="parameters"/>
+
+     </wsdl:message>
+
+     <wsdl:message name="executeMultipleOpcodesNoPoolFlagRequest">
+
+          <wsdl:part element="intf:executeMultipleOpcodesNoPoolFlag" name="parameters"/>
+
+     </wsdl:message>
+
+     <wsdl:message name="executeMultipleOpcodesNoPoolFlagResponse">
+
+          <wsdl:part element="intf:executeMultipleOpcodesNoPoolFlagResponse" name="parameters"/>
+
+     </wsdl:message>
+
+     <wsdl:message name="pingRequest">
+
+          <wsdl:part element="intf:ping" name="parameters"/>
+
+     </wsdl:message>
+
+     <wsdl:message name="pingResponse">
+
+          <wsdl:part element="intf:pingResponse" name="parameters"/>
+
+     </wsdl:message>
+
+     <wsdl:portType name="WSAdapter">
+
+          <wsdl:operation name="executeMultipleOpcodesNoPool">
+
+               <wsdl:input message="intf:executeMultipleOpcodesNoPoolRequest" name="executeMultipleOpcodesNoPoolRequest"/>
+
+               <wsdl:output message="intf:executeMultipleOpcodesNoPoolResponse" name="executeMultipleOpcodesNoPoolResponse"/>
+
+          </wsdl:operation>
+
+          <wsdl:operation name="executeMultipleOpcodesNoPoolFlag">
+
+               <wsdl:input message="intf:executeMultipleOpcodesNoPoolFlagRequest" name="executeMultipleOpcodesNoPoolFlagRequest"/>
+
+               <wsdl:output message="intf:executeMultipleOpcodesNoPoolFlagResponse" name="executeMultipleOpcodesNoPoolFlagResponse"/>
+
+          </wsdl:operation>
+
+          <wsdl:operation name="ping">
+
+               <wsdl:input message="intf:pingRequest" name="pingRequest"/>
+
+               <wsdl:output message="intf:pingResponse" name="pingResponse"/>
+
+          </wsdl:operation>
+
+     </wsdl:portType>
+
+     <wsdl:binding name="WSAdapterSoapBinding" type="intf:WSAdapter">
+
+          <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+          <wsdl:operation name="executeMultipleOpcodesNoPool">
+
+               <wsdlsoap:operation soapAction=""/>
+
+               <wsdl:input name="executeMultipleOpcodesNoPoolRequest">
+
+                    <wsdlsoap:body use="literal"/>
+
+               </wsdl:input>
+
+               <wsdl:output name="executeMultipleOpcodesNoPoolResponse">
+
+                    <wsdlsoap:body use="literal"/>
+
+               </wsdl:output>
+
+          </wsdl:operation>
+
+          <wsdl:operation name="executeMultipleOpcodesNoPoolFlag">
+
+               <wsdlsoap:operation soapAction=""/>
+
+               <wsdl:input name="executeMultipleOpcodesNoPoolFlagRequest">
+
+                    <wsdlsoap:body use="literal"/>
+
+               </wsdl:input>
+
+               <wsdl:output name="executeMultipleOpcodesNoPoolFlagResponse">
+
+                    <wsdlsoap:body use="literal"/>
+
+               </wsdl:output>
+
+          </wsdl:operation>
+
+          <wsdl:operation name="ping">
+
+               <wsdlsoap:operation soapAction=""/>
+
+               <wsdl:input name="pingRequest">
+
+                    <wsdlsoap:body use="literal"/>
+
+               </wsdl:input>
+
+               <wsdl:output name="pingResponse">
+
+                    <wsdlsoap:body use="literal"/>
+
+               </wsdl:output>
+
+          </wsdl:operation>
+
+     </wsdl:binding>
+
+     <wsdl:service name="WSAdapterService">
+
+          <wsdl:port binding="intf:WSAdapterSoapBinding" name="WSAdapter">
+
+               <wsdlsoap:address location="http://172.21.151.59:7005/WSAdapter2/services/WSAdapter"/>
+
+          </wsdl:port>
+
+     </wsdl:service>
+
+</wsdl:definitions>

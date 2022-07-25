@@ -1,0 +1,1713 @@
+<!-- edited with XMLSpy v2015 sp2 (x64) (http://www.altova.com) by fortiz (Television Internacional) --><!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2011 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		 Version: 1.0
+		Date: March 03 2011
+ 		File Name: CDMBillingAppStructure.xsd 
+ --><xsd:schema targetNamespace="http://telum.mx/CommonDataModel/2.0/Billing" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:CmnStr="http://telum.mx/CommonDataModel/2.0/CommonStructure" xmlns:Bil="http://telum.mx/CommonDataModel/2.0/Billing" xmlns:Cmn="http://telum.mx/CommonDataModel/2.0/Common">
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Common" schemaLocation="CDMCommon.xsd"/>
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/CommonStructure" schemaLocation="CDMCommonStructure.xsd"/>
+	<!--    -->
+	<!-- BillingApplication.BillingStructure : Estructura General-->
+	<xsd:element name="BillingAppStructure" type="Bil:BillingAppStructureType"/>
+	<xsd:complexType name="BillingAppStructureType">
+		<xsd:sequence>
+			<xsd:element ref="Bil:ServiceInstances" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Agrupador de instacias de servicios</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="Bil:Groups" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Agrupador de instancias de grupos de descuentos</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="Bil:Activities" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Agrupador de instancias de actividades</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="Bil:Financings" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Agrupador de instancias de financiamientos</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="Bil:Plan" minOccurs="0"/>
+			<xsd:element ref="Bil:DirectDebitPayments" minOccurs="0"/>
+			<xsd:element ref="Bil:FriendsAndFamily" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- BillingApplication.BillingServiceInstanceStructure : Estructura General-->
+	<xsd:element name="BillingServiceInstanceStructure" type="Bil:BillingServiceInstanceStructureType"/>
+	<xsd:complexType name="BillingServiceInstanceStructureType">
+		<xsd:sequence>
+			<xsd:element ref="Bil:ServiceInstances" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- BillingApplication.ID : Identificación de una entidad de la aplicación de facturación -->
+	<xsd:element name="BRMIdentifier" type="Bil:BRMIdentifierType"/>
+	<xsd:complexType name="BRMIdentifierType">
+		<xsd:sequence>
+			<xsd:element name="PoidDB" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="PoidID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PoidType" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+		<xsd:attribute ref="Cmn:contextID"/>
+	</xsd:complexType>
+	<!--    -->
+	<!-- BillingApplication.BRMServiceInstance : Estructura de los servicios basados en BRM  -->
+	<xsd:element name="BasicServiceInstances" type="Bil:BasicServiceInstancesType"/>
+	<xsd:complexType name="BasicServiceInstancesType">
+		<xsd:sequence>
+			<xsd:element ref="Bil:CommercialDataInfo" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Informacion obtenida de ComercialDataStructure</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SalesSourceId" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Referencia del Item  hacia el CMD Sales Order </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsAuxiliaryService" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Indica si el servicio será una compra a un servicio auxiliar</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AccountReference" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Referencia de la cuenta hacia el CMD Sales Order </xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Action" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Acción a realizar [ Ej Compra]</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Behavior" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Auxiliar para comportamientos en diferentes casos de negocio</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Estatus actual del servicio</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="IsBUUnica" type="xsd:normalizedString"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="ServiceInstances" type="Bil:ServiceInstancesType"/>
+	<xsd:complexType name="ServiceInstancesType">
+		<xsd:sequence>
+			<xsd:element name="ServiceInstance" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Instancias de servicios [Datos, Telefonía, Video]</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="Bil:BasicServiceInstancesType">
+							<xsd:sequence>
+								<xsd:element name="EntityType" type="xsd:normalizedString" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Tipo de entidad [Ej /service/data]</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element ref="Bil:Deals" minOccurs="0" maxOccurs="unbounded">
+									<xsd:annotation>
+										<xsd:documentation>Lista de deals</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="PayPerView" type="Bil:PPVType" minOccurs="0" maxOccurs="unbounded"/>
+								<xsd:element ref="Bil:PurchasedProduct" minOccurs="0" maxOccurs="unbounded">
+									<xsd:annotation>
+										<xsd:documentation>Lista de productos comprados</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element ref="Bil:PurchasedDiscount" minOccurs="0" maxOccurs="unbounded">
+									<xsd:annotation>
+										<xsd:documentation>Lista de descuentos comprados</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- -->
+	<!-- BillingApplication.BRMDeals : Estructura de los deals agrupadores de productos y descuentos  -->
+	<xsd:element name="Deals" type="Bil:DealsType"/>
+	<xsd:complexType name="DealsType">
+		<xsd:sequence>
+			<xsd:element name="DealID" type="Cmn:IdentifiersType">
+				<xsd:annotation>
+					<xsd:documentation>POID del Deal</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="Bil:Product" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Lista de productos</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="Bil:Discount" minOccurs="0" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Lista de descuentos</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- -->
+	<!-- BillingApplication.BRMPayPerViewa : Estructura de los pagos por evento  -->
+	<xsd:element name="PPV" type="Bil:PPVType"/>
+	<xsd:complexType name="PPVType">
+		<xsd:sequence>
+			<xsd:element name="SalesSourceId" type="xsd:normalizedString"/>
+			<xsd:element name="Action" type="xsd:normalizedString"/>
+			<xsd:element ref="Bil:CommercialDataInfo" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- -->
+	<!-- BillingApplication.BRMDiscountGroups : Estructura de los deals agrupadores de productos y descuentos  -->
+	<xsd:element name="Groups" type="Bil:GroupType"/>
+	<xsd:complexType name="GroupType">
+		<xsd:sequence>
+			<xsd:element name="Group" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Lista de grupos de descuentos</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="GroupID" type="Cmn:IdentifiersType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>POID de l grupo de descuento</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="MainServiceID" type="Cmn:IdentifiersType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Numero telefonico dueño del grupo</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="SalesSourceId" type="xsd:normalizedString" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Referencia del elemento hacia el CMD Sales Order</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element ref="Bil:CommercialDataInfo" minOccurs="0"/>
+						<xsd:element name="BalanceGroupID" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="EntityType" type="xsd:normalizedString" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Tipo de entidad [Ej /service/data]</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="ResourceType" type="xsd:normalizedString" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Tipo de recurso [Monetario, No Monetario]</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="GroupType" type="xsd:string" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Tipo de Grupo [FRECUENTE (Num frecuentes), NORMAL ]</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="AccountReference" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+						<xsd:element ref="Bil:Deals" minOccurs="0" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Lista de deals</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Members" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Agrupador de los miembros del grupo de descuento</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="AddedMembers" minOccurs="0" maxOccurs="unbounded">
+										<xsd:annotation>
+											<xsd:documentation>Lista de los miembros a agregar</xsd:documentation>
+										</xsd:annotation>
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="SalesSourceId" type="xsd:normalizedString">
+													<xsd:annotation>
+														<xsd:documentation>Referencia del elemento hacia el CMD Sales Order</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+												<xsd:element name="MemberServiceID" type="Cmn:IdentifiersType" minOccurs="0">
+													<xsd:annotation>
+														<xsd:documentation>POID del identificador de servicio</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+												<xsd:element ref="Bil:CommercialDataInfo" minOccurs="0"/>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="EliminatedMembers" minOccurs="0" maxOccurs="unbounded">
+										<xsd:annotation>
+											<xsd:documentation>Lista de los miembros a eliminar</xsd:documentation>
+										</xsd:annotation>
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="SalesSourceId" type="xsd:normalizedString">
+													<xsd:annotation>
+														<xsd:documentation>Referencia del elemento hacia el CMD Sales Order</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+												<xsd:element name="MemberServiceID" type="Cmn:IdentifiersType" minOccurs="0">
+													<xsd:annotation>
+														<xsd:documentation>POID del identificador de servicio</xsd:documentation>
+													</xsd:annotation>
+												</xsd:element>
+												<xsd:element ref="Bil:CommercialDataInfo" minOccurs="0"/>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Sttatus actual del grupo</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Action" type="xsd:normalizedString" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Acción a realizar</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Behavior" type="xsd:normalizedString" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Auxiliar para comportamientos en diferentes casos de negocio</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Sequence" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="EventType" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="PlanID" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="BackDateFlag" type="xsd:normalizedString" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- - -->
+	<!--BillingApplication.BRMActivities:  Estructura de activitys-->
+	<xsd:complexType name="ActivitiesType">
+		<xsd:sequence>
+			<xsd:element name="ActivityEvent" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Lista de eventos de tipo activity</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Referencia de la cuenta hacia el CMD Sales Order</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="SalesSourceId" type="xsd:normalizedString">
+							<xsd:annotation>
+								<xsd:documentation>Referencia del elemento hacia el CMD Sales Order</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element ref="Bil:CommercialDataInfo" minOccurs="0"/>
+						<xsd:element name="ActivityType" type="xsd:normalizedString">
+							<xsd:annotation>
+								<xsd:documentation>Activity [ ej /event/activity/product_fee/credit_adj]</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Selector" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Selector del activity</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="Name" type="xsd:normalizedString">
+										<xsd:annotation>
+											<xsd:documentation>Nombre del selector</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="Value" type="xsd:normalizedString">
+										<xsd:annotation>
+											<xsd:documentation>Valo del selector</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+						<xsd:element name="IsAuxiliaryService" type="xsd:normalizedString" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Indica si el servicio será una compra a un servicio auxiliar</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Action" type="xsd:normalizedString" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Acción a realizar [ Ej Compra]</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="IsBUUnica" type="xsd:normalizedString"/>
+						<xsd:element name="EntityType" type="xsd:normalizedString" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Tipo de entidad [Ej /service/data]</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Activities" type="Bil:ActivitiesType"/>
+	<!-- - -->
+	<!--BillingApplication.BRMFinancing:  Estructura de financimiento-->
+	<xsd:element name="Financings" type="Bil:FinancingsType"/>
+	<xsd:complexType name="FinancingsType">
+		<xsd:sequence>
+			<xsd:element name="Financing" maxOccurs="unbounded">
+				<xsd:annotation>
+					<xsd:documentation>Lista de financiamiento</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="FinancingId" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="SalesSourceId" type="xsd:normalizedString"/>
+						<xsd:element name="FinancingType" type="xsd:int"/>
+						<xsd:element ref="Bil:CommercialDataInfo" minOccurs="0"/>
+						<xsd:element name="ServiceInstances" type="Bil:ServiceInstancesType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Lista de Services</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- -->
+	<!--BillingApplication.Plan-->
+	<xsd:element name="Plan" type="Bil:PlanType"/>
+	<xsd:complexType name="PlanType">
+		<xsd:sequence>
+			<xsd:element name="PlanID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="SalesSourceID" type="xsd:normalizedString"/>
+			<xsd:element ref="Bil:CommercialDataInfo" minOccurs="0"/>
+			<xsd:element name="Action" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- - -->
+	<!-- BillingApplication.BRMProducts : Estructura de los productos de facturación  -->
+	<xsd:element name="Product" type="Bil:ProductType"/>
+	<xsd:complexType name="ProductType">
+		<xsd:sequence>
+			<xsd:element name="ProductID" type="Cmn:IdentifiersType">
+				<xsd:annotation>
+					<xsd:documentation>POID del Producto</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SalesSourceId" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Referencia al elemento en CDMCreateSalesOrderType</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="Bil:CommercialDataInfo" minOccurs="0"/>
+			<xsd:element name="PlanID" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Id del plan</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EventType" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Tipo de evento [Cycle, Purchase, Usage]</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ResourceType" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Tipo de recurso [Monetario, No Monetario]</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Action" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Acción a realizar</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Behavior" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Auxiliar para comportamientos en diferentes casos de negocio</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- - -->
+	<!-- BillingApplication.BRMDiscounts : Estructura de los descuentos de facturación  -->
+	<xsd:element name="Discount" type="Bil:DiscountType"/>
+	<xsd:complexType name="DiscountType">
+		<xsd:sequence>
+			<xsd:element name="DiscountID" type="Cmn:IdentifiersType">
+				<xsd:annotation>
+					<xsd:documentation>POID del descuento</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="OfferingId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="SalesSourceId" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Referencia al elemento en CDMCreateSalesOrderType</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element ref="Bil:CommercialDataInfo" minOccurs="0"/>
+			<xsd:element name="PlanID" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Id del plan</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="EventType" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Tipo de evento [Cycle]</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Action" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Acción a realizar</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Behavior" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Auxiliar para comportamientos en diferentes casos de negocio</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- -->
+	<!-- BillingApplication.PurchasedDiscounts : Estructura de los descuentos comprados  -->
+	<xsd:element name="PurchasedDiscount" type="Bil:PurchasedDiscountType"/>
+	<xsd:complexType name="PurchasedDiscountType">
+		<xsd:sequence>
+			<xsd:element name="ID" type="Cmn:IdentifiersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>POID del DiscountProduct</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DiscountID" type="Cmn:IdentifiersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>POID del Discount</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SalesSourceID" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Referencia al elemento en CDMCreateSalesOrderType</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Acción a realizar</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- -->
+	<!-- BillingApplication.PurchasedProducts : Estructura de los descuentos comprados  -->
+	<xsd:element name="PurchasedProduct" type="Bil:PurchasedProductType"/>
+	<xsd:complexType name="PurchasedProductType">
+		<xsd:sequence>
+			<xsd:element name="ID" type="Cmn:IdentifiersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>POID del PurchasedProduct</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ProductID" type="Cmn:IdentifiersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>POID del Producto</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="SalesSourceID" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Referencia al elemento en CDMCreateSalesOrderType</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Acción a realizar</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- -->
+	<!-- BillingApplication.GroupMemberStructure : Estructura de los grupos  -->
+	<xsd:element name="GroupMemberStructure" type="Bil:GroupMemberStructureType"/>
+	<xsd:complexType name="GroupMemberStructureType">
+		<xsd:sequence>
+			<xsd:element name="BillingAccount" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="Cmn:IdentifiersType">
+							<xsd:sequence>
+								<xsd:element name="BillingServices" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:complexContent>
+											<xsd:extension base="Cmn:IdentifiersType">
+												<xsd:sequence>
+													<xsd:element name="SalesSourceId" type="xsd:normalizedString" minOccurs="0"/>
+												</xsd:sequence>
+											</xsd:extension>
+										</xsd:complexContent>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--PaymentInfo: Estructura de response ManagerPaymentComplexIM-->
+	<xsd:element name="PaymentInfo" type="Bil:PaymentInfoType"/>
+	<xsd:complexType name="PaymentInfoType">
+		<xsd:sequence>
+			<xsd:element name="PaymentID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PaymentAccountingIdentification" type="xsd:normalizedString"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--ChargeInfo: Estructura de response ManagerPaymentComplexIM-->
+	<xsd:element name="PaymentChargeInfo" type="Bil:PaymentChargeInfoType"/>
+	<xsd:complexType name="PaymentChargeInfoType">
+		<xsd:sequence>
+			<xsd:element name="ChargeID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ChargeAccountingIdentification" type="xsd:normalizedString"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- -->
+	<xsd:element name="PaymentCancellation">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Bil:PaymentCancellationType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="PaymentCancellationType">
+		<xsd:sequence>
+			<xsd:element name="Product" type="Cmn:ProductSimpleType" minOccurs="0"/>
+			<xsd:element ref="Bil:Payments" minOccurs="0"/>
+			<xsd:element name="ListOfTaxes" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Tax" type="Cmn:TaxType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Division" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- -->
+	<xsd:element name="Payments" type="Bil:PaymentsType"/>
+	<xsd:complexType name="PaymentsType">
+		<xsd:sequence>
+			<xsd:element name="PaymentID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Company" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BillID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Currency" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="Pesos"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="AmountNoTaxes" type="xsd:double" minOccurs="0"/>
+			<xsd:element name="TotalAmount" type="xsd:double" minOccurs="0"/>
+			<xsd:element name="AllocatedAmount" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="UnallocatedAmount" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SubmitterID" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="Sucursal"/>
+						<xsd:enumeration value="Call Center"/>
+						<xsd:enumeration value="Ventanilla"/>
+						<xsd:enumeration value="Sucursal Bancaria"/>
+						<xsd:enumeration value="Cajero Automático"/>
+						<xsd:enumeration value="Internet"/>
+						<xsd:enumeration value="Cargo Automatico"/>
+						<xsd:enumeration value="Domiciliacion"/>
+						<xsd:enumeration value="Convenios de Pago"/>
+						<xsd:enumeration value="Multimedios"/>
+						<xsd:enumeration value="Caja MM"/>
+						<xsd:enumeration value="Cambaceo"/>
+						<xsd:enumeration value="IVR"/>
+						<xsd:enumeration value="OXXO"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="PaymentReceiverName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BillItems" type="Bil:BillItemsType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="PayType" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="Efectivo"/>
+						<xsd:enumeration value="Cheque"/>
+						<xsd:enumeration value="Tarjeta de Credito"/>
+						<xsd:enumeration value="Debito Directo"/>
+						<xsd:enumeration value="Cuenta Cheques"/>
+						<xsd:enumeration value="Convenio"/>
+						<xsd:enumeration value="Pagos Otros"/>
+						<xsd:enumeration value="Cargo por Reverso Efectivo"/>
+						<xsd:enumeration value="Cargo por Reversos Otros"/>
+						<xsd:enumeration value="Abono por Reverso Efectivo"/>
+						<xsd:enumeration value="Abono por Reverso Otros"/>
+						<xsd:enumeration value="Cargo por Reverso de Pago Doble Operaciones"/>
+						<xsd:enumeration value="Devoluciones de Efectivo"/>
+						<xsd:enumeration value="Devoluciones por Doble Pago"/>
+						<xsd:enumeration value="Cheque Devuelto"/>
+						<xsd:enumeration value="Cancelacion Ticket Cheque"/>
+						<xsd:enumeration value="Cancelacion de Ticket Efectivo"/>
+						<xsd:enumeration value="Promocion Cero Pesos"/>
+						<xsd:enumeration value="Ficha"/>
+						<xsd:enumeration value="No Aplica"/>
+						<xsd:enumeration value="Cupon"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="PayTypeCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CollectorID" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador de cobrador</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CollectorName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PaySource" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CreatedDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="PayDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="TransactionID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ReceiptNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PaymentMethodInfo" type="Cmn:CreditCardType" minOccurs="0"/>
+			<xsd:element name="CommercialOperation" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Folio</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CommercialOperationType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FeeID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BillAllocation" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="BillInfo" type="Bil:BillDataType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="PaymentsReversal" type="Bil:PaymentsReversalType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- BillsAllocation Info-->
+	<xsd:complexType name="BillAllocationType">
+		<xsd:sequence>
+			<xsd:element name="AmountTransfered" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="TransferDate" type="xsd:dateTime" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- BillData  - Estructura de datos relacionada con Bills -->
+	<xsd:element name="BillData" type="Bil:BillDataType"/>
+	<xsd:complexType name="BillDataType">
+		<xsd:sequence>
+			<xsd:element name="BillIdentifier" type="Cmn:IdentifiersType"/>
+			<xsd:element name="BillInfoID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BillNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ExternalBillNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PreviousBilledAmount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="BilledAmount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="BillDue" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="TotalDue" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="PeriodStart" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="PeriodEnd" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="DueDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="WriteOffAmount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="AdjustedAmount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="DisputedAmount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="PaidAmount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ReInvoiceFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CommercialOperation" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MessagingName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="InvoiceMonth" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AllocationInfo" type="Bil:BillAllocationType" minOccurs="0"/>
+			<xsd:element name="CreatedDate" type="xsd:dateTime" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- BillItems -->
+	<xsd:element name="BillItems" type="Bil:BillItemsType"/>
+	<xsd:complexType name="BillItemsType">
+		<xsd:sequence>
+			<xsd:element name="BillItemPoid" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BillPoid" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Amount" type="xsd:decimal" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- PaymentsReversal -->
+	<xsd:element name="PaymentsReversal" type="Bil:PaymentsReversalType"/>
+	<xsd:complexType name="PaymentsReversalType">
+		<xsd:sequence>
+			<xsd:element name="Bills" type="Bil:BillDataType" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="Reversal" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Amount" type="xsd:decimal" minOccurs="0"/>
+						<xsd:element name="CreatedDate" type="xsd:dateTime" minOccurs="0"/>
+						<xsd:element name="Reason" type="xsd:normalizedString" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- FinancingPlan -->
+	<xsd:element name="FinancingPlan" type="Bil:FinancingPlanType"/>
+	<xsd:complexType name="FinancingPlanType">
+		<xsd:sequence>
+			<xsd:element name="FinancingPlanID" type="Cmn:IdentifiersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador del Plan de financiamiento</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador de la Cuenta de Facturacion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ServiceID" type="Cmn:IdentifiersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador del servicio a financiar</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Status" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Status del Financiamiento</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CreatedDateTime" type="xsd:dateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Fecha de creación del Financiamiento</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FinancingPlanType" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Tipo del plan de financiamiento</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FinancingTotal" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Cantitad Total Financiada</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ActualBalance" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Saldo actual del financiamiento</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FeeAmount" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Valor de la cuota del financiamiento</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DiscountAmount" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Monto de la quita para el refinanciamiento</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="NumberOfFees" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Cantidad de Cuotas</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BilledRecurrentPayments" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Cantidad Mensualidades facturadas</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PayedRecurrentPayments" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Cantidad Mensualidades pagadas</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PendingRecurrentPayments" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Cantidad Mensualidades pendientes</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Description" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Descripción del plan de financiamiento</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CancelReason" type="xsd:string" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Razón de cancelación del financiamiento</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ListOfProducts" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Product" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Datos del Producto Financiado</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="ProductID" type="Cmn:IdentifiersType" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Identificador del producto financiado</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="ServiceID" type="Cmn:IdentifiersType" minOccurs="0"/>
+									<xsd:element name="Name" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Nombre del producto financiado</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="Amount" type="xsd:decimal" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Monto correspondiente al producto</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Número de serie del accesorio a financiar</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="FeeAmountWTax" type="xsd:decimal" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Valor de la cuota del financiamiento con impuesto</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfFees" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Fee" maxOccurs="unbounded">
+							<xsd:annotation>
+								<xsd:documentation>Datos de las cuotas</xsd:documentation>
+							</xsd:annotation>
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="FeeAmount" type="xsd:decimal" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Valor de la Cuota</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="FeeDescription" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Descripción de la cuota</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="FeeBilledDate" type="xsd:date" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Fecha de facturación de la cuota</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="FeeStatus" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Estado en que se encuentra la cuota</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+									<xsd:element name="BenefitFee" type="xsd:string" minOccurs="0">
+										<xsd:annotation>
+											<xsd:documentation>Cuota Beneficios</xsd:documentation>
+										</xsd:annotation>
+									</xsd:element>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Adjustment -->
+	<xsd:element name="Adjustment" type="Bil:AdjustmentType"/>
+	<xsd:complexType name="AdjustmentType">
+		<xsd:sequence>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador de la cuenta, el elemento "ContextID", indica el tipo de ID enviado: Billing=POID BRM, CRM=RowId Siebel y Common=Cuenta común</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BillID" type="Cmn:IdentifiersType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador de la Factura (bill) en BRM. Este debe ser ingresado en el formato POID</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="AdjustmentType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="TotalAmount" type="xsd:decimal" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Es el importe de la Nota de Credito. Este debe corresponder al valor total de la factura registrada en BRM.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CreatedDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="AdjustmentDetail" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Service" type="Cmn:ServiceType" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Identificador del item del servicio registrado en BRM. Este debe ser ingresado en el formato POID</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="NetAmount" type="xsd:decimal" minOccurs="0">
+							<xsd:annotation>
+								<xsd:documentation>Es el importe de la Nota de Credito. Este debe corresponder al valor del item especifico al que se le va a generar la Nota de Credito</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- WriteOff -->
+	<xsd:element name="WriteOff" type="Bil:WriteOffType"/>
+	<xsd:complexType name="WriteOffType">
+		<xsd:sequence>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Amount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="LastUpdate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfBills" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="BillInfo" type="Bil:BillDataType"/>
+						<xsd:element name="ListOfBillsItems" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="ItemInfo" type="Bil:BillItemsType" maxOccurs="unbounded"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Amount -->
+	<xsd:element name="Amount" type="Bil:AmountType"/>
+	<xsd:complexType name="AmountType">
+		<xsd:sequence>
+			<xsd:element name="BalanceAmount" type="xsd:double"/>
+			<xsd:element name="DueAmount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="UnallocatedAmount" type="xsd:double" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Saldo no aplicado</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="WriteOffAmount" type="xsd:double" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Saldo incobrable</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BilledAmount" type="xsd:double" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Bill In progress</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ReducedAmount" type="xsd:double" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Descuento por pago oportuno</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PendingOperationsAmount" type="xsd:double" minOccurs="0"/>
+			<xsd:element name="NonRecurrentAmount" type="xsd:double" minOccurs="0"/>
+			<xsd:element name="TotalBalanceAmount" type="xsd:double" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Balance -->
+	<xsd:element name="Balance" type="Bil:BalanceType"/>
+	<xsd:complexType name="BalanceType">
+		<xsd:complexContent>
+			<xsd:extension base="Bil:AmountType">
+				<xsd:sequence>
+					<xsd:element name="PaymentDueDate" type="xsd:dateTime" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Fecha limite de pago</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="ExpireDays" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="CollectionFlag" type="xsd:normalizedString" minOccurs="0"/>
+					<xsd:element name="UnpaidBillDate" type="xsd:dateTime" minOccurs="0"/>
+					<xsd:element name="UnpaidDays" type="xsd:int" minOccurs="0"/>
+					<xsd:element name="PrepaidEnableFlag" type="xsd:normalizedString" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Bandera que indica si están habilitadas las recargas prepago</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="BillInfo" minOccurs="0" maxOccurs="unbounded">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Type">
+									<xsd:annotation>
+										<xsd:documentation>Tipo de Bill Unit, Recurrente o Unica</xsd:documentation>
+									</xsd:annotation>
+									<xsd:simpleType>
+										<xsd:restriction base="xsd:normalizedString">
+											<xsd:enumeration value="Unica"/>
+											<xsd:enumeration value="Recurrente"/>
+											<xsd:enumeration value="Pendiente"/>
+										</xsd:restriction>
+									</xsd:simpleType>
+								</xsd:element>
+								<xsd:element name="DueAmount" type="xsd:double">
+									<xsd:annotation>
+										<xsd:documentation>Saldo de deuda vencida</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="CurrentAmount" type="xsd:double">
+									<xsd:annotation>
+										<xsd:documentation>Saldo de deuda no vencida</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="ComplexBalanceAmount" type="xsd:double">
+									<xsd:annotation>
+										<xsd:documentation>Saldo vencido + el saldo no vencido</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="DueReducedAmount" type="xsd:double" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Saldo de deuda con pago oportuno</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="ComplexReducedAmount" type="xsd:double" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Suma del saldo vencido + saldo oportuno</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="DuePaymentAmount" type="xsd:double" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Saldo contratos repositorio</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="ComplexBalanceWithPaymentAmmount" type="xsd:double" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Saldo contratos repositorio + Saldo vencido + el saldo no vencido</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+								<xsd:element name="UnallocatedAmount" type="xsd:double" minOccurs="0">
+									<xsd:annotation>
+										<xsd:documentation>Saldo no aplicado</xsd:documentation>
+									</xsd:annotation>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="AccountMovements" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Movement" type="Bil:MovementSimpleType" maxOccurs="unbounded"/>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="GraceDays" type="xsd:normalizedString" minOccurs="0">
+						<xsd:annotation>
+							<xsd:documentation>Dias de gracia para realizar el pago</xsd:documentation>
+						</xsd:annotation>
+					</xsd:element>
+					<xsd:element name="Balances" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Balance" minOccurs="0" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="BalanceName" type="xsd:string" minOccurs="0"/>
+											<xsd:element name="Attributes" minOccurs="0">
+												<xsd:complexType>
+													<xsd:sequence>
+														<xsd:element name="Attribute" type="Cmn:NameValuePairType" minOccurs="0" maxOccurs="unbounded"/>
+													</xsd:sequence>
+												</xsd:complexType>
+											</xsd:element>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!--- Activity -->
+	<xsd:element name="Activity" type="Bil:ActivityType"/>
+	<xsd:complexType name="ActivityType">
+		<xsd:sequence>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="ServiceID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ActivityType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Selector" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AdjustmentType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Amount" type="xsd:decimal"/>
+			<xsd:element name="Description" type="xsd:normalizedString"/>
+			<xsd:element name="EffectiveTime" type="xsd:normalizedString"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- CallDetail -->
+	<xsd:element name="CallDetail" type="Bil:CallDetailType"/>
+	<xsd:complexType name="CallDetailType">
+		<xsd:sequence>
+			<xsd:element name="ListOfPeriods">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Period" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="TimePeriod" type="Cmn:TimePeriodType" minOccurs="0"/>
+									<xsd:element name="ListOfPhoneNumbers" minOccurs="0">
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="PhoneNumber" maxOccurs="unbounded">
+													<xsd:complexType>
+														<xsd:sequence>
+															<xsd:element name="PhoneNumber" type="xsd:normalizedString"/>
+															<xsd:element name="ListOfCallTypes" minOccurs="0">
+																<xsd:complexType>
+																	<xsd:sequence>
+																		<xsd:element name="CallType" maxOccurs="unbounded">
+																			<xsd:complexType>
+																				<xsd:sequence>
+																					<xsd:element name="Description" type="xsd:normalizedString" minOccurs="0"/>
+																					<xsd:element name="Duration" type="xsd:decimal" minOccurs="0"/>
+																					<xsd:element name="Price" type="xsd:decimal" minOccurs="0"/>
+																					<xsd:element name="ListOfCalls" minOccurs="0">
+																						<xsd:complexType>
+																							<xsd:sequence>
+																								<xsd:element name="Call" type="Bil:CallType" maxOccurs="unbounded"/>
+																							</xsd:sequence>
+																						</xsd:complexType>
+																					</xsd:element>
+																					<xsd:element name="ItemID" type="xsd:normalizedString" minOccurs="0"/>
+																				</xsd:sequence>
+																			</xsd:complexType>
+																		</xsd:element>
+																	</xsd:sequence>
+																</xsd:complexType>
+															</xsd:element>
+															<xsd:element name="ServiceID" type="xsd:normalizedString" minOccurs="0"/>
+														</xsd:sequence>
+													</xsd:complexType>
+												</xsd:element>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="OffSetDue" type="xsd:date" minOccurs="0"/>
+									<xsd:element name="BillID" type="xsd:normalizedString" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Call -->
+	<xsd:element name="Call" type="Bil:CallType"/>
+	<xsd:complexType name="CallType">
+		<xsd:sequence>
+			<xsd:element name="Type" type="xsd:normalizedString"/>
+			<xsd:element name="StartDate" type="xsd:dateTime"/>
+			<xsd:element name="EndDate" type="xsd:dateTime"/>
+			<xsd:element name="From" type="xsd:normalizedString"/>
+			<xsd:element name="To" type="xsd:normalizedString"/>
+			<xsd:element name="Price" type="xsd:decimal"/>
+			<xsd:element name="Unit" type="xsd:normalizedString"/>
+			<xsd:element name="Description" type="xsd:normalizedString"/>
+			<xsd:element name="Duration" type="xsd:decimal"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- CreditLimit -->
+	<xsd:element name="CreditLimit" type="Bil:CreditLimitType"/>
+	<xsd:complexType name="CreditLimitType">
+		<xsd:sequence>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ServiceID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="BalanceGroupID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DiscountID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="OfferingID" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Package -->
+	<xsd:element name="Package" type="Bil:PackageType"/>
+	<xsd:complexType name="PackageType">
+		<xsd:sequence>
+			<xsd:element name="PackageID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="PackageInfo" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Product" type="xsd:normalizedString"/>
+						<xsd:element name="Offering" type="xsd:normalizedString"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- CommercialDataInfo -->
+	<xsd:element name="CommercialDataInfo" type="Bil:CommercialDataInfoType"/>
+	<xsd:complexType name="CommercialDataInfoType">
+		<xsd:sequence>
+			<xsd:element name="OrderItemID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="ParentOrderItemID" type="xsd:normalizedString"/>
+			<xsd:element name="IntegrationID" type="xsd:normalizedString"/>
+			<xsd:element name="ServiceID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ChargeInfo" type="Cmn:ChargeInfoType" minOccurs="0"/>
+			<xsd:element ref="Cmn:TimePeriod"/>
+			<xsd:element name="StartDateAdd" minOccurs="0">
+				<xsd:complexType>
+					<xsd:simpleContent>
+						<xsd:extension base="xsd:int">
+							<xsd:attribute name="units" type="xsd:string"/>
+						</xsd:extension>
+					</xsd:simpleContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfSpecifications" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ItemSpecification" type="Cmn:ItemSpecificationType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Type" type="xsd:string" minOccurs="0"/>
+			<xsd:element ref="Bil:FinancingPlanSimple" minOccurs="0"/>
+			<xsd:element name="IsBillNowRequired" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="NetworkType" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- FinancingPlanSimple -->
+	<xsd:element name="FinancingPlanSimple" type="Bil:FinancingPlanSimpleType"/>
+	<xsd:complexType name="FinancingPlanSimpleType">
+		<xsd:sequence>
+			<xsd:element name="FinancingPlanID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:normalizedString"/>
+			<xsd:element name="Amount" type="xsd:double"/>
+			<xsd:element name="NumberOfFees" type="xsd:int"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- DebitPayment-->
+	<xsd:complexType name="DirectDebitPayments">
+		<xsd:sequence>
+			<xsd:element name="DirectDebitPayment" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SalesSourceID" type="xsd:normalizedString"/>
+						<xsd:element name="Amount" type="xsd:decimal" minOccurs="0"/>
+						<xsd:element name="EntityType" type="xsd:normalizedString"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="FriendsAndFamily" type="Bil:FriendsAndFamily"/>
+	<!--- DebitPayment-->
+	<xsd:complexType name="FriendsAndFamily">
+		<xsd:sequence>
+			<xsd:element name="Service" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SalesSourceID" type="xsd:normalizedString"/>
+						<xsd:element name="Type" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element ref="Bil:CommercialDataInfo" minOccurs="0"/>
+						<xsd:element name="Member" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="SalesSourceID" type="xsd:normalizedString"/>
+									<xsd:element ref="Bil:CommercialDataInfo" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="DirectDebitPayments" type="Bil:DirectDebitPayments"/>
+	<!--- InvoiceInfo-->
+	<xsd:element name="InvoiceInfo" type="Bil:InvoiceInfoType"/>
+	<xsd:complexType name="InvoiceInfoType">
+		<xsd:sequence>
+			<xsd:element name="DueDate" type="xsd:dateTime" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Fecha Límite de Pago</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InvoiceStartPeriod" type="xsd:dateTime">
+				<xsd:annotation>
+					<xsd:documentation>Periodo de Facturación Inicio</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InvoiceEndPeriod" type="xsd:dateTime">
+				<xsd:annotation>
+					<xsd:documentation>Periodo de Facturación fin</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RegenerationFlag" type="xsd:boolean" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Flag de Regeneración</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InvoiceFormat" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Formato de Factura</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InvoiceMessage">
+				<xsd:annotation>
+					<xsd:documentation>Un mensaje a imprimir en la factura (ID del mensaje)
+</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="InvoiceTotals" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Subtotal" type="xsd:decimal">
+							<xsd:annotation>
+								<xsd:documentation>Suma de todos los cargos sin impuestos</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Taxes" type="xsd:decimal">
+							<xsd:annotation>
+								<xsd:documentation>Suma de todos los conceptos de impuestos</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="PreviousBalance" type="xsd:decimal">
+							<xsd:annotation>
+								<xsd:documentation>Saldo de la factura anterior</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="TotalAdditional" type="xsd:normalizedString">
+							<xsd:annotation>
+								<xsd:documentation>Importe de "Total a Pagar", en letras.</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+						<xsd:element name="Total">
+							<xsd:annotation>
+								<xsd:documentation>Suma de Subtotal, IVA y Saldo Anterior</xsd:documentation>
+							</xsd:annotation>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- PayPerView-->
+	<xsd:element name="PayPerView" type="Bil:PayPerViewType"/>
+	<xsd:complexType name="PayPerViewType">
+		<xsd:sequence>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ServiceID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ListOfPayPerView">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Event" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="EnventID" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="Clasification" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="PurchaseChannel" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="SerialNumberEquipment" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="Amount" type="xsd:decimal" minOccurs="0"/>
+									<xsd:element name="StartDate" type="xsd:dateTime" minOccurs="0"/>
+									<xsd:element name="EndDate" type="xsd:dateTime" minOccurs="0"/>
+									<xsd:element name="CreatedDate" type="xsd:dateTime" minOccurs="0"/>
+									<xsd:element name="EffectiveDate" type="xsd:dateTime" minOccurs="0"/>
+									<xsd:element name="ActionCode" type="xsd:normalizedString" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- InvoiceInfo-->
+	<xsd:element name="AccountsReceivable" type="Bil:AccountsReceivableType">
+		<xsd:annotation>
+			<xsd:documentation>Movimiento de AR</xsd:documentation>
+		</xsd:annotation>
+	</xsd:element>
+	<xsd:complexType name="AccountsReceivableType">
+		<xsd:sequence>
+			<xsd:element name="MovementType" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Tipo de Movimiento
+Pago o Reverso</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Amount" type="xsd:decimal"/>
+			<xsd:element name="Description" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MovementDate" type="xsd:dateTime"/>
+			<xsd:element name="BankName" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Banco o Institución Financiera</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Authcode" type="xsd:normalizedString">
+				<xsd:annotation>
+					<xsd:documentation>Código de Autorizacion</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- CustomAdjustment-->
+	<xsd:element name="CustomAdjustment" type="Bil:CustomAdjustmentType"/>
+	<xsd:complexType name="CustomAdjustmentType">
+		<xsd:sequence>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Amount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="ListOfBills" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="BillInfo" type="Bil:BillDataType" minOccurs="0"/>
+						<xsd:element name="ListOfBillItems" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="ItemInfo" type="Bil:BillItemsType" maxOccurs="unbounded"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Concept -->
+	<xsd:element name="Concept" type="Bil:ConceptType"/>
+	<xsd:complexType name="ConceptType">
+		<xsd:sequence>
+			<xsd:element name="ConceptID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element ref="Cmn:TimePeriod" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CreditAmount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="DebitAmount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="Balance" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="CreatedDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- MovementSimple -->
+	<xsd:element name="MovementSimple" type="Bil:MovementSimpleType"/>
+	<xsd:complexType name="MovementSimpleType">
+		<xsd:sequence>
+			<xsd:element name="CreatedDate" type="xsd:dateTime"/>
+			<xsd:element name="Concept" type="xsd:normalizedString"/>
+			<xsd:element name="Type" type="xsd:normalizedString"/>
+			<xsd:element name="Amount" type="xsd:decimal"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Movement -->
+	<xsd:element name="Movement" type="Bil:MovementType"/>
+	<xsd:complexType name="MovementType">
+		<xsd:sequence>
+			<xsd:element name="Totals" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element ref="Bil:Concept" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- MovementDetail -->
+	<xsd:element name="MovementDetail" type="Bil:MovementDetailType"/>
+	<xsd:complexType name="MovementDetailType">
+		<xsd:sequence>
+			<xsd:element ref="Cmn:TimePeriod" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Amount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="CreatedDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="AssetIntegrationID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="EventName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="EventChannel" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="EventClassification" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PhoneNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DestinationPhoneNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="TotalCalls" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="TotalMinutes" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PaymentMethod" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CommercialOperation" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BillNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BankName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PaymentReceiverName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ServiceID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="BillID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="CollectorID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="SubmitterID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PaymentMethodInfo" type="Cmn:CreditCardType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Collector -->
+	<xsd:element name="Collector" type="Bil:CollectorType"/>
+	<xsd:complexType name="CollectorType">
+		<xsd:sequence>
+			<xsd:element name="CollectorID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Name" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PaymentMethod" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PaymentSource" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Society" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PaymentAccount" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BankReference" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DocumentType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CollectionDays" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Affiliate" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SourceSystem" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="TabManage" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MarketSegment" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CreatedDate" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="State" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Address" type="Cmn:UrbanPropertyAddressType" minOccurs="0"/>
+			<xsd:element name="PhoneNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CustomerID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="BranchOffice" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Closure -->
+	<xsd:element name="Closure" type="Bil:ClosureType"/>
+	<xsd:complexType name="ClosureType">
+		<xsd:sequence>
+			<xsd:element name="Year" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Month" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CreatedDate" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PaymentDate" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ReturnDate" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Tax Information -->
+	<xsd:element name="TaxInformation" type="Bil:TaxInformationType"/>
+	<xsd:complexType name="TaxInformationType">
+		<xsd:sequence>
+			<xsd:element name="TaxRegimen" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ServiceProviderTaxID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SalesPaymentMethod" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PaymentReference" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Address" type="Cmn:UrbanPropertyAddressType" minOccurs="0"/>
+			<xsd:element name="Commission" type="xsd:double" minOccurs="0"/>
+			<xsd:element name="Percent" type="xsd:double" minOccurs="0"/>
+			<xsd:element name="PhoneNumber" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Cycle Account Info -->
+	<xsd:element name="CycleAccountInfo" type="Bil:CycleAccountInfoType"/>
+	<xsd:complexType name="CycleAccountInfoType">
+		<xsd:sequence>
+			<xsd:element name="BillCycleDay" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="BillCycleDate" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PreviousBillCycleDate" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="NextBillCycleDate" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Event Score Credit -->
+	<xsd:element name="EventScoreCredit" type="Bil:EventScoreCreditType"/>
+	<xsd:complexType name="EventScoreCreditType">
+		<xsd:sequence>
+			<xsd:element name="AccountId" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Account Certify Data -->
+	<xsd:element name="AccountCertifyData" type="Bil:AccountCertifyDataType"/>
+	<xsd:complexType name="AccountCertifyDataType">
+		<xsd:sequence>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ServiceInstances" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="ServiceInstance" type="Bil:ServiceInstanceInfoType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Groups" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Group" type="Bil:GroupInfoType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Service Instance Info -->
+	<xsd:element name="ServiceInstanceInfo" type="Bil:ServiceInstanceInfoType"/>
+	<xsd:complexType name="ServiceInstanceInfoType">
+		<xsd:sequence>
+			<xsd:element name="ServiceInstanceID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ListStatus" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Status" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListError" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Error" type="CmnStr:FaultMessageType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="PurchasedProduct" type="Bil:PurchasedInfoType" minOccurs="0" maxOccurs="1"/>
+			<xsd:element name="PurchasedDiscount" type="Bil:PurchasedInfoType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Purchased Info -->
+	<xsd:element name="PurchasedInfo" type="Bil:PurchasedInfoType"/>
+	<xsd:complexType name="PurchasedInfoType">
+		<xsd:sequence>
+			<xsd:element name="ID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ListStatus" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Status" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListError" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Error" type="CmnStr:FaultMessageType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--- Group Info -->
+	<xsd:element name="GroupInfo" type="Bil:GroupInfoType"/>
+	<xsd:complexType name="GroupInfoType">
+		<xsd:sequence>
+			<xsd:element name="GroupID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Deals" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Discount" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="DiscountID" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="1"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListStatus" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Status" type="Cmn:IdentifiersType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListError" minOccurs="0" maxOccurs="1">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Error" type="CmnStr:FaultMessageType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

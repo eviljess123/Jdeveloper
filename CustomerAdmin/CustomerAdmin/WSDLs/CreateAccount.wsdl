@@ -1,0 +1,36 @@
+<definitions targetNamespace="http://telum.mx/CreateAccount" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://telum.mx/CreateAccount" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:telum="http://telum.mx/CommonDataModel">
+  <types>
+    <xsd:schema targetNamespace="http://telum.mx/CreateAccount/types" elementFormDefault="qualified">
+      <xsd:import schemaLocation="../../CommonDataModel/Schemas/CDMMessages.xsd" namespace="http://telum.mx/CommonDataModel"/>
+    </xsd:schema>
+  </types>
+  <message name="Request">
+    <part name="CreateCustomerPartyIM" element="telum:CreateCustomerPartyIM"/>
+  </message>
+  <message name="Response">
+    <part name="GeneralResponseIM" element="telum:GeneralResponseIM"/>
+  </message>
+  <portType name="CreateAccount">
+    <operation name="CreateAccountPort">
+      <input message="tns:Request"/>
+      <output message="tns:Response"/>
+    </operation>
+  </portType>
+  <binding name="CreateAccountSOAP12Binding" type="tns:CreateAccount">
+    <soap12:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="CreateAccountPort">
+      <soap12:operation style="document" soapAction="http://telum.mx/CreateAccount/CreateAccountPort"/>
+      <input>
+        <soap12:body use="literal" parts="CreateCustomerPartyIM"/>
+      </input>
+      <output>
+        <soap12:body use="literal" parts="GeneralResponseIM"/>
+      </output>
+    </operation>
+  </binding>
+  <service name="CreateAccount">
+    <port name="CreateAccountPort" binding="tns:CreateAccountSOAP12Binding">
+      <soap12:address location="http://www.example.com"/>
+    </port>
+  </service>
+</definitions>

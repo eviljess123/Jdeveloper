@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="ServiciosRestMultiUrl/Resources/RestServiceGet"/>
+            <con:binding>
+                <con:name>RestServiceGet_ptt-binding</con:name>
+                <con:namespace>http://xmlns.oracle.com/ServiciosRestMultiUrl/ServiciosRestMultiUrl/RestServiceGet</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router>
+        <con:pipeline type="request" name="request-N53e951d5.445ae48b.0.181ac2aa2ba.N7fcd">
+            <con:stage id="_StageId-N53e951d5.445ae48b.0.181ac2aa2ba.N7fcb" name="Stage1">
+                <con:context/>
+                <con:actions>
+                    <con1:assign varName="bodyRequest">
+                        <con2:id>_ActionId-N53e951d5.445ae48b.0.181ac2aa2ba.N7fc3</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>$body</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N53e951d5.445ae48b.0.181ac2aa2ba.N7fcc">
+            <con:stage id="_StageId-N53e951d5.445ae48b.0.181ac2aa2ba.N7fca" name="Stage1">
+                <con:context>
+                    <con2:userNsDecl prefix="res" namespace="http://TargetNamespace.com/RestServiceGet_GetEstado_request"/>
+                </con:context>
+                <con:actions>
+                    <con1:replace varName="body" contents-only="true">
+                        <con2:id>_ActionId-N53e951d5.445ae48b.0.181ac2aa2ba.N7fb7</con2:id>
+                        <con1:location>
+                            <con2:xpathText>.</con2:xpathText>
+                        </con1:location>
+                        <con1:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="ServiciosRestMultiUrl/Transformations/untitled1"/>
+                                <con2:param name="Input">
+                                    <con2:path>$body/res:Root-Element</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con1:expr>
+                    </con1:replace>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="request" name="request-N53e951d5.445ae48b.0.181ac2aa2ba.N7fc9">
+            <con:stage id="_StageId-N53e951d5.445ae48b.0.181ac2aa2ba.N7fc7" name="Stage1">
+                <con:context/>
+                <con:actions>
+                    <con1:assign varName="bodyRequest">
+                        <con2:id>_ActionId-N53e951d5.445ae48b.0.181ac2aa2ba.N7fbd</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>$body</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N53e951d5.445ae48b.0.181ac2aa2ba.N7fc8">
+            <con:stage id="_StageId-N53e951d5.445ae48b.0.181ac2aa2ba.N7fc6" name="Stage1">
+                <con:context>
+                    <con2:userNsDecl prefix="res" namespace="http://TargetNamespace.com/RestServiceGet_Operation1_request"/>
+                </con:context>
+                <con:actions>
+                    <con1:replace varName="body" contents-only="true">
+                        <con2:id>_ActionId-N53e951d5.445ae48b.0.181ac2aa2ba.N7fb4</con2:id>
+                        <con1:location>
+                            <con2:xpathText>.</con2:xpathText>
+                        </con1:location>
+                        <con1:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="ServiciosRestMultiUrl/Transformations/untitled2"/>
+                                <con2:param name="Input">
+                                    <con2:path>$body/res:Root-Element</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con1:expr>
+                    </con1:replace>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:branch-node type="operation" id="_FlowId-N53e951d5.445ae48b.0.181ac2aa2ba.N8000" name="BranchNode1">
+                <con:context/>
+                <con:branch-table>
+                    <con:branch name="GetEstado">
+                        <con:operator>equals</con:operator>
+                        <con:value/>
+                        <con:flow>
+                            <con:pipeline-node name="Pipeline Pair Node1">
+                                <con:request>request-N53e951d5.445ae48b.0.181ac2aa2ba.N7fcd</con:request>
+                                <con:response>response-N53e951d5.445ae48b.0.181ac2aa2ba.N7fcc</con:response>
+                            </con:pipeline-node>
+                        </con:flow>
+                    </con:branch>
+                    <con:branch name="getCiudad">
+                        <con:operator>equals</con:operator>
+                        <con:value/>
+                        <con:flow>
+                            <con:pipeline-node name="Pipeline Pair Node2">
+                                <con:request>request-N53e951d5.445ae48b.0.181ac2aa2ba.N7fc9</con:request>
+                                <con:response>response-N53e951d5.445ae48b.0.181ac2aa2ba.N7fc8</con:response>
+                            </con:pipeline-node>
+                        </con:flow>
+                    </con:branch>
+                    <con:default-branch>
+                        <con:flow/>
+                    </con:default-branch>
+                </con:branch-table>
+            </con:branch-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>

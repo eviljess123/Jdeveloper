@@ -1,0 +1,13 @@
+<adapter-config name="spInsertXrefAccount" adapter="db" wsdlLocation="../WSDLs/spInsertXrefAccount.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory UIConnectionName="Telum_DB_DEV" location="eis/jdbc/osm"/>
+  <endpoint-interaction portType="spInsertXrefAccount_ptt" operation="spInsertXrefAccount">
+    <interaction-spec className="oracle.tip.adapter.db.DBStoredProcedureInteractionSpec">
+      
+      <property name="ProcedureName" value="SP_INSERT_XREF_ACCOUNT"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+      <property name="QueryTimeout" value="10"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

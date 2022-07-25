@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (x64) (http://www.altova.com) by Emanuel Miramontes (Multimedios Redes) -->
+<!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2011 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		 Version: 1.0
+		Date: February 24, 2011
+ 		File Name: CommonDataModelCommon.xsd 
+ -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Cmn="http://telum.mx/CommonDataModel/2.0/Common" xmlns:CmnStr="http://telum.mx/CommonDataModel/2.0/CommonStructure" targetNamespace="http://telum.mx/CommonDataModel/2.0/Common" elementFormDefault="qualified">
+	<!-- Common.Individual : Datos que identifican a una persona o individuo   -->
+	<!-- Common.NameValuePair : Estructura para campo-valor  -->
+	<xsd:element name="NameValuePair">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Cmn:NameValuePairType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="NameValuePairType">
+		<xsd:sequence>
+			<xsd:element name="Name" type="xsd:normalizedString"/>
+			<xsd:element name="Value" type="xsd:normalizedString"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

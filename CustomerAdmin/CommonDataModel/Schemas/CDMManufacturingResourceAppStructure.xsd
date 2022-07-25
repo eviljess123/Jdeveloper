@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (x64) (http://www.altova.com) by Laura Hernandez (Multimedios Redes) -->
+<!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2011 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		Version: 1.0
+		Date: May 24 2014
+ 		File Name: CDMMAnufacturingResourceAppStructure.xsd 
+ -->
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:MnfRes="http://telum.mx/CommonDataModel/2.0/ManufacturingResource" targetNamespace="http://telum.mx/CommonDataModel/2.0/ManufacturingResource" elementFormDefault="qualified">
+	<!-- =======================Employee personal data======================= -->
+	<xsd:complexType name="EmployeePersonalDataType">
+		<xsd:sequence>
+			<xsd:element name="Name" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FamilyNames" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FamilyNamesComplement" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DateOfBirth" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PlaceOfBirth" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Nationality" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Gender" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Sexo</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="CivilStatus" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="IMSS" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CURP" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FederalTaxId" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>RFC</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MilitaryRecordID" type="xsd:normalizedString" minOccurs="0"/>			
+			<xsd:element name="Address" type="MnfRes:AddressType" minOccurs="0"/>
+			<xsd:element name="PhoneNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Email" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Height" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Weight" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MotherName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="FatherName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Contact" type="MnfRes:RelativeDataType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Avisar en caso de accidente</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- =======================Address Data======================= -->
+	<xsd:complexType name="AddressType">
+		<xsd:sequence>
+			<xsd:element name="Street" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="SuburbName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ZipCode" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="CityName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="StateName" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- =======================Employee relative personal data======================= -->
+	<xsd:complexType name="RelativeDataType">
+		<xsd:sequence>
+			<xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Relationship" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Address" type="MnfRes:AddressType" minOccurs="0"/>
+			<xsd:element name="PhoneNumber" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- =======================Employee data======================= -->
+	<xsd:complexType name="EmployeeDataType">
+		<xsd:sequence>
+			<xsd:element name="EmployeeNumber" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="DateOfAdmission" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DateOfAdmissionCompany" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="EmployeeStatus" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="LeavingDate" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Fecha de Baja</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="RealDate" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Fecha Real</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TypeOfContract" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DaysOfContract" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="EndOfContract" type="xsd:normalizedString" minOccurs="0"/>			
+			<xsd:element name="BaseLocationKey" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PaymentLocationKey" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ClassificationKey" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="WorkShift" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SalaryType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SalaryCategoryKey" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SalaryLevel" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DailySalary" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="LastIntegrationFactor" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DailyVariablePartOfLastMonth" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="IntegratedSalary" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MonthlySalary" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="IntegrationFactor" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="VariableDailySalary" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="LimitedIntegratedSalary" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="IntegratedSalaryWithoutLimit" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AdditionalDailySalary" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PaymentMethod" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PaymentMethodKey" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BankKey" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BankAccount" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BankBranch" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="EmployerRegistrationNumber" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Clave del registro patronal del IMSS</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="TableOfBenefitsKey" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Clave de la tabla de prestaciones</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="PeriodKey" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Clave del periodo</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Unionized" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Sindicalizado</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ApplyForIMSSCalculation" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ApplyForPTUCalculation" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ApplyForAnnualDeclarationCalc" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ApplyForPayrollCalculation" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="WorkerWithPension" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessName" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Razón Social</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="BusinessJurisdictionCode" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Clave de la plaza</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- =======================Cost Centers Catalog======================= -->
+	<xsd:complexType name="CostCenterType">
+		<xsd:sequence>
+			<xsd:element name="CostCenterKey" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CostCenterCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CostCenterName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AccountingSegment" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Partnership" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Sociedad Cargo</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- =======================Areas Catalog======================= -->
+	<xsd:complexType name="AreaType">
+		<xsd:sequence>
+			<xsd:element name="AreaKey" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AreaName" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- =======================Departments Catalog======================= -->
+	<xsd:complexType name="DepartmentType">
+		<xsd:sequence>
+			<xsd:element name="DepartmentKey" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DepartmentName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AccountingSegment" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- =======================Roles Catalog======================= -->
+	<xsd:complexType name="RoleType">
+		<xsd:sequence>
+			<xsd:element name="RoleKey" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="RoleName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Order" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- =======================General Fields======================= -->
+	<xsd:complexType name="GeneralFieldsType">
+		<xsd:sequence>
+			<xsd:element name="CompanyKey" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PersonnelDivision" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PersonnelSubdivision" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Building" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PersonnelGroup" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ProfessionalGroup" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="RulesForWorkSchedulePlan" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Regla p.plan h.tbjo.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MovementTypeKey" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MovementDate" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Comments" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ActionCode" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Clave de tarea</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

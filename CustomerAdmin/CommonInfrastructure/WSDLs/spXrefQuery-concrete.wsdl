@@ -1,0 +1,15 @@
+<wsdl:definitions targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/BillingAPP/CommonInfrastructure/spXrefQuery" name="spXrefQuery-concrete" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/">
+    <wsdl:import location="spXrefQuery.wsdl" namespace="http://xmlns.oracle.com/pcbpel/adapter/db/BillingAPP/CommonInfrastructure/spXrefQuery"/>
+    <wsdl:binding name="spXrefQuery_ptt-binding" type="spx:spXrefQuery_ptt" xmlns:spx="http://xmlns.oracle.com/pcbpel/adapter/db/BillingAPP/CommonInfrastructure/spXrefQuery">
+        <soap:binding style="document" transport="http://www.bea.com/wli/sb/transports/jca"/>
+        <wsdl:operation name="spXrefQuery">
+            <soap:operation soapAction="spXrefQuery"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+</wsdl:definitions>

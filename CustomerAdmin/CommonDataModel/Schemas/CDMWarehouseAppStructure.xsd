@@ -1,0 +1,166 @@
+<!-- edited with XMLSpy v2015 sp2 (http://www.altova.com) by Cesar Varela (Television Internacional) --><!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2011 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		 Version: 1.0
+		Date: May 11 2011
+ 		File Name: CDMWorkforceAppStructure.xsd 
+ --><xsd:schema targetNamespace="http://telum.mx/CommonDataModel/2.0/Warehouse" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Wrh="http://telum.mx/CommonDataModel/2.0/Warehouse" xmlns:Cmn="http://telum.mx/CommonDataModel/2.0/Common">
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Common" schemaLocation="CDMCommon.xsd"/>
+	<!--    -->
+	<!-- WarehouseApplication.ModifyWarehouse : es el cambio de equipo o material entre almacenes -->
+	<xsd:element name="ModifyWarehouse">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Wrh:ModifyWarehouseType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ModifyWarehouseType">
+		<xsd:sequence>
+			<xsd:element name="ID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="RequestType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="WarehouseCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Unit" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Quantity" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="Lot" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CenterCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="OrderID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="RecoveryType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="TechnicianID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="MovementType" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="INSTALL"/>
+						<xsd:enumeration value="REPAIR"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- WarehouseApplication.ModifyWarehouse : es el cambio de equipo o material entre almacenes -->
+	<xsd:element name="ModifyWarehouseResponse">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Wrh:ModifyWarehouseResponseType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ModifyWarehouseResponseType">
+		<xsd:sequence>
+			<xsd:element name="ID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="Name" type="xsd:normalizedString"/>
+			<xsd:element name="Unit" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Quantity" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="Lot" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CenterCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="WarehouseCode" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- WarehouseApplication.ValidateEquipment : estructura para la validación de equipo -->
+	<xsd:element name="ValidateEquipment">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Wrh:ValidateEquipmentType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ValidateEquipmentType">
+		<xsd:sequence>
+			<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="WarehouseCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CenterCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="OrderID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="TechnicianID" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- WarehouseApplication.OperationSlips: estructura para las fichas de deposito o retiro -->
+	<xsd:element name="OperationSlips">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Wrh:OperationSlipsType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="OperationSlipsType">
+		<xsd:sequence>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum"/>
+			<xsd:element name="Company" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfOperationSlips">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="OperationSlip" type="Cmn:OperationType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- WarehouseApplication.ChargeInfo: estructura para los pagos -->
+	<xsd:element name="WarehouseChargeInfo">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Wrh:WarehouseChargeInfoType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="WarehouseChargeInfoType">
+		<xsd:sequence>
+			<xsd:element name="ChargeID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Product" type="Cmn:ProductSimpleType" minOccurs="0"/>
+			<xsd:element name="ChargeType">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="Cargo por Reverso Efectivo"/>
+						<xsd:enumeration value="Cargo por Reversos Otros"/>
+						<xsd:enumeration value="Abono por Reverso Efectivo"/>
+						<xsd:enumeration value="Abono por Reverso Otros"/>
+						<xsd:enumeration value="Cargo por Reverso de Pago Doble Operaciones"/>
+						<xsd:enumeration value="Devoluciones de Efectivo"/>
+						<xsd:enumeration value="Devoluciones por Doble Pago"/>
+						<xsd:enumeration value="Cheque Devuelto"/>
+						<xsd:enumeration value="Cancelacion Ticket Cheque"/>
+						<xsd:enumeration value="Cancelacion de Ticket Efectivo"/>
+						<xsd:enumeration value="Notas de Cargo por Devolucion Anualidades"/>
+						<xsd:enumeration value="Notas de Credito por Devolucion de Efectivo"/>
+						<xsd:enumeration value="Notas de Crédito"/>
+						<xsd:enumeration value="Contratos"/>
+						<xsd:enumeration value="Mensualidad"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="CreateDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="ChargeDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="Division" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="Video"/>
+						<xsd:enumeration value="Datos"/>
+						<xsd:enumeration value="Telefonia"/>
+						<xsd:enumeration value="Accesorios"/>
+						<xsd:enumeration value="Otros"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="AmountNoTaxes" type="xsd:double" minOccurs="0"/>
+			<xsd:element name="TotalAmount" type="xsd:double"/>
+			<xsd:element name="ListOfTaxes" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Tax" type="Cmn:TaxType" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="OrderPaymentId" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CollectorID" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador de Cobrador</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="FeeID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BillID" type="Cmn:IdentifiersType" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>

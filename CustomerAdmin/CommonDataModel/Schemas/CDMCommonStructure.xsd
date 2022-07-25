@@ -1,0 +1,186 @@
+<!-- edited with XMLSpy v2015 (x64) (http://www.altova.com) by David Rzui (Television Internacional) --><!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2011 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		 Version: 1.0
+		Date: February 24, 2011
+ 		File Name: CDMCommonStructure.xsd 
+ --><xsd:schema targetNamespace="http://telum.mx/CommonDataModel/2.0/CommonStructure" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:CmnStr="http://telum.mx/CommonDataModel/2.0/CommonStructure" xmlns:Cmn="http://telum.mx/CommonDataModel/2.0/Common">
+	<!-- Common.Organization : Datos de entidades comerciales desde PYMES hasta Corporaciones -->
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Common" schemaLocation="CDMCommonExtension.xsd"/>
+	<!-- ====================================================================== -->
+	<!-- =====      Header                                                                                               ===== -->
+	<!-- ====================================================================== -->
+	<xsd:complexType name="IntegrationMessageType">
+		<xsd:sequence>
+			<xsd:element ref="CmnStr:Header"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="IntegrationMessage" type="CmnStr:IntegrationMessageType"/>
+	<!---->
+	<xsd:complexType name="IntegrationMessageHeaderType">
+		<xsd:sequence>
+			<xsd:element name="BusinessMessageID" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador de negocio del mensaje o transacción global</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="MessageID" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador único del mensaje o transacción</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="Priority" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Prioridad de la transacción. 0 es el valor de prioridad más bajo y 9 el valor de prioridad más alto.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="DefaultLogLevel" type="xsd:int" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Nivel por defecto de loggueo del mensaje o transacción.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="GlobalActionCode" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Accion global del mensaje</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ResultNotification" type="CmnStr:FaultMessageType" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Datos del resultado de la transacción.</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="HelperFields" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Datos adicionales del mensaje o transacción.</xsd:documentation>
+				</xsd:annotation>
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Field" type="Cmn:NameValuePairType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Header" type="CmnStr:IntegrationMessageHeaderType"/>
+	<!---->
+	<xsd:complexType name="SenderAndTargetType">
+		<xsd:sequence>
+			<xsd:element name="ID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ApplicationID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ContactName" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="SenderAndTarget" type="CmnStr:SenderAndTargetType"/>
+	<!--Sender and Target enumeration-->
+	<xsd:simpleType name="SenderAndTargetEnum">
+		<xsd:restriction base="xsd:normalizedString">
+			<xsd:enumeration value="ATM"/>
+			<xsd:enumeration value="BDC"/>
+			<xsd:enumeration value="BRM"/>
+			<xsd:enumeration value="BSE"/>
+			<xsd:enumeration value="CCC"/>
+			<xsd:enumeration value="CED"/>
+			<xsd:enumeration value="CMM"/>
+			<xsd:enumeration value="DAC"/>
+			<xsd:enumeration value="FDA"/>
+			<xsd:enumeration value="GDO"/>
+			<xsd:enumeration value="GDP"/>
+			<xsd:enumeration value="GIS"/>
+			<xsd:enumeration value="IFA"/>
+			<xsd:enumeration value="IPC"/>
+			<xsd:enumeration value="IVR"/>
+			<xsd:enumeration value="IWY"/>
+			<xsd:enumeration value="LDA"/>
+			<xsd:enumeration value="MSO"/>
+			<xsd:enumeration value="ODA"/>
+			<xsd:enumeration value="OSB"/>
+			<xsd:enumeration value="PLN"/>
+			<xsd:enumeration value="POR"/>
+			<xsd:enumeration value="POS"/>
+			<xsd:enumeration value="PWO"/>
+			<xsd:enumeration value="SAP"/>
+			<xsd:enumeration value="SBL"/>
+			<xsd:enumeration value="SCH"/>
+			<xsd:enumeration value="SSW"/>
+			<xsd:enumeration value="VOD"/>
+			<xsd:enumeration value="WA"/>
+			<xsd:enumeration value="WHS"/>
+			<xsd:enumeration value="XEE"/>
+			<xsd:enumeration value="VEO"/>
+			<xsd:enumeration value="SIC"/>
+			<xsd:enumeration value="CMH"/>
+			<xsd:enumeration value="FOR"/>
+			<xsd:enumeration value="UAM"/>
+			<xsd:enumeration value="CCO"/>
+			<xsd:enumeration value="IZZI"/>
+			<xsd:enumeration value="OXXO"/>
+			<xsd:enumeration value="CDR"/>
+			<xsd:enumeration value="SDA"/>
+		</xsd:restriction>
+	</xsd:simpleType>
+	<!---->
+	<!-- ====================================================================== -->
+	<!-- =====          Fault Element                                                                                         =====-->
+	<!-- ====================================================================== -->
+	<xsd:complexType name="FaultNotificationType">
+		<xsd:sequence>
+			<xsd:element name="IntegrationElementID" type="xsd:normalizedString"/>
+			<xsd:element name="ReportingDateTime" type="xsd:string"/>
+			<xsd:element ref="CmnStr:FaultMessage" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FaultMessageType">
+		<xsd:sequence>
+			<xsd:element name="Code" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="OK"/>
+						<xsd:enumeration value="ERROR"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Operation" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="Severity" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:string">
+						<xsd:enumeration value="Normal"/>
+						<xsd:enumeration value="Warning"/>
+						<xsd:enumeration value="Error"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="Description" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="ErrorCode" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="FaultNotification" type="CmnStr:FaultNotificationType"/>
+	<xsd:element name="FaultMessage" type="CmnStr:FaultMessageType"/>
+	<!---->
+	<!-- ====================================================================== -->
+	<!-- =====      Data Types                                                                                             ===== -->
+	<!-- ====================================================================== -->
+	<xsd:complexType name="IdentifierType">
+		<xsd:annotation>
+			<xsd:documentation>A character string to identify and distinguish uniquely, one instance of an object in an identification scheme from all other objects in the same scheme together with relevant supplementary information</xsd:documentation>
+		</xsd:annotation>
+		<xsd:simpleContent>
+			<xsd:extension base="xsd:normalizedString">
+				<xsd:attribute name="schemeID" type="xsd:normalizedString" use="optional"/>
+				<xsd:attribute name="schemeAgencyID" type="xsd:normalizedString" use="optional"/>
+				<xsd:attribute name="schemeVersionID" type="xsd:normalizedString" use="optional"/>
+			</xsd:extension>
+		</xsd:simpleContent>
+	</xsd:complexType>
+	<!---->
+	<!-- ====================================================================== -->
+	<!-- =====          Verbs                                                                                                    =====-->
+	<!-- ====================================================================== -->
+	<xsd:complexType name="CreateType">
+		<!--<xsd:attribute name="responseCode" type="ResponseCodeType" use="optional"/>-->
+	</xsd:complexType>
+	<xsd:complexType name="CreateResponseType"/>
+	<xsd:element name="Create" type="CmnStr:CreateType"/>
+	<xsd:element name="CreateResponse" type="CmnStr:CreateResponseType"/>
+	<!---->
+</xsd:schema>

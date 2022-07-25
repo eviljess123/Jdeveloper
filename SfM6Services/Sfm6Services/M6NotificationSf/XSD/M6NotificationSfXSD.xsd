@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.izzi.com/sfm6services/m6notificationSfxsd"
+            targetNamespace="http://www.izzi.com/sfm6services/m6notificationSfxsd" elementFormDefault="qualified">
+  <xsd:element name="m6NotificationRequest" type="HeaderType">
+    <xsd:annotation>
+      <xsd:documentation>A sample element</xsd:documentation>
+    </xsd:annotation>
+  </xsd:element>
+  <xsd:element name="m6NotificationResponce" type="ResponceType"/>
+  <xsd:complexType name="HeaderType">
+    <xsd:sequence>
+      <xsd:element name="OVConsecutivo" type="xsd:string"/>
+      <xsd:element name="oportunidad" type="xsd:string"/>
+      <xsd:element name="nbrPSR" type="xsd:int"/>
+      <xsd:element name="descripcion" type="xsd:string"/>
+      <xsd:element name="ServiciosCollection" type="ServiciosCollectionType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ServiciosCollectionType">
+    <xsd:sequence>
+      <xsd:element name="Servicio" maxOccurs="unbounded" type="ServicioType"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ServicioType">
+    <xsd:sequence>
+      <xsd:element name="cktidM6" type="xsd:string"/>
+      <xsd:element name="cidSalesforce" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+  <xsd:complexType name="ResponceType">
+    <xsd:sequence>
+      <xsd:element name="codigo" type="xsd:string"/>
+      <xsd:element name="mensaje" type="xsd:string"/>
+      <xsd:element name="IdSoaProcess" type="xsd:string"/>
+      <xsd:element name="EventEstatus" type="xsd:string"/>
+    </xsd:sequence>
+  </xsd:complexType>
+</xsd:schema>

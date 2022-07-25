@@ -1,0 +1,246 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns="http://TargetNamespace.com/OrderManagmentService_procesarOrden_request"
+            targetNamespace="http://TargetNamespace.com/OrderManagmentService_procesarOrden_request"
+            elementFormDefault="qualified"
+             xmlns:nxsd="http://xmlns.oracle.com/pcbpel/nxsd" nxsd:version="JSON"
+            nxsd:encoding="UTF-8">
+     <xsd:element name="Root-Element">
+      <xsd:complexType>
+         <xsd:sequence>
+            <xsd:element name="account" maxOccurs="unbounded">
+               <xsd:complexType>
+                  <xsd:sequence>
+                     <xsd:element name="tipoMovimiento" type="xsd:string"/>
+                     <xsd:element name="transaccionRelacionada" type="xsd:string"/>
+                     <xsd:element name="payType" type="xsd:string"/>
+                     <xsd:element name="tipoSociedad" type="xsd:string"/>
+                     <xsd:element name="template" type="xsd:integer"/>
+                     <xsd:element name="statementFlag" type="xsd:string"/>
+                     <xsd:element name="StateAccount" type="xsd:string"/>
+                     <xsd:element name="segmentoVtas" type="xsd:string"/>
+                     <xsd:element name="segmentoBestel" type="xsd:string"/>
+                     <xsd:element name="segmento" type="xsd:string"/>
+                     <xsd:element name="Sector" type="xsd:string"/>
+                     <xsd:element name="salesUnit" type="xsd:string"/>
+                     <xsd:element name="salesCenter" type="xsd:string"/>
+                     <xsd:element name="rfc" type="xsd:string"/>
+                     <xsd:element name="reference" type="xsd:string"/>
+                     <xsd:element name="recordIEPS" type="xsd:string"/>
+                     <xsd:element name="razonSocial" type="xsd:string"/>
+                     <xsd:element name="priorityBilling" type="xsd:integer"/>
+                     <xsd:element name="poidPayInfo" type="xsd:string"/>
+                     <xsd:element name="billunits" maxOccurs="unbounded">
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="bill_unit_name" type="xsd:string"/>
+                              <xsd:element name="poid_bill_unit_name" type="xsd:string"/>
+                              <xsd:element name="billingSegment" type="xsd:string"/>
+                              <xsd:element name="billFrecuency" type="xsd:integer"/>
+                              <xsd:element name="billCycle" type="xsd:integer"/>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
+                     <xsd:element name="poidAcctProfile" type="xsd:string"/>
+                     <xsd:element name="poidAcctInfo" minOccurs="0" type="xsd:string"/>
+                     <xsd:element name="ParentId" type="xsd:string"/>
+                     <xsd:element name="poidParentId" type="xsd:string"/>
+                     <xsd:element name="billInfoParentId" type="xsd:string"/>
+                     <xsd:element name="organization" type="xsd:string"/>
+                     <xsd:element name="oracleId2" type="xsd:string"/>
+                     <xsd:element name="oracleId" type="xsd:integer"/>
+                     <xsd:element name="oficinaReginal" type="xsd:string"/>
+                     <xsd:element name="ivaFlag" type="xsd:string"/>
+                     <xsd:element name="retencionIVA" minOccurs="0" type="xsd:string"/>
+                     <xsd:element name="invoiceType" type="xsd:integer"/>
+                     <xsd:element name="invoiceProfileId" type="xsd:string"/>
+                     <xsd:element name="ine">
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="ineProcess" type="xsd:string"/>
+                              <xsd:element name="ineIdAccounting" type="xsd:string"/>
+                              <xsd:element name="ineCommitee" type="xsd:string"/>
+                              <xsd:element name="ineCode" type="xsd:string"/>
+                              <xsd:element name="ineAmbit" type="xsd:string"/>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
+                     <xsd:element name="idClienteSAP" type="xsd:integer"/>
+                     <xsd:element name="id" type="xsd:string"/>
+                     <xsd:element name="groupObj" type="xsd:string"/>
+                     <xsd:element name="giro" type="xsd:string"/>
+                     <xsd:element name="fiscalZipCode" type="xsd:integer"/>
+                     <xsd:element name="fiscalSuburb" type="xsd:string"/>
+                     <xsd:element name="fiscalStreet" type="xsd:string"/>
+                     <xsd:element name="fiscalState" type="xsd:string"/>
+                     <xsd:element name="fiscalNumber" type="xsd:integer"/>
+                     <xsd:element name="fiscalIntNumber" type="xsd:string"/>
+                     <xsd:element name="fiscalFloor" type="xsd:string"/>
+                     <xsd:element name="fiscalDelTown" type="xsd:string"/>
+                     <xsd:element name="fiscalCountry" type="xsd:string"/>
+                     <xsd:element name="fiscalbillingCode" type="xsd:string"/>
+                     <xsd:element name="emailBillToFlag" type="xsd:string"/>
+                     <xsd:element name="daysToCash" type="xsd:string"/>
+                     <xsd:element name="customerWebsite" type="xsd:string"/>
+                     <xsd:element name="customerTown" type="xsd:string"/>
+                     <xsd:element name="customerSuburb" type="xsd:string"/>
+                     <xsd:element name="customerStreet" type="xsd:string"/>
+                     <xsd:element name="customerState" type="xsd:string"/>
+                     <xsd:element name="customerPostalCode" type="xsd:integer"/>
+                     <xsd:element name="customerPhone" type="xsd:string"/>
+                     <xsd:element name="customerNumber" type="xsd:integer"/>
+                     <xsd:element name="customerFloor" type="xsd:string"/>
+                     <xsd:element name="customerFax" type="xsd:string"/>
+                     <xsd:element name="customerDelTown" type="xsd:string"/>
+                     <xsd:element name="customerCountry" type="xsd:string"/>
+                     <xsd:element name="customerCity" type="xsd:string"/>
+                     <xsd:element name="contractType2018" type="xsd:string"/>
+                     <xsd:element name="contactChild" maxOccurs="unbounded">
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="telforContacto" type="xsd:string"/>
+                              <xsd:element name="rolContacto" type="xsd:string"/>
+                              <xsd:element name="puestoContacto" type="xsd:string"/>
+                              <xsd:element name="phone" type="xsd:integer"/>
+                              <xsd:element name="mobilePhone" type="xsd:integer"/>
+                              <xsd:element name="id" type="xsd:string"/>
+                              <xsd:element name="email" type="xsd:string"/>
+                              <xsd:element name="deptoContacto" type="xsd:string"/>
+                              <xsd:element name="contactName" type="xsd:string"/>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
+                     <xsd:element name="company" type="xsd:string"/>
+                     <xsd:element name="commentsBestel" type="xsd:string"/>
+                     <xsd:element name="claveCliente" type="xsd:integer"/>
+                     <xsd:element name="clabeAccount2" type="xsd:integer"/>
+                     <xsd:element name="clabeAccount" type="xsd:string"/>
+                     <xsd:element name="canaldeVtas" type="xsd:string"/>
+                     <xsd:element name="billingSegment" type="xsd:string"/>
+                     <xsd:element name="billFrecuency" type="xsd:integer"/>
+                     <xsd:element name="billCycle" type="xsd:integer"/>
+                     <xsd:element name="bankAccountNumber" type="xsd:string"/>
+                     <xsd:element name="currencyIsoCode" type="xsd:string"/>
+                     <xsd:element name="assetChild" maxOccurs="unbounded">
+                        <xsd:complexType>
+                           <xsd:sequence>
+                              <xsd:element name="zone" type="xsd:string"/>
+                              <xsd:element name="thirdID" type="xsd:string"/>
+                              <xsd:element name="subsidiary" type="xsd:string"/>
+                              <xsd:element name="status" type="xsd:string"/>
+                              <xsd:element name="serviceType" type="xsd:string"/>
+                              <xsd:element name="serviceObj" type="xsd:string"/>
+                              <xsd:element name="serviceNameFact" type="xsd:string"/>
+                              <xsd:element name="serviceDateActivation" type="xsd:string"/>
+                              <xsd:element name="releaseToFact" type="xsd:string"/>
+                              <xsd:element name="releaseDate" type="xsd:string"/>
+                              <xsd:element name="realSale" type="xsd:double"/>
+                              <xsd:element name="realDeliveryDate" type="xsd:string"/>
+                              <xsd:element name="quantityProduct" type="xsd:double"/>
+                              <xsd:element name="purchaseDate" type="xsd:string"/>
+                              <xsd:element name="publicationDateOV" type="xsd:string"/>
+                              <xsd:element name="projectManager" type="xsd:string"/>
+                              <xsd:element name="productObj" type="xsd:string"/>
+                              <xsd:element name="productName" type="xsd:string"/>
+                              <xsd:element name="productCode" type="xsd:string"/>
+                              <xsd:element name="priceInstall" type="xsd:double"/>
+                              <xsd:element name="price" type="xsd:integer"/>
+                              <xsd:element name="previousCircuit" type="xsd:string"/>
+                              <xsd:element name="preDesglozado" type="xsd:string"/>
+                              <xsd:element name="portabilityStartDate" type="xsd:string"/>
+                              <xsd:element name="periodicityPayment" type="xsd:string"/>
+                              <xsd:element name="parent_asset_id" type="xsd:string"/>
+                              <xsd:element name="originZipCode" type="xsd:string"/>
+                              <xsd:element name="originSuburb" type="xsd:string"/>
+                              <xsd:element name="originStreetsBetween" type="xsd:string"/>
+                              <xsd:element name="originStreet" type="xsd:string"/>
+                              <xsd:element name="originStatus" type="xsd:string"/>
+                              <xsd:element name="originState" type="xsd:string"/>
+                              <xsd:element name="originProvider" type="xsd:string"/>
+                              <xsd:element name="originNumber" type="xsd:string"/>
+                              <xsd:element name="originLocation" type="xsd:string"/>
+                              <xsd:element name="originFloor" type="xsd:string"/>
+                              <xsd:element name="originCountry" type="xsd:string"/>
+                              <xsd:element name="originCompany" type="xsd:string"/>
+                              <xsd:element name="originCity" type="xsd:string"/>
+                              <xsd:element name="originCategory" type="xsd:string"/>
+                              <xsd:element name="originBuildingId" type="xsd:string"/>
+                              <xsd:element name="originBuilding" type="xsd:string"/>
+                              <xsd:element name="ordenVenta" type="xsd:integer"/>
+                              <xsd:element name="nombreAsset" type="xsd:string"/>
+                              <xsd:element name="monthContract" type="xsd:integer"/>
+                              <xsd:element name="mailPM" type="xsd:string"/>
+                              <xsd:element name="m6Order" type="xsd:string"/>
+                              <xsd:element name="m6ActiveId" type="xsd:string"/>
+                              <xsd:element name="Login" type="xsd:string"/>
+                              <xsd:element name="InstallDate" type="xsd:string"/>
+                              <xsd:element name="id" type="xsd:string"/>
+                              <xsd:element name="poid_asset" type="xsd:string"/>
+                              <xsd:element name="goToBillingSendDate" type="xsd:string"/>
+                              <xsd:element name="finishAceptanceOp" type="xsd:string"/>
+                              <xsd:element name="finalDateApprovalTest" type="xsd:string"/>
+                              <xsd:element name="fechaVencimiento" type="xsd:string"/>
+                              <xsd:element name="familia" type="xsd:string"/>
+                              <xsd:element name="empresaDestino" type="xsd:string"/>
+                              <xsd:element name="destinationZipCode" type="xsd:integer"/>
+                              <xsd:element name="destinationSuburb" type="xsd:string"/>
+                              <xsd:element name="destinationStreetsBetween" type="xsd:string"/>
+                              <xsd:element name="destinationStreet" type="xsd:string"/>
+                              <xsd:element name="destinationStatus" type="xsd:string"/>
+                              <xsd:element name="destinationState" type="xsd:string"/>
+                              <xsd:element name="destinationProvider" type="xsd:string"/>
+                              <xsd:element name="destinationNumber" type="xsd:string"/>
+                              <xsd:element name="destinationLocation" type="xsd:string"/>
+                              <xsd:element name="destinationFloor" type="xsd:string"/>
+                              <xsd:element name="destinationCountry" type="xsd:string"/>
+                              <xsd:element name="destinationCity" type="xsd:string"/>
+                              <xsd:element name="destinationCategory" type="xsd:string"/>
+                              <xsd:element name="destinationBuildingId" type="xsd:string"/>
+                              <xsd:element name="destinationBuilding" type="xsd:string"/>
+                              <xsd:element name="cycle_arrear_forward" type="xsd:string"/>
+                              <xsd:element name="currencyIsoCode" type="xsd:string"/>
+                              <xsd:element name="consecutivOV" type="xsd:integer"/>
+                              <xsd:element name="codigoProducto" type="xsd:string"/>
+                              <xsd:element name="clientServiceDeliveryVal" type="xsd:string"/>
+                              <xsd:element name="clientConsecutiveCircuit" type="xsd:integer"/>
+                              <xsd:element name="circuitID" type="xsd:string"/>
+                              <xsd:element name="cancellationReason" type="xsd:string"/>
+                              <xsd:element name="cancelDate" type="xsd:string"/>
+                              <xsd:element name="billingType" type="xsd:string"/>
+                              <xsd:element name="billingGroup" type="xsd:string"/>
+                              <xsd:element name="billingComments" type="xsd:string"/>
+                              <xsd:element name="billAmount" type="xsd:double"/>
+                              <xsd:element name="bill_unit_name" type="xsd:string"/>
+                              <xsd:element name="poid_bill_unit_name" type="xsd:string"/>
+                              <xsd:element name="billingSegment" type="xsd:string"/>
+                              <xsd:element name="billFrecuency" type="xsd:integer"/>
+                              <xsd:element name="billCycle" type="xsd:integer"/>
+                              <xsd:element name="poidNameInfo" type="xsd:string"/>
+                              <xsd:element name="AgrupadorID" type="xsd:string"/>
+                              <xsd:element name="codigoDeal" type="xsd:string"/>
+                              <xsd:element name="poidDeal" type="xsd:string"/>
+                              <xsd:element name="serviceComment" type="xsd:string"/>
+                           </xsd:sequence>
+                        </xsd:complexType>
+                     </xsd:element>
+                     <xsd:element name="addressType" type="xsd:string"/>
+                     <xsd:element name="accountVip" type="xsd:string"/>
+                     <xsd:element name="accountStatus" type="xsd:string"/>
+                     <xsd:element name="accountObj" type="xsd:string"/>
+                     <xsd:element name="accountNumber" type="xsd:integer"/>
+                     <xsd:element name="accountName" type="xsd:string"/>
+                     <xsd:element name="backDate" minOccurs="0" type="xsd:string"/>
+                     <xsd:element name="daysCDR" minOccurs="0" type="xsd:integer"/>
+                     <xsd:element name="comments" minOccurs="0" type="xsd:string"/>
+                     <xsd:element name="MessageID" minOccurs="0" type="xsd:string"/>
+                  </xsd:sequence>
+               </xsd:complexType>
+            </xsd:element>
+         </xsd:sequence>
+      </xsd:complexType>
+   </xsd:element>
+  <xsd:annotation xmlns="">
+    <xsd:appinfo>NXSDSAMPLE=</xsd:appinfo>
+    <xsd:appinfo>USEHEADER=false</xsd:appinfo>
+  </xsd:annotation>
+</xsd:schema>

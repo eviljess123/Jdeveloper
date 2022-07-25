@@ -1,0 +1,479 @@
+<!-- edited with XMLSpy v2015 sp2 (http://www.altova.com) by Cesar Varela (Television Internacional) --><!--	CONFIDENTIAL LICENSED MATERIAL
+		============================== 
+		Copyright (c) 2011 by Multimedios Redes SA de CV Corporation. All rights reserved 
+		 Version: 1.0
+		Date: May 11 2011
+ 		File Name: CDMCRMAppStructure.xsd 
+ --><xsd:schema targetNamespace="http://telum.mx/CommonDataModel/2.0/Crm" elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:Crm="http://telum.mx/CommonDataModel/2.0/Crm" xmlns:Cmn="http://telum.mx/CommonDataModel/2.0/Common" xmlns:Wfm="http://telum.mx/CommonDataModel/2.0/Workforce" xmlns:Bil="http://telum.mx/CommonDataModel/2.0/Billing" xmlns:Odr="http://telum.mx/CommonDataModel/2.0/SalesOrder">
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Common" schemaLocation="CDMCommon.xsd"/>
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Workforce" schemaLocation="CDMWorkforceAppStructure.xsd"/>
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/Billing" schemaLocation="CDMBillingAppStructure.xsd"/>
+	<xsd:import namespace="http://telum.mx/CommonDataModel/2.0/SalesOrder" schemaLocation="CDMOrders.xsd"/>
+	<!--    -->
+	<!-- CRMApplication.PPV : es la estructura para el pago por evento -->
+	<xsd:element name="PPV">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Crm:PPVType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="PPVType">
+		<xsd:sequence>
+			<xsd:element name="EventID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ExternalEventID" type="xsd:normalizedString" minOccurs="0">
+				<xsd:annotation>
+					<xsd:documentation>Identificador de la pauta</xsd:documentation>
+				</xsd:annotation>
+			</xsd:element>
+			<xsd:element name="ParentEventID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ActionCode" minOccurs="0">
+				<xsd:simpleType>
+					<xsd:restriction base="xsd:normalizedString">
+						<xsd:enumeration value="Purchase"/>
+						<xsd:enumeration value="Cancel"/>
+					</xsd:restriction>
+				</xsd:simpleType>
+			</xsd:element>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="PrimaryAddressID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0"/>
+			<xsd:element name="MarketSegment" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PartNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AssetID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Category" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Group" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Platform" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Provider" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="Price" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="PriceAmt" type="xsd:decimal"/>
+						<xsd:element name="PriceType" type="xsd:normalizedString"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ChargeInfo" type="Cmn:ChargeInfoType" minOccurs="0"/>
+			<xsd:element name="Channel" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="EventStartDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="EventEndDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="PurchaseStartDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="PurchaseEndDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="ChannelSale" type="xsd:normalizedString" minOccurs="0" maxOccurs="unbounded"/>
+			<xsd:element name="Seller" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Supervisor" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SegmentsApplies" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="BarnAndRestaurantFirst" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="BarnAndRestaurantSecond" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="PYME" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="Residential" type="xsd:string" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ChannelSalePermitted" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="CallCenter" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="Cambaceo" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="IVR" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="SMS" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="Subsidiary" type="xsd:string" minOccurs="0"/>
+						<xsd:element name="Web" type="xsd:string" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfPricesAttributes" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="PriceAttributes" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="CallCenterPrice" type="xsd:decimal" minOccurs="0"/>
+									<xsd:element name="CambaceoPrice" type="xsd:decimal" minOccurs="0"/>
+									<xsd:element name="IVRPrice" type="xsd:decimal" minOccurs="0"/>
+									<xsd:element name="ImpulsePrice" type="xsd:decimal" minOccurs="0"/>
+									<xsd:element name="SMSPrice" type="xsd:decimal" minOccurs="0"/>
+									<xsd:element name="SubsidiaryPrice" type="xsd:decimal" minOccurs="0"/>
+									<xsd:element name="WebPrice" type="xsd:decimal" minOccurs="0"/>
+									<xsd:element name="BusinessJurisdiction" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="Segment" type="xsd:string" minOccurs="0"/>
+									<xsd:element name="Status" type="xsd:string" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- CRMApplication.ManagePPV : es la estructura para el manejo de los pago por evento -->
+	<xsd:element name="ManagePPV">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Crm:ManagePPVType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ManagePPVType">
+		<xsd:sequence>
+			<xsd:element name="OrderInfo" type="Odr:OrderInfoType" minOccurs="0"/>
+			<xsd:element name="ActivityID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum"/>
+			<xsd:element name="CustomerInfo">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AccountID" type="Cmn:IdentifiersType"/>
+						<xsd:element name="FederalTaxID" type="xsd:normalizedString"/>
+						<xsd:element name="MarketSegment" type="xsd:normalizedString"/>
+						<xsd:element name="MarketSubSegment" type="xsd:normalizedString" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Service">
+				<xsd:complexType>
+					<xsd:complexContent>
+						<xsd:extension base="Cmn:ServiceType">
+							<xsd:sequence>
+								<xsd:element name="IntegrationID" type="xsd:normalizedString"/>
+								<xsd:element name="PartNumber" type="xsd:normalizedString"/>
+							</xsd:sequence>
+						</xsd:extension>
+					</xsd:complexContent>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Equipment">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="SerialNumber" type="xsd:normalizedString"/>
+						<xsd:element name="IntegrationID" type="xsd:normalizedString"/>
+						<xsd:element name="PartNumber" type="xsd:normalizedString"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Package" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="PackageID" type="Cmn:IdentifiersType"/>
+						<xsd:element name="PackageAmount" type="xsd:decimal" minOccurs="0"/>
+						<xsd:element name="FinancingPlan" type="Bil:FinancingPlanSimpleType" minOccurs="0"/>
+						<xsd:element name="ChargeInfo" type="Cmn:ChargeInfoType" minOccurs="0"/>
+						<xsd:element name="ActionCode" type="xsd:normalizedString" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="ListOfEvents" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Event" type="Crm:PPVType" minOccurs="0" maxOccurs="unbounded"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!--    -->
+	<!-- CRMApplication.ServiceRequest : es la estructura para las solicitudes de servicio -->
+	<xsd:element name="ServiceRequest">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Crm:ServiceRequestType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ServiceRequestType">
+		<xsd:sequence>
+			<xsd:element name="RequestID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="RequestNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="RequestType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="RequestSubType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CreateDateTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="ModifiedBy" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ModifyDateTime" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Reason" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Amount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="Message" type="xsd:anyType" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0"/>
+			<xsd:element name="CommercialOperationID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CommercialOperationType" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- CRMApplication.ValidateEquipmentAndOffer : es la estructura para la validación de equipo contra oferta -->
+	<xsd:element name="ValidateEquipmentAndOffer">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Crm:ValidateEquipmentAndOfferType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ValidateEquipmentAndOfferType">
+		<xsd:sequence>
+			<xsd:element name="OrderID" type="xsd:normalizedString"/>
+			<xsd:element name="OrderItemID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Model" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="OrderItem" minOccurs="0" maxOccurs="unbounded">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="OrderItemID" type="xsd:normalizedString"/>
+						<xsd:element name="Model" type="xsd:normalizedString"/>
+						<xsd:element name="FlagTelephony" type="xsd:normalizedString" minOccurs="0"/>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="FlagTelephony" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- CRMApplication.Action : es la estructura de las actividades -->
+	<xsd:element name="Action">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Crm:ActionType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ActionType">
+		<xsd:sequence>
+			<xsd:element name="ID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="OrderID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BusinessJurisdiction" type="Cmn:BusinessJurisdictionEnum" minOccurs="0"/>
+			<xsd:element name="CommercialOperationID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CommercialOperationType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Type" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SubType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SubTypeDescription" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DistributionChannel" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DurationHours" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DurationMinutes" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Description" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CreatedBy" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="CreatedDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="LastUpdate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="DoneFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="DoneDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="ConfirmationFlag" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Comments" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="WorkorderInfo" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="AssignedTechnician" type="xsd:normalizedString" minOccurs="0"/>
+						<xsd:element name="TimeSlot" type="Wfm:TimeSlotType" minOccurs="0"/>
+						<xsd:element name="ListOfTechnicalResponse" minOccurs="0">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="TechnicalResponseCode" type="xsd:normalizedString" maxOccurs="unbounded"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="FeedBack" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- CRMApplication.Contract : es la estructura para los contratos -->
+	<xsd:element name="Contract">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Crm:ContractType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="ContractType">
+		<xsd:sequence>
+			<xsd:element name="ContractType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="OrderNumnber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="TotalAmt" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="DueAmt" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- CRMApplication.CommercialOperationInfo : es la estructura para los folios -->
+	<xsd:element name="CommercialOperationInfo">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Crm:CommercialOperationInfoType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="CommercialOperationInfoType">
+		<xsd:sequence>
+			<xsd:element name="CommercialOperationID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="CommercialOperationType" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="IsVirtual" type="xsd:boolean" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Amount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="PaymentFlag" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- CRMApplication.SalesRep : es la estructura para los empleados en Siebel, vendedores, supervisores, etc -->
+	<xsd:element name="SalesRep">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Crm:SalesRepType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="SalesRepType">
+		<xsd:sequence>
+			<xsd:element name="SalesRepID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="FormattedName" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- CRMApplication.offer : es la estructura para las ofertas comerciales -->
+	<xsd:element name="Offer">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Crm:OfferType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="OfferType">
+		<xsd:sequence>
+			<xsd:element name="OfferID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="CurrencyCode" type="xsd:normalizedString"/>
+			<xsd:element name="EffectivePeriod" type="Cmn:TimePeriodType"/>
+			<xsd:element name="ChargeAmount" type="xsd:double"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- CRMApplication.Employee : es la estructura para los empleados en Siebel -->
+	<xsd:element name="Employee">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Crm:EmployeeType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="EmployeeType">
+		<xsd:sequence>
+			<xsd:element name="EmployeeID" type="Cmn:IdentifiersType"/>
+			<xsd:element name="ManagerName" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PrimaryPosition" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PrimaryOrganization" type="xsd:normalizedString" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- CRMApplication.Asset : es la estructura para los activos en Siebel -->
+	<xsd:element name="Asset">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Crm:AssetType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="AssetType">
+		<xsd:sequence>
+			<xsd:element name="AccountID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AccountLocation" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="BillingAccountID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ServiceAccountID" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AssetCurrencyCode" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AssetDescription" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="AssetNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="InstallDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="ProductID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="ProductDescription" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="PartNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Quantity" type="xsd:int" minOccurs="0"/>
+			<xsd:element name="RegisteredDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="RootAssetId" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+			<xsd:element name="ListOfProduct" minOccurs="0">
+				<xsd:complexType>
+					<xsd:sequence>
+						<xsd:element name="Product" minOccurs="0" maxOccurs="unbounded">
+							<xsd:complexType>
+								<xsd:sequence>
+									<xsd:element name="ProductID" type="Cmn:IdentifiersType" minOccurs="0"/>
+									<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+									<xsd:element name="ListOfFeatures" minOccurs="0">
+										<xsd:complexType>
+											<xsd:sequence>
+												<xsd:element name="Feature" minOccurs="0" maxOccurs="unbounded">
+													<xsd:complexType>
+														<xsd:sequence>
+															<xsd:element name="FeatureID" type="Cmn:IdentifiersType" minOccurs="0"/>
+															<xsd:element name="SerialNumber" type="xsd:normalizedString" minOccurs="0"/>
+															<xsd:element name="Status" type="xsd:normalizedString" minOccurs="0"/>
+														</xsd:sequence>
+													</xsd:complexType>
+												</xsd:element>
+											</xsd:sequence>
+										</xsd:complexType>
+									</xsd:element>
+									<xsd:element name="AssetID" type="Cmn:IdentifiersType" minOccurs="0"/>
+								</xsd:sequence>
+							</xsd:complexType>
+						</xsd:element>
+					</xsd:sequence>
+				</xsd:complexType>
+			</xsd:element>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- CRMApplication.CRMEquipement : es la estructura para los equipos en Siebel -->
+	<xsd:element name="CRMEquipement">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Crm:CRMEquipementType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="CRMEquipementType">
+		<xsd:complexContent>
+			<xsd:extension base="Cmn:CustomerEquipmentType">
+				<xsd:sequence>
+					<xsd:element name="OrderID" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="OrderItemID" type="Cmn:IdentifiersType" minOccurs="0"/>
+					<xsd:element name="ListOfMembers" minOccurs="0">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="Member" maxOccurs="unbounded">
+									<xsd:complexType>
+										<xsd:sequence>
+											<xsd:element name="ServiceID" type="xsd:normalizedString"/>
+											<xsd:element name="ServiceType" type="xsd:normalizedString" minOccurs="0"/>
+										</xsd:sequence>
+									</xsd:complexType>
+								</xsd:element>
+							</xsd:sequence>
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:sequence>
+			</xsd:extension>
+		</xsd:complexContent>
+	</xsd:complexType>
+	<!-- CRMApplication.Coupon : es la estructura para los cupones en Siebel -->
+	<xsd:element name="CouponAccount">
+		<xsd:complexType>
+			<xsd:complexContent>
+				<xsd:extension base="Crm:CouponAccountType"/>
+			</xsd:complexContent>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="CouponAccountType">
+		<xsd:sequence>
+			<xsd:element name="CouponAccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="AccountID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="CouponID" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="RegisterDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="RedemptionDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="EndDate" type="xsd:dateTime" minOccurs="0"/>
+			<xsd:element name="Amount" type="xsd:decimal" minOccurs="0"/>
+			<xsd:element name="Name" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<!-- Failure: Estructura para fallas en el CRM -->
+	<xsd:complexType name="FailureType">
+		<xsd:sequence>
+			<xsd:element name="identifier" type="Cmn:IdentifiersType"/>
+			<xsd:element name="Service" type="Cmn:IdentifiersType" minOccurs="0"/>
+			<xsd:element name="date" type="xsd:dateTime" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:element name="Failure" type="Crm:FailureType"/>
+</xsd:schema>

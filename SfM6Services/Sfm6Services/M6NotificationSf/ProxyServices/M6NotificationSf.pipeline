@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:pipelineEntry xmlns:con="http://www.bea.com/wli/sb/pipeline/config" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:con1="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con2="http://www.bea.com/wli/sb/stages/config" xmlns:con3="http://www.bea.com/wli/sb/stages/transform/config">
+    <con:coreEntry>
+        <con:binding type="SOAP" isSoap12="false" xsi:type="con:SoapBindingType">
+            <con:wsdl ref="Sfm6Services/M6NotificationSf/WSDL/M6NotificationSfWSDL"/>
+            <con:binding>
+                <con:name>execute_bind</con:name>
+                <con:namespace>http://www.izzi.com/sfm6services/m6notificationSf</con:namespace>
+            </con:binding>
+        </con:binding>
+        <con:xqConfiguration>
+            <con:snippetVersion>1.0</con:snippetVersion>
+        </con:xqConfiguration>
+    </con:coreEntry>
+    <con:router errorHandler="error-N53e9519f.2abcc87c.0.17f476fc0c0.N7bb3">
+        <con:pipeline type="request" name="request-N53e950ea.N3b690f77.0.17eb207ff67.N8000">
+            <con:stage id="_StageId-N53e9519f.2abcc87c.0.17f476fc0c0.N7f24" name="Assign Var Common " xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config">
+                <con:context>
+                    <con4:userNsDecl prefix="com" namespace="http://telum.mx/CommonDataModel" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                    <con4:userNsDecl prefix="cus" namespace="http://telum.mx/CommonDataModel/2.0/Customer" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                    <con4:userNsDecl prefix="m6n" namespace="http://www.izzi.com/sfm6services/m6notificationSfxsd" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                    <con4:userNsDecl prefix="com1" namespace="http://telum.mx/CommonDataModel/2.0/CommonStructure" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                    <con4:userNsDecl prefix="com2" namespace="http://telum.mx/CommonDataModel/2.0/Common" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                </con:context>
+                <con:actions>
+                    <con4:assign varName="UserPassSF" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7af5</con5:id>
+                        <con4:expr>
+                            <con5:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">fn-bea:lookupBasicCredentials('Sfm6Services/M6NotificationSf/Resources/UserPassSf')</con5:xqueryText>
+                        </con4:expr>
+                    </con4:assign>
+                    <con4:assign varName="processId" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7dea</con5:id>
+                        <con4:expr>
+                            <con5:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">'SET-NOTIFICATION-SF'</con5:xqueryText>
+                        </con4:expr>
+                    </con4:assign>
+                    <con2:assign varName="businessMessageID" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7f20</con5:id>
+                        <con2:expr>
+                            <con5:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">fn:concat(fn:replace(fn:replace(fn:replace(fn:substring-before(xs:string(fn:current-dateTime()), '.'),'-',''),':',''),'T',''),fn:data($body/m6n:m6NotificationRequest/m6n:nbrPSR))</con5:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:assign varName="MessageID" xmlns:con1="http://www.bea.com/wli/sb/typesystem/config" xmlns:con4="http://www.bea.com/wli/sb/stages/logging/config" xmlns:con5="http://www.bea.com/wli/sb/stages/publish/config" xmlns:con3="http://www.bea.com/wli/sb/stages/config" xmlns:con6="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con3:id>_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7f1d</con3:id>
+                        <con2:expr>
+                            <con3:xqueryText>fn:concat(fn:replace(fn:replace(fn:replace(fn:substring-before(xs:string(fn:current-dateTime()), '.'),'-',''),':',''),'T',''),fn:data($body/m6n:m6NotificationRequest/m6n:nbrPSR))</con3:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con2:assign varName="bodyRequest" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7f1c</con5:id>
+                        <con2:expr>
+                            <con1:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">$body</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53e9519f.2abcc87c.0.17f476fc0c0.N7e91" name="Trazas de Inicio" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config">
+                <con:context>
+                    <con1:userNsDecl prefix="com" namespace="http://telum.mx/CommonDataModel" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                    <con1:userNsDecl prefix="com1" namespace="http://telum.mx/CommonDataModel/2.0/CommonStructure" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                    <con1:userNsDecl prefix="com2" namespace="http://telum.mx/CommonDataModel/2.0/Common" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                </con:context>
+                <con:actions>
+                    <con2:assign varName="logTypeName" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7e90</con5:id>
+                        <con2:expr>
+                            <con1:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">'INFO'</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con3:route>
+                        <con4:id xmlns:con4="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7e8c</con4:id>
+                        <con3:service ref="CommonInfrastructure/BusinessServices/InsertLogListener_ANY_BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con3:outboundTransform>
+                            <con2:assign varName="contenidoTraza" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7e8b</con5:id>
+                                <con2:expr>
+                                    <con5:dynamicXqueryTransform xmlns:con5="http://www.bea.com/wli/sb/stages/config">
+                                        <con5:resourceExpr>'CommonInfrastructure/Transformations/Tx_InsertLogAndError_ANY_to_WSLogAndError'</con5:resourceExpr>
+                                        <con5:param name="logTypeId">
+                                            <con5:path>$logTypeName</con5:path>
+                                        </con5:param>
+                                        <con5:param name="messageIdentifier">
+                                            <con5:path>$businessMessageID</con5:path>
+                                        </con5:param>
+                                        <con5:param name="task">
+                                            <con5:path>'start Notification Sf'</con5:path>
+                                        </con5:param>
+                                        <con5:param name="information">
+                                            <con5:path>'start Send notification to Sf'</con5:path>
+                                        </con5:param>
+                                        <con5:param name="processId">
+                                            <con5:path>$processId</con5:path>
+                                        </con5:param>
+                                        <con5:param name="message">
+                                            <con5:path>$body/*</con5:path>
+                                        </con5:param>
+                                        <con5:param name="businessMessageId">
+                                            <con5:path>$businessMessageID</con5:path>
+                                        </con5:param>
+                                    </con5:dynamicXqueryTransform>
+                                </con2:expr>
+                            </con2:assign>
+                            <con2:replace varName="body" contents-only="true" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7e8a</con5:id>
+                                <con2:location>
+                                    <con1:xpathText xmlns:con5="http://www.bea.com/wli/sb/stages/config">.</con1:xpathText>
+                                </con2:location>
+                                <con2:expr>
+                                    <con1:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">$contenidoTraza</con1:xqueryText>
+                                </con2:expr>
+                            </con2:replace>
+                        </con3:outboundTransform>
+                    </con3:route>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53e950ea.N3b690f77.0.17eb207ff67.N7ffe" name="LoginSf">
+                <con:context/>
+                <con:actions>
+                    <con3:assign varName="RequestEnterprise">
+                        <con2:id>_ActionId-N53e950c5.N69630e24.0.17f27f084d0.N7fc8</con2:id>
+                        <con3:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="Sfm6Services/M6NotificationSf/Resources/XQuery/TRX_LoginEnterpriseSf"/>
+                                <con2:param name="User">
+                                    <con2:path>$UserPassSF/*:username/text()</con2:path>
+                                </con2:param>
+                                <con2:param name="Pass">
+                                    <con2:path>$UserPassSF/*:password/text()</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con3:expr>
+                    </con3:assign>
+                    <con3:wsCallout>
+                        <con2:id>_ActionId-N53e950c5.N69630e24.0.17f27f084d0.N7fcb</con2:id>
+                        <con3:service ref="Sfm6Services/M6NotificationSf/BusinessService/EnterpriseSf" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con3:operation>login</con3:operation>
+                        <con3:request>
+                            <con3:body wrapped="false">RequestEnterprise</con3:body>
+                        </con3:request>
+                        <con3:response>
+                            <con3:body wrapped="false">ResponceEnterprise</con3:body>
+                        </con3:response>
+                        <con3:requestTransform/>
+                        <con3:responseTransform/>
+                    </con3:wsCallout>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53e9519f.2abcc87c.0.17f476fc0c0.N7ca5" name="Trazas de LoginSf" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config">
+                <con:context>
+                    <con1:userNsDecl prefix="com" namespace="http://telum.mx/CommonDataModel" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                    <con1:userNsDecl prefix="com1" namespace="http://telum.mx/CommonDataModel/2.0/CommonStructure" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                    <con1:userNsDecl prefix="com2" namespace="http://telum.mx/CommonDataModel/2.0/Common" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                </con:context>
+                <con:actions>
+                    <con2:assign varName="logTypeName" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7ca4</con5:id>
+                        <con2:expr>
+                            <con1:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">'INFO'</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con3:route>
+                        <con4:id xmlns:con4="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7ca3</con4:id>
+                        <con3:service ref="CommonInfrastructure/BusinessServices/InsertLogListener_ANY_BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con3:outboundTransform>
+                            <con2:assign varName="contenidoTraza" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7ca2</con5:id>
+                                <con2:expr>
+                                    <con5:dynamicXqueryTransform xmlns:con5="http://www.bea.com/wli/sb/stages/config">
+                                        <con5:resourceExpr>'CommonInfrastructure/Transformations/Tx_InsertLogAndError_ANY_to_WSLogAndError'</con5:resourceExpr>
+                                        <con5:param name="logTypeId">
+                                            <con5:path>$logTypeName</con5:path>
+                                        </con5:param>
+                                        <con5:param name="messageIdentifier">
+                                            <con5:path>$businessMessageID</con5:path>
+                                        </con5:param>
+                                        <con5:param name="task">
+                                            <con5:path>'Login SF'</con5:path>
+                                        </con5:param>
+                                        <con5:param name="information">
+                                            <con5:path>'Ejecucion Login SF'</con5:path>
+                                        </con5:param>
+                                        <con5:param name="processId">
+                                            <con5:path>$processId</con5:path>
+                                        </con5:param>
+                                        <con5:param name="message">
+                                            <con5:path><![CDATA[<Info>
+<Request>{$RequestEnterprise}</Request>
+<Responce>{$ResponceEnterprise}</Responce>
+</Info>]]></con5:path>
+                                        </con5:param>
+                                        <con5:param name="businessMessageId">
+                                            <con5:path>$businessMessageID</con5:path>
+                                        </con5:param>
+                                    </con5:dynamicXqueryTransform>
+                                </con2:expr>
+                            </con2:assign>
+                            <con2:replace varName="body" contents-only="true" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7ca1</con5:id>
+                                <con2:location>
+                                    <con1:xpathText xmlns:con5="http://www.bea.com/wli/sb/stages/config">.</con1:xpathText>
+                                </con2:location>
+                                <con2:expr>
+                                    <con1:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">$contenidoTraza</con1:xqueryText>
+                                </con2:expr>
+                            </con2:replace>
+                        </con3:outboundTransform>
+                    </con3:route>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53e9519f.2abcc87c.0.17f476fc0c0.N7ff9" name="SetNotificationSF">
+                <con:context>
+                    <con2:userNsDecl prefix="m6n" namespace="http://www.izzi.com/sfm6services/m6notificationSfxsd"/>
+                </con:context>
+                <con:actions>
+                    <con3:assign varName="HedareRequest">
+                        <con2:id>_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7ff8</con2:id>
+                        <con3:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="Sfm6Services/M6NotificationSf/Resources/XQuery/TRX_Login_to_HedarSetNotification"/>
+                                <con2:param name="sessionId">
+                                    <con2:path>$ResponceEnterprise/*:result/*:sessionId/text()</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con3:expr>
+                    </con3:assign>
+                    <con3:replace varName="header" contents-only="true">
+                        <con2:id>_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7ff1</con2:id>
+                        <con3:location>
+                            <con2:xpathText>.</con2:xpathText>
+                        </con3:location>
+                        <con3:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="Sfm6Services/M6NotificationSf/Resources/XQuery/TRX_Login_to_HedarSetNotification"/>
+                                <con2:param name="sessionId">
+                                    <con2:path>$ResponceEnterprise/*:result/*:sessionId/text()</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con3:expr>
+                    </con3:replace>
+                    <con3:assign varName="RequestNotification">
+                        <con2:id>_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7ff4</con2:id>
+                        <con3:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="Sfm6Services/M6NotificationSf/Resources/XQuery/TRX_RequestM6_to_RequestSf"/>
+                                <con2:param name="Input">
+                                    <con2:path>$body/m6n:m6NotificationRequest</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con3:expr>
+                    </con3:assign>
+                    <con3:wsCallout>
+                        <con2:id>_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7ffc</con2:id>
+                        <con3:service ref="Sfm6Services/M6NotificationSf/BusinessService/SetNotificationSf" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con3:operation>contratoFactura</con3:operation>
+                        <con3:request>
+                            <con3:body wrapped="false">RequestNotification</con3:body>
+                            <con3:header>header</con3:header>
+                        </con3:request>
+                        <con3:response>
+                            <con3:body wrapped="false">ResponceNotification</con3:body>
+                        </con3:response>
+                        <con3:requestTransform/>
+                        <con3:responseTransform/>
+                    </con3:wsCallout>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53e9519f.2abcc87c.0.17f476fc0c0.N7bfd" name="Trazas SetNotificationSf" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config">
+                <con:context>
+                    <con1:userNsDecl prefix="com" namespace="http://telum.mx/CommonDataModel" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                    <con1:userNsDecl prefix="com1" namespace="http://telum.mx/CommonDataModel/2.0/CommonStructure" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                    <con1:userNsDecl prefix="com2" namespace="http://telum.mx/CommonDataModel/2.0/Common" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                </con:context>
+                <con:actions>
+                    <con2:assign varName="logTypeName" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7bfc</con5:id>
+                        <con2:expr>
+                            <con1:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">'INFO'</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con3:route>
+                        <con4:id xmlns:con4="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7bfb</con4:id>
+                        <con3:service ref="CommonInfrastructure/BusinessServices/InsertLogListener_ANY_BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con3:outboundTransform>
+                            <con2:assign varName="contenidoTraza" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7bfa</con5:id>
+                                <con2:expr>
+                                    <con5:dynamicXqueryTransform xmlns:con5="http://www.bea.com/wli/sb/stages/config">
+                                        <con5:resourceExpr>'CommonInfrastructure/Transformations/Tx_InsertLogAndError_ANY_to_WSLogAndError'</con5:resourceExpr>
+                                        <con5:param name="logTypeId">
+                                            <con5:path>$logTypeName</con5:path>
+                                        </con5:param>
+                                        <con5:param name="messageIdentifier">
+                                            <con5:path>$businessMessageID</con5:path>
+                                        </con5:param>
+                                        <con5:param name="task">
+                                            <con5:path>'set Notification Sf'</con5:path>
+                                        </con5:param>
+                                        <con5:param name="information">
+                                            <con5:path>'Envio de notificacion a SF'</con5:path>
+                                        </con5:param>
+                                        <con5:param name="processId">
+                                            <con5:path>$processId</con5:path>
+                                        </con5:param>
+                                        <con5:param name="message">
+                                            <con5:path><![CDATA[<Info>
+<Request>{$RequestNotification}</Request>
+<Responce>{$ResponceNotification}</Responce>
+</Info>]]></con5:path>
+                                        </con5:param>
+                                        <con5:param name="businessMessageId">
+                                            <con5:path>$businessMessageID</con5:path>
+                                        </con5:param>
+                                    </con5:dynamicXqueryTransform>
+                                </con2:expr>
+                            </con2:assign>
+                            <con2:replace varName="body" contents-only="true" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7bf9</con5:id>
+                                <con2:location>
+                                    <con1:xpathText xmlns:con5="http://www.bea.com/wli/sb/stages/config">.</con1:xpathText>
+                                </con2:location>
+                                <con2:expr>
+                                    <con1:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">$contenidoTraza</con1:xqueryText>
+                                </con2:expr>
+                            </con2:replace>
+                        </con3:outboundTransform>
+                    </con3:route>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N53e950ea.N3b690f77.0.17eb207ff67.N7fff">
+            <con:stage id="_StageId-N53e950ea.N3b690f77.0.17eb207ff67.N7ffd" name="Responce">
+                <con:context>
+                    <con2:userNsDecl prefix="m6n" namespace="http://www.izzi.com/sfm6services/m6notificationSfxsd"/>
+                </con:context>
+                <con:actions>
+                    <con3:replace varName="header" contents-only="true">
+                        <con2:id>_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7fdc</con2:id>
+                        <con3:location>
+                            <con2:xpathText>.</con2:xpathText>
+                        </con3:location>
+                        <con3:expr>
+                            <con2:xqueryText>''</con2:xqueryText>
+                        </con3:expr>
+                    </con3:replace>
+                    <con3:ifThenElse>
+                        <con2:id>_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7fe4</con2:id>
+                        <con3:case id="_BranchId-N53e9519f.2abcc87c.0.17f476fc0c0.N7fe3">
+                            <con3:condition>
+                                <con2:xqueryText>$ResponceNotification/*:result[2]/text() = 200</con2:xqueryText>
+                            </con3:condition>
+                            <con3:actions>
+                                <con3:replace varName="body" contents-only="true">
+                                    <con2:id>_ActionId-N53e950ea.N3b690f77.0.17eb207ff67.N7ff7</con2:id>
+                                    <con3:location>
+                                        <con2:xpathText>.</con2:xpathText>
+                                    </con3:location>
+                                    <con3:expr>
+                                        <con2:xqueryTransform>
+                                            <con2:resource ref="Sfm6Services/M6NotificationSf/Resources/XQuery/Responce"/>
+                                            <con2:param name="input">
+                                                <con2:path>$body/m6n:Request</con2:path>
+                                            </con2:param>
+                                            <con2:param name="eventStatus">
+                                                <con2:path>"Completed"</con2:path>
+                                            </con2:param>
+                                            <con2:param name="mensaje">
+                                                <con2:path>"Correcto"</con2:path>
+                                            </con2:param>
+                                            <con2:param name="Code">
+                                                <con2:path>0</con2:path>
+                                            </con2:param>
+                                        </con2:xqueryTransform>
+                                    </con3:expr>
+                                </con3:replace>
+                            </con3:actions>
+                        </con3:case>
+                        <con3:default>
+                            <con3:replace varName="body" contents-only="true">
+                                <con2:id>_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7fdf</con2:id>
+                                <con3:expr>
+                                    <con2:xqueryTransform>
+                                        <con2:resource ref="Sfm6Services/M6NotificationSf/Resources/XQuery/Responce"/>
+                                        <con2:param name="input">
+                                            <con2:path>$bodyRequest</con2:path>
+                                        </con2:param>
+                                        <con2:param name="eventStatus">
+                                            <con2:path>'Failed'</con2:path>
+                                        </con2:param>
+                                        <con2:param name="mensaje">
+                                            <con2:path>$ResponceNotification/*:result[1]/text()</con2:path>
+                                        </con2:param>
+                                        <con2:param name="Code">
+                                            <con2:path>$ResponceNotification/*:result[2]/text()</con2:path>
+                                        </con2:param>
+                                    </con2:xqueryTransform>
+                                </con3:expr>
+                            </con3:replace>
+                            <con3:assign varName="logTypeError">
+                                <con2:id>_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7b37</con2:id>
+                                <con3:expr>
+                                    <con2:xqueryText>'ERROR'</con2:xqueryText>
+                                </con3:expr>
+                            </con3:assign>
+                            <con3:route xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config">
+                                <con4:id xmlns:con4="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7afd</con4:id>
+                                <con3:service ref="CommonInfrastructure/BusinessServices/InsertLogListener_ANY_BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                                <con3:outboundTransform>
+                                    <con2:assign varName="contenidoTraza" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                                        <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7afc</con5:id>
+                                        <con2:expr>
+                                            <con5:dynamicXqueryTransform xmlns:con5="http://www.bea.com/wli/sb/stages/config">
+                                                <con5:resourceExpr>'CommonInfrastructure/Transformations/Tx_InsertLogAndError_ANY_to_WSLogAndError'</con5:resourceExpr>
+                                                <con5:param name="logTypeId">
+                                                    <con5:path>$logTypeError</con5:path>
+                                                </con5:param>
+                                                <con5:param name="messageIdentifier">
+                                                    <con5:path>$businessMessageID</con5:path>
+                                                </con5:param>
+                                                <con5:param name="task">
+                                                    <con5:path>'Error Notification Sf'</con5:path>
+                                                </con5:param>
+                                                <con5:param name="information">
+                                                    <con5:path>'Error al enviar Notificacion a SF'</con5:path>
+                                                </con5:param>
+                                                <con5:param name="processId">
+                                                    <con5:path>$processId</con5:path>
+                                                </con5:param>
+                                                <con5:param name="message">
+                                                    <con5:path><![CDATA[<ERROR>
+	<BODY>{$bodyRequest}</BODY>
+	<FAULT>{$ResponceNotification}</FAULT>
+</ERROR>]]></con5:path>
+                                                </con5:param>
+                                                <con5:param name="businessMessageId">
+                                                    <con5:path>$businessMessageID</con5:path>
+                                                </con5:param>
+                                            </con5:dynamicXqueryTransform>
+                                        </con2:expr>
+                                    </con2:assign>
+                                    <con2:replace varName="body" contents-only="true" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                                        <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7afb</con5:id>
+                                        <con2:location>
+                                            <con1:xpathText xmlns:con5="http://www.bea.com/wli/sb/stages/config">.</con1:xpathText>
+                                        </con2:location>
+                                        <con2:expr>
+                                            <con1:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">$contenidoTraza</con1:xqueryText>
+                                        </con2:expr>
+                                    </con2:replace>
+                                </con3:outboundTransform>
+                            </con3:route>
+                            <con2:reply>
+                                <con2:id>_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7af8</con2:id>
+                            </con2:reply>
+                        </con3:default>
+                    </con3:ifThenElse>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53e9519f.2abcc87c.0.17f476fc0c0.N7bbd" name="Trazas fin" xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config">
+                <con:context>
+                    <con1:userNsDecl prefix="com" namespace="http://telum.mx/CommonDataModel" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                    <con1:userNsDecl prefix="com1" namespace="http://telum.mx/CommonDataModel/2.0/CommonStructure" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                    <con1:userNsDecl prefix="com2" namespace="http://telum.mx/CommonDataModel/2.0/Common" xmlns:con4="http://www.bea.com/wli/sb/stages/config"/>
+                </con:context>
+                <con:actions>
+                    <con2:assign varName="logTypeName" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                        <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7bbc</con5:id>
+                        <con2:expr>
+                            <con1:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">'INFO'</con1:xqueryText>
+                        </con2:expr>
+                    </con2:assign>
+                    <con3:route>
+                        <con4:id xmlns:con4="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7bbb</con4:id>
+                        <con3:service ref="CommonInfrastructure/BusinessServices/InsertLogListener_ANY_BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con3:outboundTransform>
+                            <con2:assign varName="contenidoTraza" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7bba</con5:id>
+                                <con2:expr>
+                                    <con5:dynamicXqueryTransform xmlns:con5="http://www.bea.com/wli/sb/stages/config">
+                                        <con5:resourceExpr>'CommonInfrastructure/Transformations/Tx_InsertLogAndError_ANY_to_WSLogAndError'</con5:resourceExpr>
+                                        <con5:param name="logTypeId">
+                                            <con5:path>$logTypeName</con5:path>
+                                        </con5:param>
+                                        <con5:param name="messageIdentifier">
+                                            <con5:path>$businessMessageID</con5:path>
+                                        </con5:param>
+                                        <con5:param name="task">
+                                            <con5:path>'End Notification Sf'</con5:path>
+                                        </con5:param>
+                                        <con5:param name="information">
+                                            <con5:path>'End set notification to Sf'</con5:path>
+                                        </con5:param>
+                                        <con5:param name="processId">
+                                            <con5:path>$processId</con5:path>
+                                        </con5:param>
+                                        <con5:param name="message">
+                                            <con5:path>$ResponceNotification</con5:path>
+                                        </con5:param>
+                                        <con5:param name="businessMessageId">
+                                            <con5:path>$businessMessageID</con5:path>
+                                        </con5:param>
+                                    </con5:dynamicXqueryTransform>
+                                </con2:expr>
+                            </con2:assign>
+                            <con2:replace varName="body" contents-only="true" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7bb9</con5:id>
+                                <con2:location>
+                                    <con1:xpathText xmlns:con5="http://www.bea.com/wli/sb/stages/config">.</con1:xpathText>
+                                </con2:location>
+                                <con2:expr>
+                                    <con1:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">$contenidoTraza</con1:xqueryText>
+                                </con2:expr>
+                            </con2:replace>
+                        </con3:outboundTransform>
+                    </con3:route>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="error" name="error-N53e9519f.2abcc87c.0.17f476fc0c0.N7bb3">
+            <con:stage id="_StageId-N53e9519f.2abcc87c.0.17f476fc0c0.N7bb2" name="Error">
+                <con:context/>
+                <con:actions>
+                    <con3:assign varName="logTypeError">
+                        <con2:id>_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7baf</con2:id>
+                        <con3:expr>
+                            <con2:xqueryText>'ERROR'</con2:xqueryText>
+                        </con3:expr>
+                    </con3:assign>
+                    <con3:route xmlns:con1="http://www.bea.com/wli/sb/stages/config" xmlns:con2="http://www.bea.com/wli/sb/stages/transform/config" xmlns:con3="http://www.bea.com/wli/sb/stages/publish/config">
+                        <con4:id xmlns:con4="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7b44</con4:id>
+                        <con3:service ref="CommonInfrastructure/BusinessServices/InsertLogListener_ANY_BS" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con3:outboundTransform>
+                            <con2:assign varName="contenidoTraza" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7b43</con5:id>
+                                <con2:expr>
+                                    <con5:dynamicXqueryTransform xmlns:con5="http://www.bea.com/wli/sb/stages/config">
+                                        <con5:resourceExpr>'CommonInfrastructure/Transformations/Tx_InsertLogAndError_ANY_to_WSLogAndError'</con5:resourceExpr>
+                                        <con5:param name="logTypeId">
+                                            <con5:path>$logTypeError</con5:path>
+                                        </con5:param>
+                                        <con5:param name="messageIdentifier">
+                                            <con5:path>$businessMessageID</con5:path>
+                                        </con5:param>
+                                        <con5:param name="task">
+                                            <con5:path>'Error Notification Sf'</con5:path>
+                                        </con5:param>
+                                        <con5:param name="information">
+                                            <con5:path>'Error al enviar Notificacion a SF'</con5:path>
+                                        </con5:param>
+                                        <con5:param name="processId">
+                                            <con5:path>$processId</con5:path>
+                                        </con5:param>
+                                        <con5:param name="message">
+                                            <con5:path><![CDATA[<ERROR>
+	<BODY>{$body/*}</BODY>
+	<FAULT>{$fault/*}</FAULT>
+</ERROR>]]></con5:path>
+                                        </con5:param>
+                                        <con5:param name="businessMessageId">
+                                            <con5:path>$businessMessageID</con5:path>
+                                        </con5:param>
+                                    </con5:dynamicXqueryTransform>
+                                </con2:expr>
+                            </con2:assign>
+                            <con2:replace varName="body" contents-only="true" xmlns:con4="http://www.bea.com/wli/sb/stages/transform/config">
+                                <con5:id xmlns:con5="http://www.bea.com/wli/sb/stages/config">_ActionId-N53e9519f.2abcc87c.0.17f476fc0c0.N7b42</con5:id>
+                                <con2:location>
+                                    <con1:xpathText xmlns:con5="http://www.bea.com/wli/sb/stages/config">.</con1:xpathText>
+                                </con2:location>
+                                <con2:expr>
+                                    <con1:xqueryText xmlns:con5="http://www.bea.com/wli/sb/stages/config">$contenidoTraza</con1:xqueryText>
+                                </con2:expr>
+                            </con2:replace>
+                        </con3:outboundTransform>
+                    </con3:route>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:flow>
+            <con:pipeline-node name="Pipeline Pair Node1">
+                <con:request>request-N53e950ea.N3b690f77.0.17eb207ff67.N8000</con:request>
+                <con:response>response-N53e950ea.N3b690f77.0.17eb207ff67.N7fff</con:response>
+            </con:pipeline-node>
+        </con:flow>
+    </con:router>
+</con:pipelineEntry>
