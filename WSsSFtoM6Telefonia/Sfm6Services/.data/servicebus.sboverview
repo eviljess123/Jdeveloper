@@ -6,4 +6,7 @@
     <ns:reference>
         <ns:interface src="BusinessService:Sfm6Services/WSTelefonia/BusinessServices/UpdateReservationM6BS"/>
     </ns:reference>
+    <ns:reference>
+        <ns:interface src="BusinessService:Sfm6Services/WSTelefonia/BusinessServices/WorkManagementPort"/>
+    </ns:reference>
 </ns:composite>

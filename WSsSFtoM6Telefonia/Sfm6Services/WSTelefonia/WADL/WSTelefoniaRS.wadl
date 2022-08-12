@@ -30,5 +30,18 @@
             </response>
          </method>
       </resource>
+      <resource path="/getGAInstance">
+         <method name="GET" soa:name="getGAInstance">
+            <request>
+               <param name="gaInstanceID" style="query" type="xsd:string"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/json"/>
+            </response>
+         </method>
+      </resource>
    </resources>
 </application>
