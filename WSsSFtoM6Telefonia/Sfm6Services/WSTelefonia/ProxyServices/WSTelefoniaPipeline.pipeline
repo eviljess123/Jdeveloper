@@ -792,6 +792,256 @@
                 </con:actions>
             </con:stage>
         </con:pipeline>
+        <con:pipeline type="request" name="request-N53e95161.N174481aa.0.182c7d503c5.N8000">
+            <con:stage id="_StageId-N53e95161.N174481aa.0.182c7d503c5.N7ffe" name="StageParsingJson">
+                <con:context/>
+                <con:actions>
+                    <con1:nxsdTranslation>
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7fec</con2:id>
+                        <con1:type>Native-To-XML</con1:type>
+                        <con1:sourceExpr>
+                            <con2:xqueryText>$body/text()</con2:xqueryText>
+                        </con1:sourceExpr>
+                        <con1:nxsd ref="Sfm6Services/WSTelefonia/Schemas/getASLRequest"/>
+                        <con1:schemaElement xmlns:get="http://TargetNamespace.com/getASLRequest">get:Root-Element</con1:schemaElement>
+                        <con1:assign-variable>bodyRequest</con1:assign-variable>
+                    </con1:nxsdTranslation>
+                    <con4:log>
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7fe9</con2:id>
+                        <con4:logLevel>warning</con4:logLevel>
+                        <con4:expr>
+                            <con2:xqueryText>$bodyRequest</con2:xqueryText>
+                        </con4:expr>
+                        <con4:message>********************************* getASL ******************************</con4:message>
+                    </con4:log>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53e95161.N174481aa.0.182c7d503c5.N7f69" name="StageAssingVariables">
+                <con:context>
+                    <con3:variable name="BodyRequest" path="$BodyRequest" asChild="false">
+                        <con3:schema ref="Sfm6Services/WSTelefonia/Schemas/ReserveTnRequestXSD" element="Root-Element"/>
+                    </con3:variable>
+                </con:context>
+                <con:actions>
+                    <con1:assign varName="Credensiales">
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7f68</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>fn-bea:lookupBasicCredentials('Sfm6Services/WSTelefonia/Resources/securityM6')</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:assign varName="GetASLRequestM6">
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7f67</con2:id>
+                        <con1:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="Sfm6Services/WSTelefonia/Resources/XQuery/TRN_RequestgetASL_to_getASLRequestM6"/>
+                                <con2:param name="Input">
+                                    <con2:path>$bodyRequest</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:replace varName="header" contents-only="true">
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7f66</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText><![CDATA[<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+	<wsse:UsernameToken wsu:Id="UsernameToken-37" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+		<wsse:Username>{$Credensiales/*:username/text()}</wsse:Username>
+		<wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">{$Credensiales/*:password/text()}</wsse:Password>
+	</wsse:UsernameToken>
+</wsse:Security>]]></con2:xqueryText>
+                        </con1:expr>
+                    </con1:replace>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53e95161.N174481aa.0.182c7d503c5.N7fe2" name="StageCallService">
+                <con:context/>
+                <con:actions>
+                    <con1:wsCallout>
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7fdc</con2:id>
+                        <con1:service ref="Sfm6Services/WSTelefonia/BusinessServices/WorkManagementPort" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>getASL</con1:operation>
+                        <con1:request>
+                            <con1:body wrapped="false">GetASLRequestM6</con1:body>
+                        </con1:request>
+                        <con1:response>
+                            <con1:body wrapped="false">GetASLResponceM6</con1:body>
+                        </con1:response>
+                        <con1:requestTransform/>
+                        <con1:responseTransform/>
+                    </con1:wsCallout>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N53e95161.N174481aa.0.182c7d503c5.N7fff">
+            <con:stage id="_StageId-N53e95161.N174481aa.0.182c7d503c5.N7ffd" name="Stage1">
+                <con:context/>
+                <con:actions/>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="request" name="request-N53e95161.N174481aa.0.182c7d503c5.N7ffc">
+            <con:stage id="_StageId-N53e95161.N174481aa.0.182c7d503c5.N7ffa" name="Stage1">
+                <con:context/>
+                <con:actions>
+                    <con1:assign varName="aslID">
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7ff2</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>$inbound/ctx:transport/ctx:request/http:query-parameters/http:parameter/@value</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con4:log>
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7fe6</con2:id>
+                        <con4:logLevel>warning</con4:logLevel>
+                        <con4:expr>
+                            <con2:xqueryText>$aslID</con2:xqueryText>
+                        </con4:expr>
+                        <con4:message>***************************** aslID ******************************</con4:message>
+                    </con4:log>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53e95161.N174481aa.0.182c7d503c5.N7efd" name="StageAssingVariables">
+                <con:context>
+                    <con3:variable name="BodyRequest" path="$BodyRequest" asChild="false">
+                        <con3:schema ref="Sfm6Services/WSTelefonia/Schemas/ReserveTnRequestXSD" element="Root-Element"/>
+                    </con3:variable>
+                </con:context>
+                <con:actions>
+                    <con1:assign varName="Credensiales">
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7efc</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>fn-bea:lookupBasicCredentials('Sfm6Services/WSTelefonia/Resources/securityM6')</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:assign varName="GetNirRequestM6">
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7efb</con2:id>
+                        <con1:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="Sfm6Services/WSTelefonia/Resources/XQuery/TRN_RequestGetNIR_to_GetNirRequestM6"/>
+                                <con2:param name="aslID">
+                                    <con2:path>$aslID</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:replace varName="header" contents-only="true">
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7efa</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText><![CDATA[<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+	<wsse:UsernameToken wsu:Id="UsernameToken-37" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+		<wsse:Username>{$Credensiales/*:username/text()}</wsse:Username>
+		<wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">{$Credensiales/*:password/text()}</wsse:Password>
+	</wsse:UsernameToken>
+</wsse:Security>]]></con2:xqueryText>
+                        </con1:expr>
+                    </con1:replace>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53e95161.N174481aa.0.182c7d503c5.N7fe0" name="StageCallService">
+                <con:context/>
+                <con:actions>
+                    <con1:wsCallout>
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7fd9</con2:id>
+                        <con1:service ref="Sfm6Services/WSTelefonia/BusinessServices/WorkManagementPort" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>getNIR</con1:operation>
+                        <con1:request>
+                            <con1:body wrapped="false">GetNirRequestM6</con1:body>
+                        </con1:request>
+                        <con1:response>
+                            <con1:body wrapped="false">GetNirResponceM6</con1:body>
+                        </con1:response>
+                        <con1:requestTransform/>
+                        <con1:responseTransform/>
+                    </con1:wsCallout>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N53e95161.N174481aa.0.182c7d503c5.N7ffb">
+            <con:stage id="_StageId-N53e95161.N174481aa.0.182c7d503c5.N7ff9" name="Stage1">
+                <con:context/>
+                <con:actions/>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="request" name="request-N53e95161.N174481aa.0.182c7d503c5.N7ff8">
+            <con:stage id="_StageId-N53e95161.N174481aa.0.182c7d503c5.N7ff6" name="Stage1">
+                <con:context/>
+                <con:actions>
+                    <con1:assign varName="nirID">
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7fef</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>$inbound/ctx:transport/ctx:request/http:query-parameters/http:parameter/@value</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con4:log>
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7fe3</con2:id>
+                        <con4:logLevel>warning</con4:logLevel>
+                        <con4:expr>
+                            <con2:xqueryText>$nirID</con2:xqueryText>
+                        </con4:expr>
+                        <con4:message>*************************** nirID *************************************</con4:message>
+                    </con4:log>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53e95161.N174481aa.0.182c7d503c5.N7ec0" name="StageAssingVariables">
+                <con:context>
+                    <con3:variable name="BodyRequest" path="$BodyRequest" asChild="false">
+                        <con3:schema ref="Sfm6Services/WSTelefonia/Schemas/ReserveTnRequestXSD" element="Root-Element"/>
+                    </con3:variable>
+                </con:context>
+                <con:actions>
+                    <con1:assign varName="Credensiales">
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7ebf</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText>fn-bea:lookupBasicCredentials('Sfm6Services/WSTelefonia/Resources/securityM6')</con2:xqueryText>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:assign varName="GetSerieRequestM6">
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7ebe</con2:id>
+                        <con1:expr>
+                            <con2:xqueryTransform>
+                                <con2:resource ref="Sfm6Services/WSTelefonia/Resources/XQuery/TRN_RequetGetSerie_to_getSerieM6"/>
+                                <con2:param name="nirID">
+                                    <con2:path>$nirID</con2:path>
+                                </con2:param>
+                            </con2:xqueryTransform>
+                        </con1:expr>
+                    </con1:assign>
+                    <con1:replace varName="header" contents-only="true">
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7ebd</con2:id>
+                        <con1:expr>
+                            <con2:xqueryText><![CDATA[<wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd">
+	<wsse:UsernameToken wsu:Id="UsernameToken-37" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+		<wsse:Username>{$Credensiales/*:username/text()}</wsse:Username>
+		<wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">{$Credensiales/*:password/text()}</wsse:Password>
+	</wsse:UsernameToken>
+</wsse:Security>]]></con2:xqueryText>
+                        </con1:expr>
+                    </con1:replace>
+                </con:actions>
+            </con:stage>
+            <con:stage id="_StageId-N53e95161.N174481aa.0.182c7d503c5.N7fdf" name="StageCallService">
+                <con:context/>
+                <con:actions>
+                    <con1:wsCallout>
+                        <con2:id>_ActionId-N53e95161.N174481aa.0.182c7d503c5.N7fd6</con2:id>
+                        <con1:service ref="Sfm6Services/WSTelefonia/BusinessServices/WorkManagementPort" xsi:type="ref:BusinessServiceRef" xmlns:ref="http://www.bea.com/wli/sb/reference"/>
+                        <con1:operation>getSerie</con1:operation>
+                        <con1:request>
+                            <con1:body wrapped="false">GetSerieRequestM6</con1:body>
+                        </con1:request>
+                        <con1:response>
+                            <con1:body wrapped="false">GetSerieResponceM6</con1:body>
+                        </con1:response>
+                        <con1:requestTransform/>
+                        <con1:responseTransform/>
+                    </con1:wsCallout>
+                </con:actions>
+            </con:stage>
+        </con:pipeline>
+        <con:pipeline type="response" name="response-N53e95161.N174481aa.0.182c7d503c5.N7ff7">
+            <con:stage id="_StageId-N53e95161.N174481aa.0.182c7d503c5.N7ff5" name="Stage1">
+                <con:context/>
+                <con:actions/>
+            </con:stage>
+        </con:pipeline>
         <con:flow>
             <con:branch-node type="operation" id="_FlowId-N53e951a0.N27252cc.0.18213a842fb.N7d3d" name="BranchRSTelefonia">
                 <con:context/>
@@ -823,6 +1073,36 @@
                             <con:pipeline-node name="Pipeline Pair Node1">
                                 <con:request>request-N53e95104.N2180deb8.0.1828f31bac4.N7fcf</con:request>
                                 <con:response>response-N53e95104.N2180deb8.0.1828f31bac4.N7fce</con:response>
+                            </con:pipeline-node>
+                        </con:flow>
+                    </con:branch>
+                    <con:branch name="getASL">
+                        <con:operator>equals</con:operator>
+                        <con:value/>
+                        <con:flow>
+                            <con:pipeline-node name="Pipeline Pair GetASL">
+                                <con:request>request-N53e95161.N174481aa.0.182c7d503c5.N8000</con:request>
+                                <con:response>response-N53e95161.N174481aa.0.182c7d503c5.N7fff</con:response>
+                            </con:pipeline-node>
+                        </con:flow>
+                    </con:branch>
+                    <con:branch name="getNIR">
+                        <con:operator>equals</con:operator>
+                        <con:value/>
+                        <con:flow>
+                            <con:pipeline-node name="Pipeline Pair getNIR">
+                                <con:request>request-N53e95161.N174481aa.0.182c7d503c5.N7ffc</con:request>
+                                <con:response>response-N53e95161.N174481aa.0.182c7d503c5.N7ffb</con:response>
+                            </con:pipeline-node>
+                        </con:flow>
+                    </con:branch>
+                    <con:branch name="getSerie">
+                        <con:operator>equals</con:operator>
+                        <con:value/>
+                        <con:flow>
+                            <con:pipeline-node name="Pipeline Pair getSerie">
+                                <con:request>request-N53e95161.N174481aa.0.182c7d503c5.N7ff8</con:request>
+                                <con:response>response-N53e95161.N174481aa.0.182c7d503c5.N7ff7</con:response>
                             </con:pipeline-node>
                         </con:flow>
                     </con:branch>

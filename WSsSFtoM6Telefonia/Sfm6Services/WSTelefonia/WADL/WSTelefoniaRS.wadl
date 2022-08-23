@@ -43,5 +43,51 @@
             </response>
          </method>
       </resource>
+      <resource path="/getASL">
+         <method name="POST" soa:name="getASL">
+            <doc title="POST getASL">Operacion GetASL</doc>
+            <request>
+               <representation mediaType="application/json"/>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/json"/>
+            </response>
+         </method>
+      </resource>
+      <resource path="/getNIR">
+         <method name="GET" soa:name="getNIR">
+            <doc title="GET getNIR">Operacion getNIR</doc>
+            <request>
+               <param name="aslID" style="query" type="xsd:string">
+                  <doc title="aslID">Id del ASL</doc>
+               </param>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/json"/>
+            </response>
+         </method>
+      </resource>
+      <resource path="/getSerie">
+         <method name="GET" soa:name="getSerie">
+            <doc title="GET getSerie">operacion getSerie</doc>
+            <request>
+               <param name="nirID" style="query" type="xsd:string">
+                  <doc title="nirID">Id de NIR</doc>
+               </param>
+            </request>
+            <response status="200">
+               <representation mediaType="application/json"/>
+            </response>
+            <response status="500">
+               <representation mediaType="application/json"/>
+            </response>
+         </method>
+      </resource>
    </resources>
 </application>
